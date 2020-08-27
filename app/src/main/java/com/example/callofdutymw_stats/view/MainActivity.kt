@@ -19,7 +19,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun getUser() {
         val mainActivityViewModel = MainActivityViewModel()
-        mainActivityViewModel.getUser("BiscoitinhoDoci", "psn")
+        mainActivityViewModel.getWarzoneUser("BiscoitinhoDoci", "psn")
             .enqueue(object : retrofit2.Callback<UserDtoWarzone> {
                 override fun onResponse(
                     call: Call<UserDtoWarzone>,

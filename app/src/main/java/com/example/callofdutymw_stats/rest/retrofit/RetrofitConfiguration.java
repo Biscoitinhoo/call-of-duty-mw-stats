@@ -12,7 +12,7 @@ public class RetrofitConfiguration {
     private RetrofitConfiguration() {
     }
 
-    private static final String URL = "https://call-of-duty-modern-warfare.p.rapidapi.com/warzone/";
+    private static final String URL = "https://call-of-duty-modern-warfare.p.rapidapi.com/";
 
     public static Retrofit getClient() {
 

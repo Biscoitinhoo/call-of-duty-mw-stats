@@ -8,7 +8,7 @@ class MainActivityViewModel {
 
     private val endPoint = RetrofitConfiguration.getClient().create(EndPoint::class.java)
 
-    fun getUser(gamertag: String, platform: String): retrofit2.Call<UserDtoWarzone> {
-        return endPoint.getUser(gamertag, platform)
+    fun getWarzoneUser(gamertag: String, platform: String): retrofit2.Call<UserDtoWarzone> {
+        return endPoint.getWarzoneUser(gamertag, platform)
     }
 }
