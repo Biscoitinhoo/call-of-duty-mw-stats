@@ -1,5 +1,7 @@
 package com.example.callofdutymw_stats.rest.okhttp;
 
+import com.example.callofdutymw_stats.BuildConfig;
+
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
@@ -15,7 +17,7 @@ public class OkHttpClientConfiguration {
     }
 
     private static final String API_HOST = "call-of-duty-modern-warfare.p.rapidapi.com";
-    private static final String API_KEY = "xx-xx";
+    private static final String API_KEY = "2ae71c798dmshe5e282e77dcbf38p1b359cjsndc5b1e715bb7";
 
     public static void configureHttpClientHeader(OkHttpClient.Builder okHttpClient) {
         okHttpClient.addInterceptor(new Interceptor() {
