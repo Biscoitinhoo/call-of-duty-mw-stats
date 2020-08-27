@@ -1,5 +1,6 @@
 package com.example.callofdutymw_stats.viewmodel
 
+import android.util.Log
 import com.example.callofdutymw_stats.model.warzone.dto.UserDtoWarzone
 import com.example.callofdutymw_stats.rest.endpoint.EndPoint
 import com.example.callofdutymw_stats.rest.retrofit.RetrofitConfiguration

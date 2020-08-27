@@ -26,32 +26,7 @@ class MainActivity : AppCompatActivity() {
                     call: Call<UserDtoWarzone>,
                     response: Response<UserDtoWarzone>
                 ) {
-                    val wins: String = response.body()?.userAllWarzone?.wins.toString()
-                    val kills: String = response.body()?.userAllWarzone?.kills.toString()
-                    val deaths: String = response.body()?.userAllWarzone?.deaths.toString()
-                    val kd: String = response.body()?.userAllWarzone?.kd.toString()
-                    val downs: String = response.body()?.userAllWarzone?.downs.toString()
-                    val topTwentyFive: String = response.body()?.userAllWarzone?.topTwentyFive.toString()
-                    val topTen: String = response.body()?.userAllWarzone?.topTen.toString()
-                    val topFive: String = response.body()?.userAllWarzone?.topFive.toString()
-                    val contracts: String = response.body()?.userAllWarzone?.contracts.toString()
-                    val revives: String = response.body()?.userAllWarzone?.revives.toString()
-                    val score: String = response.body()?.userAllWarzone?.score.toString()
-                    val gamesPlayed: String = response.body()?.userAllWarzone?.gamesPlayed.toString()
-                    val userAllWarzone = UserAllWarzone(
-                        wins,
-                        kills,
-                        deaths,
-                        kd,
-                        downs,
-                        topTwentyFive,
-                        topTen,
-                        topFive,
-                        contracts,
-                        revives,
-                        score,
-                        gamesPlayed
-                    )
+                    val userAllWarzone = createNewUser(response)
                     Log.i("Vitórias ", userAllWarzone.wins)
                     Log.i("Assassinados ", userAllWarzone.kills)
                     Log.i("Mortes ", userAllWarzone.deaths)
@@ -70,5 +45,36 @@ class MainActivity : AppCompatActivity() {
                     Log.e("API error ", t.toString())
                 }
             })
+    }
+
+    private fun createNewUser(response: Response<UserDtoWarzone>): UserAllWarzone {
+        Log.d("Status code from W user", response.toString())
+
+        val wins: String = response.body()?.userAllWarzone?.wins.toString()
+        val kills: String = response.body()?.userAllWarzone?.kills.toString()
+        val deaths: String = response.body()?.userAllWarzone?.deaths.toString()
+        val kd: String = response.body()?.userAllWarzone?.kd.toString()
+        val downs: String = response.body()?.userAllWarzone?.downs.toString()
+        val topTwentyFive: String = response.body()?.userAllWarzone?.topTwentyFive.toString()
+        val topTen: String = response.body()?.userAllWarzone?.topTen.toString()
+        val topFive: String = response.body()?.userAllWarzone?.topFive.toString()
+        val contracts: String = response.body()?.userAllWarzone?.contracts.toString()
+        val revives: String = response.body()?.userAllWarzone?.revives.toString()
+        val score: String = response.body()?.userAllWarzone?.score.toString()
+        val gamesPlayed: String = response.body()?.userAllWarzone?.gamesPlayed.toString()
+        return UserAllWarzone(
+            wins,
+            kills,
+            deaths,
+            kd,
+            downs,
+            topTwentyFive,
+            topTen,
+            topFive,
+            contracts,
+            revives,
+            score,
+            gamesPlayed
+        )
     }
 }
