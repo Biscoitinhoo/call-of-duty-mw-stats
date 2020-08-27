@@ -22,7 +22,8 @@ class MainActivity : AppCompatActivity() {
                     call: Call<UserDtoWarzone>,
                     response: Response<UserDtoWarzone>
                 ) {
-                    Log.i("API Response ", response.body()?.userWarzoneAll?.wins.toString())
+                    Log.i("Status connection ", response.toString())
+                    Log.i("API Response ", response.body()?.userAllWarzone?.wins.toString())
                     Log.wtf("Working ", ":)")
                 }
 
