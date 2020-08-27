@@ -5,8 +5,7 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.example.callofdutymw_stats.R
 import com.example.callofdutymw_stats.model.warzone.dto.UserDtoWarzone
-import com.example.callofdutymw_stats.rest.endpoint.EndPoint
-import com.example.callofdutymw_stats.rest.retrofit.RetrofitConfiguration
+import com.example.callofdutymw_stats.viewmodel.MainActivityViewModel
 import retrofit2.Call
 import retrofit2.Response
 
@@ -15,23 +14,23 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val endPoint = RetrofitConfiguration.getClient().create(EndPoint::class.java)
-        endPoint.getUser("BiscoitinhoDoci", "psn")
+        getUser()
+    }
+
+    private fun getUser() {
+        val mainActivityViewModel = MainActivityViewModel()
+        mainActivityViewModel.getUser("BiscoitinhoDoci", "psn")
             .enqueue(object : retrofit2.Callback<UserDtoWarzone> {
                 override fun onResponse(
                     call: Call<UserDtoWarzone>,
                     response: Response<UserDtoWarzone>
                 ) {
-                    Log.i("Status connection ", response.toString())
-                    Log.i("API Response ", response.body()?.userAllWarzone?.wins.toString())
-                    Log.wtf("Working ", ":)")
+                    Log.i("Testing now ", response.body()?.userAllWarzone?.wins.toString())
                 }
 
                 override fun onFailure(call: Call<UserDtoWarzone>, t: Throwable) {
-                    Log.e("Response API fail ", t.toString())
+                    Log.e("API error ", t.toString())
                 }
-
             })
-
     }
 }
