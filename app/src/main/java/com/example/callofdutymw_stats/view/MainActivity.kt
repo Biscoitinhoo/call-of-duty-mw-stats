@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.example.callofdutymw_stats.R
+import com.example.callofdutymw_stats.model.warzone.UserAllWarzone
 import com.example.callofdutymw_stats.model.warzone.dto.UserDtoWarzone
 import com.example.callofdutymw_stats.viewmodel.MainActivityViewModel
 import retrofit2.Call
