@@ -11,7 +11,7 @@ class UserAllWarzone(
     val deaths: String,
     @SerializedName("kdRatio")
     val kd: String,
-    @SerializedName("down")
+    @SerializedName("downs")
     val downs: String,
     @SerializedName("topTwentyFive")
     val topTwentyFive: String,
