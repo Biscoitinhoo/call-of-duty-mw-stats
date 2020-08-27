@@ -37,5 +37,4 @@ public class RetrofitConfiguration {
 
         return new Retrofit.Builder().baseUrl(URL).addConverterFactory(GsonConverterFactory.create()).client(client).build();
     }
-
 }
