@@ -1,7 +1,8 @@
-package com.example.callofdutymw_stats
+package com.example.callofdutymw_stats.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.callofdutymw_stats.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
