@@ -1,15 +1,14 @@
 package com.example.callofdutymw_stats.rest.endpoint
 
-import com.example.callofdutymw_stats.model.dto.UserDto
+import com.example.callofdutymw_stats.model.warzone.dto.UserDtoWarzone
 import retrofit2.http.GET
 import retrofit2.http.Path
 
 interface EndPoint {
 
-    @GET("{mode}/{gamertag}/{platform}")
+    @GET("{gamertag}/{platform}")
     fun getUser(
-        @Path("mode") multiplayerMode: String,
         @Path("gamertag") gamertag: String,
         @Path("platform") platForm: String
-    ): retrofit2.Call<UserDto>
+    ): retrofit2.Call<UserDtoWarzone>
 }

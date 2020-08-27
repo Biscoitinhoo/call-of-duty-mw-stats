@@ -13,7 +13,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitConfiguration {
 
-    private static final String URL = "https://call-of-duty-modern-warfare.p.rapidapi.com/";
+    private static final String URL = "https://call-of-duty-modern-warfare.p.rapidapi.com/warzone/";
     private static final String API_HOST = "call-of-duty-modern-warfare.p.rapidapi.com";
     private static final String API_KEY = "xx-xx";
 
