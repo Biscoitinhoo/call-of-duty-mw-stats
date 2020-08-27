@@ -2,11 +2,13 @@ package com.example.callofdutymw_stats.view
 
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.callofdutymw_stats.R
 import com.example.callofdutymw_stats.model.warzone.UserAllWarzone
 import com.example.callofdutymw_stats.model.warzone.dto.UserDtoWarzone
 import com.example.callofdutymw_stats.viewmodel.MainActivityViewModel
+import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Call
 import retrofit2.Response
 
@@ -15,36 +17,40 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        getUser()
+        buttonFindUserClick()
+    }
+
+    private fun buttonFindUserClick() {
+        buttonFindUser.setOnClickListener {
+            getUser()
+        }
     }
 
     private fun getUser() {
         val mainActivityViewModel = MainActivityViewModel()
-        mainActivityViewModel.getWarzoneUser("BiscoitinhoDoci", "psn")
+        mainActivityViewModel.getWarzoneUser(editTextUser.text.toString(), editTextPlatform.text.toString())
             .enqueue(object : retrofit2.Callback<UserDtoWarzone> {
                 override fun onResponse(
                     call: Call<UserDtoWarzone>,
                     response: Response<UserDtoWarzone>
                 ) {
                     val userAllWarzone = createNewUser(response)
-                    Log.i("Vitórias ", userAllWarzone.wins)
-                    Log.i("Assassinados ", userAllWarzone.kills)
-                    Log.i("Mortes ", userAllWarzone.deaths)
-                    Log.i("KD ", userAllWarzone.kd)
-                    Log.i("Derrubados ", userAllWarzone.downs)
-                    Log.i("Top 20 ", userAllWarzone.topTwentyFive)
-                    Log.i("Top 10 ", userAllWarzone.topTen)
-                    Log.i("Top 5 ", userAllWarzone.topFive)
-                    Log.i("Contratos pegos ", userAllWarzone.contracts)
-                    Log.i("Ressurgimentos ", userAllWarzone.revives)
-                    Log.i("Pontuação ", userAllWarzone.score)
-                    Log.i("Total de partidas ", userAllWarzone.gamesPlayed)
+                    if (userDontExists(response)) {
+                        textInputLayoutUser.error = "Esse usuário não existe! Talvez ele seja de outra plataforma?"
+                    } else {
+                        Log.i("User wins ", userAllWarzone.wins)
+                        textInputLayoutUser.error = ""
+                    }
                 }
-
                 override fun onFailure(call: Call<UserDtoWarzone>, t: Throwable) {
                     Log.e("API error ", t.toString())
                 }
             })
+    }
+
+    private fun userDontExists(response: Response<UserDtoWarzone>): Boolean {
+        //Será pego um valor aleatório do objeto para ser comparado.
+        return response.body()?.userAllWarzone?.deaths == null
     }
 
     private fun createNewUser(response: Response<UserDtoWarzone>): UserAllWarzone {
