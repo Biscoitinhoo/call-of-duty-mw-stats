@@ -26,8 +26,8 @@ class MainActivity : AppCompatActivity() {
         buttonFindUser.setOnClickListener {
             //Now the response it's working!
             //Isn't possible make 2 requests in the same time, will return null;
-            //getMultiplayerUser()
-            getWarzoneUser()
+            getMultiplayerUser()
+            //getWarzoneUser()
         }
     }
 
@@ -143,9 +143,9 @@ class MainActivity : AppCompatActivity() {
         val recordWinStreak =
             response.body()?.userAllMultiplayer?.userPropertiesMultiplayer?.userInformationMultiplayer?.recordLongestWinStreak.toString()
         val recordXP =
-            response.body()?.userAllMultiplayer?.userPropertiesMultiplayer?.userInformationMultiplayer?.recordLongestWinStreak.toString()
+            response.body()?.userAllMultiplayer?.userPropertiesMultiplayer?.userInformationMultiplayer?.recordXP.toString()
         val accuracy =
-            response.body()?.userAllMultiplayer?.userPropertiesMultiplayer?.userInformationMultiplayer?.recordLongestWinStreak.toString()
+            response.body()?.userAllMultiplayer?.userPropertiesMultiplayer?.userInformationMultiplayer?.accuracy.toString()
         val losses =
             response.body()?.userAllMultiplayer?.userPropertiesMultiplayer?.userInformationMultiplayer?.losses.toString()
         val totalGamesPlayed =
