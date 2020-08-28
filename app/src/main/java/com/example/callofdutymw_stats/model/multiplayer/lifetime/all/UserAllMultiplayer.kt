@@ -5,6 +5,6 @@ import com.example.callofdutymw_stats.model.multiplayer.lifetime.all.properties.
 import com.google.gson.annotations.SerializedName
 
 class UserAllMultiplayer(
-    @SerializedName("properties")
+    @SerializedName("all")
     val userPropertiesMultiplayer: UserPropertiesMultiplayer
 ) {}

@@ -1,6 +1,7 @@
 package com.example.callofdutymw_stats.rest.endpoint
 
 import com.example.callofdutymw_stats.model.multiplayer.dto.UserDtoMultiplayer
+import com.example.callofdutymw_stats.model.multiplayer.lifetime.UserLifeTimeMultiplayer
 import com.example.callofdutymw_stats.model.warzone.dto.UserDtoWarzone
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -17,6 +18,6 @@ interface EndPoint {
     fun getMultiplayerUser(
         @Path("gamertag") gamertag: String,
         @Path("platform") platForm: String
-    ): retrofit2.Call<UserDtoMultiplayer>
+    ): retrofit2.Call<UserLifeTimeMultiplayer>
 
 }
