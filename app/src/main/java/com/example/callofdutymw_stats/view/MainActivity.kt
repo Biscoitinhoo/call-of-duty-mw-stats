@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.example.callofdutymw_stats.R
+import com.example.callofdutymw_stats.model.multiplayer.dto.UserDtoMultiplayer
 import com.example.callofdutymw_stats.model.warzone.all.UserAllWarzone
 import com.example.callofdutymw_stats.model.warzone.dto.UserDtoWarzone
 import com.example.callofdutymw_stats.viewmodel.MainActivityViewModel
@@ -21,30 +22,54 @@ class MainActivity : AppCompatActivity() {
 
     private fun buttonFindUserClick() {
         buttonFindUser.setOnClickListener {
-            getUser()
+            //getUser()
+
         }
     }
 
-    private fun getUser() {
+    private fun getWarzoneUser() {
         val mainActivityViewModel = MainActivityViewModel()
-        mainActivityViewModel.getWarzoneUser(editTextUser.text.toString(), editTextPlatform.text.toString())
+        mainActivityViewModel.getWarzoneUser(
+            editTextUser.text.toString(),
+            editTextPlatform.text.toString()
+        )
             .enqueue(object : retrofit2.Callback<UserDtoWarzone> {
                 override fun onResponse(
                     call: Call<UserDtoWarzone>,
                     response: Response<UserDtoWarzone>
                 ) {
-                    val userAllWarzone = createNewUser(response)
+                    val userAllWarzone = createNewWarzoneUser(response)
                     if (userDontExists(response)) {
-                        textInputLayoutUser.error = "Esse usuário não existe! Talvez ele seja de outra plataforma?"
+                        textInputLayoutUser.error =
+                            "Esse usuário não existe! Talvez ele seja de outra plataforma?"
                     } else {
                         Log.i("User wins ", userAllWarzone.wins)
                         textInputLayoutUser.error = ""
                     }
                 }
+
                 override fun onFailure(call: Call<UserDtoWarzone>, t: Throwable) {
                     Log.e("API error ", t.toString())
                 }
             })
+    }
+
+    private fun getMultiplayerUser() {
+        val mainActivityViewModel = MainActivityViewModel()
+        mainActivityViewModel.getMultiplayerUser(
+            editTextUser.text.toString(),
+            editTextPlatform.text.toString()
+        ).enqueue(object : retrofit2.Callback<UserDtoMultiplayer> {
+            override fun onResponse(
+                call: Call<UserDtoMultiplayer>,
+                response: Response<UserDtoMultiplayer>
+            ) {
+            }
+
+            override fun onFailure(call: Call<UserDtoMultiplayer>, t: Throwable) {
+                TODO("Not yet implemented")
+            }
+        })
     }
 
     private fun userDontExists(response: Response<UserDtoWarzone>): Boolean {
@@ -52,7 +77,12 @@ class MainActivity : AppCompatActivity() {
         return response.body()?.userAllWarzone?.deaths == null
     }
 
-    private fun createNewUser(response: Response<UserDtoWarzone>): UserAllWarzone {
+//    private fun createNewMultiplayerUser(response: Response<UserDtoMultiplayer>): UserDtoMultiplayer {
+//        val platform = response.body()?.platform.toString()
+//        return UserDtoMultiplayer(platform, )
+//    }
+
+    private fun createNewWarzoneUser(response: Response<UserDtoWarzone>): UserAllWarzone {
         Log.d("Status code from W user", response.toString())
 
         val wins: String = response.body()?.userAllWarzone?.wins.toString()

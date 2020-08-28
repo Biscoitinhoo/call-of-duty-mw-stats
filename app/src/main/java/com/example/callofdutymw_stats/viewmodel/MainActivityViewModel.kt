@@ -1,6 +1,6 @@
 package com.example.callofdutymw_stats.viewmodel
 
-import android.util.Log
+import com.example.callofdutymw_stats.model.multiplayer.dto.UserDtoMultiplayer
 import com.example.callofdutymw_stats.model.warzone.dto.UserDtoWarzone
 import com.example.callofdutymw_stats.rest.endpoint.EndPoint
 import com.example.callofdutymw_stats.rest.retrofit.RetrofitConfiguration
@@ -11,5 +11,9 @@ class MainActivityViewModel {
 
     fun getWarzoneUser(gamertag: String, platform: String): retrofit2.Call<UserDtoWarzone> {
         return endPoint.getWarzoneUser(gamertag, platform)
+    }
+
+    fun getMultiplayerUser(gamertag: String, platform: String): retrofit2.Call<UserDtoMultiplayer> {
+        return endPoint.getMultiplayerUser(gamertag, platform)
     }
 }
