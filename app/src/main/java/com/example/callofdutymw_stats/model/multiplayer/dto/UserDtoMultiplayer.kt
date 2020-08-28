@@ -4,12 +4,5 @@ import com.example.callofdutymw_stats.model.multiplayer.lifetime.UserLifeTimeMul
 import com.google.gson.annotations.SerializedName
 
 class UserDtoMultiplayer(
-    @SerializedName("platform")
-    val platform: String,
-    @SerializedName("username")
-    val userName: String,
-    @SerializedName("level")
-    val level: String,
-    @SerializedName("lifetime")
     val userLifeTimeMultiplayer: UserLifeTimeMultiplayer
 ) {}

@@ -17,7 +17,7 @@ public class OkHttpClientConfiguration {
     }
 
     private static final String API_HOST = "call-of-duty-modern-warfare.p.rapidapi.com";
-    private static final String API_KEY = "2ae71c798dmshe5e282e77dcbf38p1b359cjsndc5b1e715bb7";
+    private static final String API_KEY = "ec3e175bb0mshd4a9d593e04f7aep1bcb08jsn29319d65d857";
 
     public static void configureHttpClientHeader(OkHttpClient.Builder okHttpClient) {
         okHttpClient.addInterceptor(new Interceptor() {
