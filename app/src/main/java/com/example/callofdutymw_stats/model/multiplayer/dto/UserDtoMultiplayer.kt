@@ -1,6 +1,6 @@
 package com.example.callofdutymw_stats.model.multiplayer.dto
 
-import com.example.callofdutymw_stats.model.multiplayer.lifetime.UserLifeTime
+import com.example.callofdutymw_stats.model.multiplayer.lifetime.UserLifeTimeMultiplayer
 import com.google.gson.annotations.SerializedName
 
 class UserDtoMultiplayer(
@@ -11,5 +11,5 @@ class UserDtoMultiplayer(
     @SerializedName("level")
     val level: String,
     @SerializedName("lifetime")
-    val userLifeTime: UserLifeTime
+    val userLifeTimeMultiplayer: UserLifeTimeMultiplayer
 ) {}

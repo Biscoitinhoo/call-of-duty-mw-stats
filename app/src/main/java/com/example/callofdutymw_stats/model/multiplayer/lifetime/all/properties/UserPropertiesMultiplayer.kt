@@ -1,4 +1,4 @@
-package com.example.callofdutymw_stats.model.multiplayer.properties
+package com.example.callofdutymw_stats.model.multiplayer.lifetime.all.properties
 
 import com.google.gson.annotations.SerializedName
 
