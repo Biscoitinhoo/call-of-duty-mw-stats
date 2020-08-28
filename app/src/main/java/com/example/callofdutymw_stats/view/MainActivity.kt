@@ -24,7 +24,9 @@ class MainActivity : AppCompatActivity() {
 
     private fun buttonFindUserClick() {
         buttonFindUser.setOnClickListener {
-          //  getMultiplayerUser()
+            //Now the response it's working!
+            //Isn't possible make 2 requests in the same time, will return null;
+            //getMultiplayerUser()
             getWarzoneUser()
         }
     }
@@ -40,7 +42,24 @@ class MainActivity : AppCompatActivity() {
                 response: Response<UserLifeTimeMultiplayer>
             ) {
                 val userPropertiesMultiplayer = createNewMultiplayerUser(response)
-                Log.d("Multi - win seguida", userPropertiesMultiplayer.recordLongestWinStreak)
+                Log.d("M - Win seguida", userPropertiesMultiplayer.recordLongestWinStreak)
+                Log.d("M - Recorde XP", userPropertiesMultiplayer.recordXP)
+                Log.d("M - Precisão", userPropertiesMultiplayer.accuracy)
+                Log.d("M - Perdas", userPropertiesMultiplayer.losses)
+                Log.d("M - Total de jogos", userPropertiesMultiplayer.totalGamesPlayed)
+                Log.d("M - Pontuação", userPropertiesMultiplayer.score)
+                Log.d("M - Mortes", userPropertiesMultiplayer.deaths)
+                Log.d("M - Vitórias", userPropertiesMultiplayer.wins)
+                Log.d("M - KD", userPropertiesMultiplayer.kdRatio)
+                Log.d("M - Melhores assi.", userPropertiesMultiplayer.bestAssists)
+                Log.d("M - Melhor pont.", userPropertiesMultiplayer.bestScore)
+                Log.d("M - Total mort. em 1 p.", userPropertiesMultiplayer.recordDeathsInMatch)
+                Log.d("M - Total baix. em 1 p.", userPropertiesMultiplayer.recordKillsInMatch)
+                Log.d("M - Suicídios", userPropertiesMultiplayer.suicides)
+                Log.d("M - Total  de baixas", userPropertiesMultiplayer.totalKills)
+                Log.d("M - Tiros na cabeça", userPropertiesMultiplayer.headshots)
+                Log.d("M - Assistências", userPropertiesMultiplayer.assists)
+                Log.d("M - Recorde baixa seg.", userPropertiesMultiplayer.recordKillStreak)
             }
 
             override fun onFailure(call: Call<UserLifeTimeMultiplayer>, t: Throwable) {
@@ -123,23 +142,59 @@ class MainActivity : AppCompatActivity() {
         Log.d("Status code from M user", response.toString())
         val recordWinStreak =
             response.body()?.userAllMultiplayer?.userPropertiesMultiplayer?.userInformationMultiplayer?.recordLongestWinStreak.toString()
+        val recordXP =
+            response.body()?.userAllMultiplayer?.userPropertiesMultiplayer?.userInformationMultiplayer?.recordLongestWinStreak.toString()
+        val accuracy =
+            response.body()?.userAllMultiplayer?.userPropertiesMultiplayer?.userInformationMultiplayer?.recordLongestWinStreak.toString()
+        val losses =
+            response.body()?.userAllMultiplayer?.userPropertiesMultiplayer?.userInformationMultiplayer?.losses.toString()
+        val totalGamesPlayed =
+            response.body()?.userAllMultiplayer?.userPropertiesMultiplayer?.userInformationMultiplayer?.totalGamesPlayed.toString()
+        val score =
+            response.body()?.userAllMultiplayer?.userPropertiesMultiplayer?.userInformationMultiplayer?.score.toString()
+        val deaths =
+            response.body()?.userAllMultiplayer?.userPropertiesMultiplayer?.userInformationMultiplayer?.deaths.toString()
+        val wins =
+            response.body()?.userAllMultiplayer?.userPropertiesMultiplayer?.userInformationMultiplayer?.wins.toString()
+        val kdRatio =
+            response.body()?.userAllMultiplayer?.userPropertiesMultiplayer?.userInformationMultiplayer?.kdRatio.toString()
+        val bestAssists =
+            response.body()?.userAllMultiplayer?.userPropertiesMultiplayer?.userInformationMultiplayer?.bestAssists.toString()
+        val bestScore =
+            response.body()?.userAllMultiplayer?.userPropertiesMultiplayer?.userInformationMultiplayer?.bestScore.toString()
+        val recordDeathsInMatch =
+            response.body()?.userAllMultiplayer?.userPropertiesMultiplayer?.userInformationMultiplayer?.recordDeathsInMatch.toString()
+        val recordKillsInMatch =
+            response.body()?.userAllMultiplayer?.userPropertiesMultiplayer?.userInformationMultiplayer?.recordKillsInMatch.toString()
+        val suicides =
+            response.body()?.userAllMultiplayer?.userPropertiesMultiplayer?.userInformationMultiplayer?.suicides.toString()
+        val totalKills =
+            response.body()?.userAllMultiplayer?.userPropertiesMultiplayer?.userInformationMultiplayer?.totalKills.toString()
+        val headshots =
+            response.body()?.userAllMultiplayer?.userPropertiesMultiplayer?.userInformationMultiplayer?.headshots.toString()
+        val assists =
+            response.body()?.userAllMultiplayer?.userPropertiesMultiplayer?.userInformationMultiplayer?.assists.toString()
+        val recordKillStreak =
+            response.body()?.userAllMultiplayer?.userPropertiesMultiplayer?.userInformationMultiplayer?.recordKillStreak.toString()
         return UserInformationMultiplayer(
             recordWinStreak,
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "", "",
-            "", "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            ""
+            recordXP,
+            accuracy,
+            losses,
+            totalGamesPlayed,
+            score,
+            deaths,
+            wins,
+            kdRatio,
+            bestAssists,
+            bestScore,
+            recordDeathsInMatch,
+            recordKillsInMatch,
+            suicides,
+            totalKills,
+            headshots,
+            assists,
+            recordKillStreak
         )
     }
 }
