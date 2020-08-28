@@ -2,10 +2,9 @@ package com.example.callofdutymw_stats.view
 
 import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.callofdutymw_stats.R
-import com.example.callofdutymw_stats.model.warzone.UserAllWarzone
+import com.example.callofdutymw_stats.model.warzone.all.UserAllWarzone
 import com.example.callofdutymw_stats.model.warzone.dto.UserDtoWarzone
 import com.example.callofdutymw_stats.viewmodel.MainActivityViewModel
 import kotlinx.android.synthetic.main.activity_main.*

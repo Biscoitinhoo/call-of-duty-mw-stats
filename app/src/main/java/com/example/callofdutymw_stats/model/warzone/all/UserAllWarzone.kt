@@ -1,4 +1,4 @@
-package com.example.callofdutymw_stats.model.warzone
+package com.example.callofdutymw_stats.model.warzone.all
 
 import com.google.gson.annotations.SerializedName
 
