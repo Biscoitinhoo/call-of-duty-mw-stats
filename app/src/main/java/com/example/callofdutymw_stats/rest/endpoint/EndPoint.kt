@@ -1,6 +1,5 @@
 package com.example.callofdutymw_stats.rest.endpoint
 
-import com.example.callofdutymw_stats.model.multiplayer.dto.UserDtoMultiplayer
 import com.example.callofdutymw_stats.model.multiplayer.lifetime.UserLifeTimeMultiplayer
 import com.example.callofdutymw_stats.model.warzone.dto.UserDtoWarzone
 import retrofit2.http.GET
