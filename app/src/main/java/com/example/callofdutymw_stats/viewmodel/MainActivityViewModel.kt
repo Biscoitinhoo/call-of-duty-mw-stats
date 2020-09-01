@@ -1,20 +1,59 @@
 package com.example.callofdutymw_stats.viewmodel
 
-import com.example.callofdutymw_stats.model.multiplayer.dto.UserDtoMultiplayer
-import com.example.callofdutymw_stats.model.multiplayer.lifetime.UserLifeTimeMultiplayer
-import com.example.callofdutymw_stats.model.warzone.dto.UserDtoWarzone
-import com.example.callofdutymw_stats.rest.endpoint.EndPoint
-import com.example.callofdutymw_stats.rest.retrofit.RetrofitConfiguration
+import android.widget.AutoCompleteTextView
+import android.widget.EditText
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.liveData
+import com.example.callofdutymw_stats.domain.RepositoryImpl
+import com.example.callofdutymw_stats.view.util.Resource
+import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.coroutines.Dispatchers
 
-class MainActivityViewModel {
+class MainActivityViewModel() : ViewModel() {
 
-    private val endPoint = RetrofitConfiguration.getClient().create(EndPoint::class.java)
+    private val repository = RepositoryImpl()
 
-    fun getWarzoneUser(gamertag: String, platform: String): retrofit2.Call<UserDtoWarzone> {
-        return endPoint.getWarzoneUser(gamertag, platform)
+    //API call
+    fun getWarzoneUser(
+        gamertag: String,
+        platform: String
+    ) = liveData(Dispatchers.IO) {
+
+        emit(Resource.loading(null))
+        try {
+            // emit(Resource.success(repository.getWarzoneUser(gamertag, platform)))
+        } catch (e: Exception) {
+            emit(Resource.error(null, e.toString()))
+        }
     }
 
-    fun getMultiplayerUser(gamertag: String, platform: String): retrofit2.Call<UserLifeTimeMultiplayer> {
-        return endPoint.getMultiplayerUser(gamertag, platform)
+    fun getMultiplayerUser(
+        gamertag: String,
+        platform: String
+    ) = liveData(Dispatchers.IO) {
+
+        emit(Resource.loading(null))
+        try {
+            emit(Resource.success(repository.getMultiplayerUser(gamertag, platform)))
+        } catch (e: Exception) {
+            emit(Resource.error(null, e.toString()))
+        }
+    }
+
+    //Logic
+    fun isValidFields(editText: EditText, autoCompleteTextView: AutoCompleteTextView): Boolean {
+        return editText.text.toString().isNotEmpty() && autoCompleteTextView.text.toString().isNotEmpty()
+    }
+
+    fun setErrorInFields(
+        editTextNickname: EditText?,
+        autoCompleteTextViewPlatforms: AutoCompleteTextView?
+    ) {
+        if (editTextNickname?.text.toString().isEmpty()) {
+            editTextNickname?.error = "Campo vazio"
+        }
+        if (autoCompleteTextViewPlatforms?.text.toString().isEmpty()) {
+            autoCompleteTextViewPlatforms?.error = "Campo vazio"
+        }
     }
 }

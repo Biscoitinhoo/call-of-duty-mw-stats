@@ -1,112 +1,141 @@
 package com.example.callofdutymw_stats.view
 
+import android.app.ProgressDialog
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
 import com.example.callofdutymw_stats.R
 import com.example.callofdutymw_stats.model.multiplayer.lifetime.UserLifeTimeMultiplayer
 import com.example.callofdutymw_stats.model.multiplayer.lifetime.all.properties.UserInformationMultiplayer
 import com.example.callofdutymw_stats.model.warzone.all.UserAllWarzone
 import com.example.callofdutymw_stats.model.warzone.dto.UserDtoWarzone
+import com.example.callofdutymw_stats.view.util.Resource
+import com.example.callofdutymw_stats.view.util.Status
 import com.example.callofdutymw_stats.viewmodel.MainActivityViewModel
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
-import retrofit2.Call
 import retrofit2.Response
 
+@Suppress("IMPLICIT_CAST_TO_ANY", "ControlFlowWithEmptyBody")
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        supportActionBar!!.hide()
 
-        buttonFindUserClick()
+        setAutoCompletePlatforms()
+        buttonSearchClickListener()
     }
 
-    private fun buttonFindUserClick() {
-        buttonFindUser.setOnClickListener {
-            //Now the response it's working!
-            //Isn't possible make 2 requests in the same time, will return null;
-            getMultiplayerUser()
-            //getWarzoneUser()
+    private fun buttonSearchClickListener() {
+        val mainActivityViewModel = MainActivityViewModel()
+        buttonSearch.setOnClickListener {
+            if (mainActivityViewModel.isValidFields(
+                    editTextNickname,
+                    autoCompleteTextViewPlatforms
+                )
+            ) {
+                getMultiplayerUser(it)
+
+                editTextNickname.error = null
+                autoCompleteTextViewPlatforms.error = null
+            } else {
+                mainActivityViewModel.setErrorInFields(
+                    editTextNickname,
+                    autoCompleteTextViewPlatforms
+                )
+            }
         }
     }
 
-    private fun getMultiplayerUser() {
-        val mainActivityViewModel = MainActivityViewModel()
-        mainActivityViewModel.getMultiplayerUser(
-            editTextUser.text.toString(),
-            editTextPlatform.text.toString()
-        ).enqueue(object : retrofit2.Callback<UserLifeTimeMultiplayer> {
-            override fun onResponse(
-                call: Call<UserLifeTimeMultiplayer>,
-                response: Response<UserLifeTimeMultiplayer>
-            ) {
-                val userPropertiesMultiplayer = createNewMultiplayerUser(response)
-                Log.d("M - Win seguida", userPropertiesMultiplayer.recordLongestWinStreak)
-                Log.d("M - Recorde XP", userPropertiesMultiplayer.recordXP)
-                Log.d("M - Precisão", userPropertiesMultiplayer.accuracy)
-                Log.d("M - Perdas", userPropertiesMultiplayer.losses)
-                Log.d("M - Total de jogos", userPropertiesMultiplayer.totalGamesPlayed)
-                Log.d("M - Pontuação", userPropertiesMultiplayer.score)
-                Log.d("M - Mortes", userPropertiesMultiplayer.deaths)
-                Log.d("M - Vitórias", userPropertiesMultiplayer.wins)
-                Log.d("M - KD", userPropertiesMultiplayer.kdRatio)
-                Log.d("M - Melhores assi.", userPropertiesMultiplayer.bestAssists)
-                Log.d("M - Melhor pont.", userPropertiesMultiplayer.bestScore)
-                Log.d("M - Total mort. em 1 p.", userPropertiesMultiplayer.recordDeathsInMatch)
-                Log.d("M - Total baix. em 1 p.", userPropertiesMultiplayer.recordKillsInMatch)
-                Log.d("M - Suicídios", userPropertiesMultiplayer.suicides)
-                Log.d("M - Total  de baixas", userPropertiesMultiplayer.totalKills)
-                Log.d("M - Tiros na cabeça", userPropertiesMultiplayer.headshots)
-                Log.d("M - Assistências", userPropertiesMultiplayer.assists)
-                Log.d("M - Recorde baixa seg.", userPropertiesMultiplayer.recordKillStreak)
-            }
+    private fun setAutoCompletePlatforms() {
+        val platforms = arrayOf("psn", "steam", "xbl", "battle")
 
-            override fun onFailure(call: Call<UserLifeTimeMultiplayer>, t: Throwable) {
-                TODO("Not yet implemented")
-            }
-
-        })
-    }
-
-    private fun getWarzoneUser() {
-        val mainActivityViewModel = MainActivityViewModel()
-        mainActivityViewModel.getWarzoneUser(
-            editTextUser.text.toString(),
-            editTextPlatform.text.toString()
+        autoCompleteTextViewPlatforms.setAdapter(
+            ArrayAdapter<String>(
+                this,
+                android.R.layout.simple_list_item_1,
+                platforms
+            )
         )
-            .enqueue(object : retrofit2.Callback<UserDtoWarzone> {
-                override fun onResponse(
-                    call: Call<UserDtoWarzone>,
-                    response: Response<UserDtoWarzone>
-                ) {
-                    val userAllWarzone = createNewWarzoneUser(response)
-                    Log.d("W - Vitórias ", userAllWarzone.wins)
-                    Log.d("W - Baixas ", userAllWarzone.kills)
-                    Log.d("W - Mortes ", userAllWarzone.deaths)
-                    Log.d("W - KD ", userAllWarzone.kd)
-                    Log.d("W - Derrubados ", userAllWarzone.downs)
-                    Log.d("W - Top 25 ", userAllWarzone.topTwentyFive)
-                    Log.d("W - Top 10 ", userAllWarzone.topTen)
-                    Log.d("W - Top 5 ", userAllWarzone.topFive)
-                    Log.d("W - Contratos pegos ", userAllWarzone.contracts)
-                    Log.d("W - Ressurgimentos ", userAllWarzone.revives)
-                    Log.d("W - Pontuação ", userAllWarzone.score)
-                    Log.d("W - Jogos jogados ", userAllWarzone.gamesPlayed)
-                    textInputLayoutUser.error = ""
-                }
-
-                override fun onFailure(call: Call<UserDtoWarzone>, t: Throwable) {
-                    Log.e("API error ", t.toString())
-                }
-            })
+        autoCompleteTextViewPlatforms.setOnClickListener {
+            autoCompleteTextViewPlatforms.showDropDown()
+        }
+        Log.d("AutocompleteItem ", autoCompleteTextViewPlatforms.text.toString())
     }
 
-    private fun warzoneUserDontExists(response: Response<UserDtoWarzone>): Boolean {
-        //Será pego um valor aleatório do objeto para ser comparado.
-        return response.body()?.userAllWarzone?.deaths == null
+    private fun getMultiplayerUser(v: View) {
+        val selectedPlatform = autoCompleteTextViewPlatforms.text.toString()
+        val gamertag = editTextNickname.text.toString()
+        val progressDialog = ProgressDialog(this, R.style.myAlertDialogStyle)
+
+        val mainActivityViewModel = MainActivityViewModel()
+        mainActivityViewModel.getMultiplayerUser(gamertag = gamertag, platform = selectedPlatform)
+            .observe(this, androidx.lifecycle.Observer {
+                it?.let { resource ->
+                    when (resource.status) {
+                        Status.LOADING -> {
+                            setMessageAndShowProgressDialog(progressDialog)
+                        }
+                        Status.SUCCESS -> {
+                            if (progressDialog.isShowing)
+                                progressDialog.dismiss()
+                            //Even if an incorrect user is passed, it will continue to fall into "SUCCESS", however the data will come null
+                            resource.data?.let {
+                                handlesUserSituation(
+                                    userIsIncorrect = resource.data.error,
+                                    view = v,
+                                    resource = resource
+                                )
+                            }!!
+                        }
+                        Status.ERROR -> {
+                            progressDialog.dismiss()
+                            showErrorSnackbar(v)
+                        }
+                    }
+                }
+            }
+            )
     }
 
+    private fun handlesUserSituation(
+        userIsIncorrect: Boolean,
+        view: View,
+        resource: Resource<UserLifeTimeMultiplayer>
+    ) {
+        if (userIsIncorrect) {
+            showSnackbarErrorUser(view)
+        } else {
+            val user = createNewMultiplayerUser(resource)
+            Log.d("User KD ", user.kdRatio)
+        }
+    }
+
+    //Snackbar
+    private fun showSnackbarErrorUser(v: View) {
+        Snackbar.make(v, R.string.user_dont_exists, Snackbar.LENGTH_LONG)
+            .setAction(R.string.help_snackbar) {
+                //TODO: Show dialog informing to check nickname or/and platform
+            }.show()
+    }
+
+    private fun setMessageAndShowProgressDialog(progressDialog: ProgressDialog) {
+        progressDialog.setMessage("Aguarde...")
+        progressDialog.show()
+    }
+
+    private fun showErrorSnackbar(v: View) {
+        Snackbar.make(v, R.string.ops_something_gone_wrong, Snackbar.LENGTH_LONG)
+            .setAction(R.string.help_snackbar) {
+                //TODO: Show dialog informing to check internet connection or warn that server is off
+            }.show()
+    }
+
+    //Create user
     private fun createNewWarzoneUser(response: Response<UserDtoWarzone>): UserAllWarzone {
         Log.d("Status code from W user", response.toString())
 
@@ -138,44 +167,44 @@ class MainActivity : AppCompatActivity() {
         )
     }
 
-    private fun createNewMultiplayerUser(response: Response<UserLifeTimeMultiplayer>): UserInformationMultiplayer {
-        Log.d("Status code from M user", response.toString())
+    private fun createNewMultiplayerUser(resource: Resource<UserLifeTimeMultiplayer>): UserInformationMultiplayer {
+        Log.d("Status code from M user", resource.toString())
         val recordWinStreak =
-            response.body()?.userAllMultiplayer?.userPropertiesMultiplayer?.userInformationMultiplayer?.recordLongestWinStreak.toString()
+            resource.data?.userAllMultiplayer?.userPropertiesMultiplayer?.userInformationMultiplayer?.recordLongestWinStreak.toString()
         val recordXP =
-            response.body()?.userAllMultiplayer?.userPropertiesMultiplayer?.userInformationMultiplayer?.recordXP.toString()
+            resource.data?.userAllMultiplayer?.userPropertiesMultiplayer?.userInformationMultiplayer?.recordXP.toString()
         val accuracy =
-            response.body()?.userAllMultiplayer?.userPropertiesMultiplayer?.userInformationMultiplayer?.accuracy.toString()
+            resource.data?.userAllMultiplayer?.userPropertiesMultiplayer?.userInformationMultiplayer?.accuracy.toString()
         val losses =
-            response.body()?.userAllMultiplayer?.userPropertiesMultiplayer?.userInformationMultiplayer?.losses.toString()
+            resource.data?.userAllMultiplayer?.userPropertiesMultiplayer?.userInformationMultiplayer?.losses.toString()
         val totalGamesPlayed =
-            response.body()?.userAllMultiplayer?.userPropertiesMultiplayer?.userInformationMultiplayer?.totalGamesPlayed.toString()
+            resource.data?.userAllMultiplayer?.userPropertiesMultiplayer?.userInformationMultiplayer?.totalGamesPlayed.toString()
         val score =
-            response.body()?.userAllMultiplayer?.userPropertiesMultiplayer?.userInformationMultiplayer?.score.toString()
+            resource.data?.userAllMultiplayer?.userPropertiesMultiplayer?.userInformationMultiplayer?.score.toString()
         val deaths =
-            response.body()?.userAllMultiplayer?.userPropertiesMultiplayer?.userInformationMultiplayer?.deaths.toString()
+            resource.data?.userAllMultiplayer?.userPropertiesMultiplayer?.userInformationMultiplayer?.deaths.toString()
         val wins =
-            response.body()?.userAllMultiplayer?.userPropertiesMultiplayer?.userInformationMultiplayer?.wins.toString()
+            resource.data?.userAllMultiplayer?.userPropertiesMultiplayer?.userInformationMultiplayer?.wins.toString()
         val kdRatio =
-            response.body()?.userAllMultiplayer?.userPropertiesMultiplayer?.userInformationMultiplayer?.kdRatio.toString()
+            resource.data?.userAllMultiplayer?.userPropertiesMultiplayer?.userInformationMultiplayer?.kdRatio.toString()
         val bestAssists =
-            response.body()?.userAllMultiplayer?.userPropertiesMultiplayer?.userInformationMultiplayer?.bestAssists.toString()
+            resource.data?.userAllMultiplayer?.userPropertiesMultiplayer?.userInformationMultiplayer?.bestAssists.toString()
         val bestScore =
-            response.body()?.userAllMultiplayer?.userPropertiesMultiplayer?.userInformationMultiplayer?.bestScore.toString()
+            resource.data?.userAllMultiplayer?.userPropertiesMultiplayer?.userInformationMultiplayer?.bestScore.toString()
         val recordDeathsInMatch =
-            response.body()?.userAllMultiplayer?.userPropertiesMultiplayer?.userInformationMultiplayer?.recordDeathsInMatch.toString()
+            resource.data?.userAllMultiplayer?.userPropertiesMultiplayer?.userInformationMultiplayer?.recordDeathsInMatch.toString()
         val recordKillsInMatch =
-            response.body()?.userAllMultiplayer?.userPropertiesMultiplayer?.userInformationMultiplayer?.recordKillsInMatch.toString()
+            resource.data?.userAllMultiplayer?.userPropertiesMultiplayer?.userInformationMultiplayer?.recordKillsInMatch.toString()
         val suicides =
-            response.body()?.userAllMultiplayer?.userPropertiesMultiplayer?.userInformationMultiplayer?.suicides.toString()
+            resource.data?.userAllMultiplayer?.userPropertiesMultiplayer?.userInformationMultiplayer?.suicides.toString()
         val totalKills =
-            response.body()?.userAllMultiplayer?.userPropertiesMultiplayer?.userInformationMultiplayer?.totalKills.toString()
+            resource.data?.userAllMultiplayer?.userPropertiesMultiplayer?.userInformationMultiplayer?.totalKills.toString()
         val headshots =
-            response.body()?.userAllMultiplayer?.userPropertiesMultiplayer?.userInformationMultiplayer?.headshots.toString()
+            resource.data?.userAllMultiplayer?.userPropertiesMultiplayer?.userInformationMultiplayer?.headshots.toString()
         val assists =
-            response.body()?.userAllMultiplayer?.userPropertiesMultiplayer?.userInformationMultiplayer?.assists.toString()
+            resource.data?.userAllMultiplayer?.userPropertiesMultiplayer?.userInformationMultiplayer?.assists.toString()
         val recordKillStreak =
-            response.body()?.userAllMultiplayer?.userPropertiesMultiplayer?.userInformationMultiplayer?.recordKillStreak.toString()
+            resource.data?.userAllMultiplayer?.userPropertiesMultiplayer?.userInformationMultiplayer?.recordKillStreak.toString()
         return UserInformationMultiplayer(
             recordWinStreak,
             recordXP,

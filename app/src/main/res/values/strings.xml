@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">Call of Duty MW - Stats</string>
+    <string name="search_for_user">Procure por um usuário...</string>
+    <string name="ops_something_gone_wrong">Ops! Algo deu errado...</string>
+    <string name="help_snackbar">Ajuda</string>
+    <string name="user_dont_exists">Usuário não encontrado. Talvez outra plataforma?</string>
+    <string-array name="platform_array">
+        <item>psn</item>
+        <item>steam</item>
+        <item>xbl</item>
+        <item>battle</item>
+    </string-array>
 </resources>

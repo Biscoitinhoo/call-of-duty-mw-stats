@@ -11,12 +11,11 @@ interface EndPoint {
     fun getWarzoneUser(
         @Path("gamertag") gamertag: String,
         @Path("platform") platForm: String
-    ): retrofit2.Call<UserDtoWarzone>
+    ): UserDtoWarzone
 
     @GET("multiplayer/{gamertag}/{platform}")
-    fun getMultiplayerUser(
+    suspend fun getMultiplayerUser(
         @Path("gamertag") gamertag: String,
         @Path("platform") platForm: String
-    ): retrofit2.Call<UserLifeTimeMultiplayer>
-
+    ): UserLifeTimeMultiplayer
 }
