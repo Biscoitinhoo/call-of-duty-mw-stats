@@ -1,9 +1,9 @@
 package com.example.callofdutymw_stats.data.repository
 
-import com.example.callofdutymw_stats.model.multiplayer.lifetime.UserLifeTimeMultiplayer
-import com.example.callofdutymw_stats.model.warzone.dto.UserDtoWarzone
+import com.example.callofdutymw_stats.data.helper.APIHelper
+import com.example.callofdutymw_stats.rest.endpoint.EndPoint
+import com.example.callofdutymw_stats.rest.retrofit.RetrofitConfiguration
 
-interface Repository {
-    suspend fun getMultiplayerUser(gamertag: String, platform: String): UserLifeTimeMultiplayer
-    suspend fun getWarzoneUser(gamertag: String, platform: String): UserDtoWarzone
+class Repository(private val apiHelper: APIHelper) {
+    suspend fun getMultiplayerUser(gamertag: String, platform: String) = apiHelper.getMultiplayerUser(gamertag, platform)
 }

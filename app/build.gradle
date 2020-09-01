@@ -8,7 +8,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.callofdutymw_stats"
-        minSdkVersion 16
+        minSdkVersion 26
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
@@ -21,6 +21,14 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = "1.8"
     }
 }
 
@@ -36,11 +44,13 @@ dependencies {
     //Google material design
     implementation 'com.google.android.material:material:1.2.0'
     //Retrofit lib
-    implementation 'com.squareup.retrofit2:retrofit:2.3.0'
+    implementation 'com.squareup.retrofit2:retrofit:2.7.2'
     //Gson lib
-    implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.5.0'
+
     //Logging Interceptor
-    implementation 'com.squareup.okhttp3:logging-interceptor:3.9.0'
+    implementation "com.squareup.okhttp3:okhttp:3.14.7"
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.11.0'
     //Mock implementations
     testImplementation 'org.mockito:mockito-core:3.3.3'
     androidTestImplementation 'org.mockito:mockito-android:2.28.2'

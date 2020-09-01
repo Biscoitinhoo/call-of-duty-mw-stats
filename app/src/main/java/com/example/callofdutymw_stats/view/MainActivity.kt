@@ -2,25 +2,31 @@ package com.example.callofdutymw_stats.view
 
 import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.observe
+import androidx.lifecycle.ViewModelProviders
 import com.example.callofdutymw_stats.R
+import com.example.callofdutymw_stats.data.helper.APIHelper
 import com.example.callofdutymw_stats.model.multiplayer.lifetime.UserLifeTimeMultiplayer
 import com.example.callofdutymw_stats.model.multiplayer.lifetime.all.properties.UserInformationMultiplayer
 import com.example.callofdutymw_stats.model.warzone.all.UserAllWarzone
 import com.example.callofdutymw_stats.model.warzone.dto.UserDtoWarzone
+import com.example.callofdutymw_stats.rest.endpoint.EndPoint
+import com.example.callofdutymw_stats.rest.retrofit.RetrofitConfiguration
+import com.example.callofdutymw_stats.view.base.ViewModelFactory
 import com.example.callofdutymw_stats.view.util.Status
 import com.example.callofdutymw_stats.viewmodel.MainActivityViewModel
 import retrofit2.Response
-import java.util.*
 
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var mainActivityViewModel: MainActivityViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        setupViewModel()
+        getMultiplayerUser()
         buttonFindUserClick()
     }
 
@@ -28,34 +34,40 @@ class MainActivity : AppCompatActivity() {
 //        buttonFindUser.setOnClickListener {
 //            //Now the response it's working!
 //            //Isn't possible make 2 requests in the same time, will return null;
-//            getMultiplayerUser()
 //            //getWarzoneUser()
 //        }
     }
-
     private fun getMultiplayerUser() {
-        val mainActivityViewModel = MainActivityViewModel()
-        mainActivityViewModel.getMultiplayerUser("D", "p").observe(this, androidx.lifecycle.Observer {
-            it?.let { resource ->
-                when (resource.status) {
-                    Status.SUCCESS -> {
-                        resource.data?.let { data ->
-                            //TODO...
-                        }!!
-                    }
-                    Status.ERROR -> {
-                        resource.data?.let { data ->
-                            //TODO...
+        mainActivityViewModel.getMultiplayerUser("BiscoitinhoDoci", "psn")
+            .observe(this, androidx.lifecycle.Observer {
+                it?.let { resource ->
+                    when (resource.status) {
+                        Status.LOADING -> {
+                            Log.e("Loading API ", "loading...")
                         }
-                    }
-                    Status.LOADING -> {
-                        resource.data?.let { data ->
-                            //TODO...
+                        Status.SUCCESS -> {
+                            resource.data?.let { data ->
+                                Log.d(
+                                    "Testing API ", data.userAllMultiplayer.userPropertiesMultiplayer.userInformationMultiplayer.deaths)
+                            }!!
+                        }
+                        Status.ERROR -> {
+                            Log.e("Exception ", it.message.toString())
                         }
                     }
                 }
-            }
-        })
+            })
+    }
+
+    private fun setupViewModel() {
+        mainActivityViewModel = ViewModelProviders.of(
+            this,
+            ViewModelFactory(
+                APIHelper(
+                    RetrofitConfiguration.getClient().create(EndPoint::class.java)
+                )
+            )
+        ).get(MainActivityViewModel::class.java)
     }
 
     private fun warzoneUserDontExists(response: Response<UserDtoWarzone>): Boolean {

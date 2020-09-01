@@ -15,10 +15,8 @@ public class RetrofitConfiguration {
     private static final String URL = "https://call-of-duty-modern-warfare.p.rapidapi.com/";
 
     public static Retrofit getClient() {
-
         OkHttpClient.Builder client = new OkHttpClient.Builder();
         OkHttpClientConfiguration.configureHttpClientHeader(client);
-
         return new Retrofit.Builder().baseUrl(URL).addConverterFactory(GsonConverterFactory.create()).client(client.build()).build();
     }
 }
