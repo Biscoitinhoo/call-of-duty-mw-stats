@@ -2,16 +2,18 @@ package com.example.callofdutymw_stats.view
 
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.observe
 import com.example.callofdutymw_stats.R
 import com.example.callofdutymw_stats.model.multiplayer.lifetime.UserLifeTimeMultiplayer
 import com.example.callofdutymw_stats.model.multiplayer.lifetime.all.properties.UserInformationMultiplayer
 import com.example.callofdutymw_stats.model.warzone.all.UserAllWarzone
 import com.example.callofdutymw_stats.model.warzone.dto.UserDtoWarzone
+import com.example.callofdutymw_stats.view.util.Status
 import com.example.callofdutymw_stats.viewmodel.MainActivityViewModel
-import kotlinx.android.synthetic.main.activity_main.*
-import retrofit2.Call
 import retrofit2.Response
+import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -33,73 +35,27 @@ class MainActivity : AppCompatActivity() {
 
     private fun getMultiplayerUser() {
         val mainActivityViewModel = MainActivityViewModel()
-        mainActivityViewModel.getMultiplayerUser(
-            "RandomUser",
-            "psn"
-        ).enqueue(object : retrofit2.Callback<UserLifeTimeMultiplayer> {
-            override fun onResponse(
-                call: Call<UserLifeTimeMultiplayer>,
-                response: Response<UserLifeTimeMultiplayer>
-            ) {
-                val userPropertiesMultiplayer = createNewMultiplayerUser(response)
-                Log.d("M - Win seguida", userPropertiesMultiplayer.recordLongestWinStreak)
-                Log.d("M - Recorde XP", userPropertiesMultiplayer.recordXP)
-                Log.d("M - Precisão", userPropertiesMultiplayer.accuracy)
-                Log.d("M - Perdas", userPropertiesMultiplayer.losses)
-                Log.d("M - Total de jogos", userPropertiesMultiplayer.totalGamesPlayed)
-                Log.d("M - Pontuação", userPropertiesMultiplayer.score)
-                Log.d("M - Mortes", userPropertiesMultiplayer.deaths)
-                Log.d("M - Vitórias", userPropertiesMultiplayer.wins)
-                Log.d("M - KD", userPropertiesMultiplayer.kdRatio)
-                Log.d("M - Melhores assi.", userPropertiesMultiplayer.bestAssists)
-                Log.d("M - Melhor pont.", userPropertiesMultiplayer.bestScore)
-                Log.d("M - Total mort. em 1 p.", userPropertiesMultiplayer.recordDeathsInMatch)
-                Log.d("M - Total baix. em 1 p.", userPropertiesMultiplayer.recordKillsInMatch)
-                Log.d("M - Suicídios", userPropertiesMultiplayer.suicides)
-                Log.d("M - Total  de baixas", userPropertiesMultiplayer.totalKills)
-                Log.d("M - Tiros na cabeça", userPropertiesMultiplayer.headshots)
-                Log.d("M - Assistências", userPropertiesMultiplayer.assists)
-                Log.d("M - Recorde baixa seg.", userPropertiesMultiplayer.recordKillStreak)
+        mainActivityViewModel.getMultiplayerUser("D", "p").observe(this, androidx.lifecycle.Observer {
+            it?.let { resource ->
+                when (resource.status) {
+                    Status.SUCCESS -> {
+                        resource.data?.let { data ->
+                            //TODO...
+                        }!!
+                    }
+                    Status.ERROR -> {
+                        resource.data?.let { data ->
+                            //TODO...
+                        }
+                    }
+                    Status.LOADING -> {
+                        resource.data?.let { data ->
+                            //TODO...
+                        }
+                    }
+                }
             }
-
-            override fun onFailure(call: Call<UserLifeTimeMultiplayer>, t: Throwable) {
-                TODO("Not yet implemented")
-            }
-
         })
-    }
-
-    private fun getWarzoneUser() {
-        val mainActivityViewModel = MainActivityViewModel()
-        mainActivityViewModel.getWarzoneUser(
-            "RandomUser",
-            "psn"
-        )
-            .enqueue(object : retrofit2.Callback<UserDtoWarzone> {
-                override fun onResponse(
-                    call: Call<UserDtoWarzone>,
-                    response: Response<UserDtoWarzone>
-                ) {
-                    val userAllWarzone = createNewWarzoneUser(response)
-                    Log.d("W - Vitórias ", userAllWarzone.wins)
-                    Log.d("W - Baixas ", userAllWarzone.kills)
-                    Log.d("W - Mortes ", userAllWarzone.deaths)
-                    Log.d("W - KD ", userAllWarzone.kd)
-                    Log.d("W - Derrubados ", userAllWarzone.downs)
-                    Log.d("W - Top 25 ", userAllWarzone.topTwentyFive)
-                    Log.d("W - Top 10 ", userAllWarzone.topTen)
-                    Log.d("W - Top 5 ", userAllWarzone.topFive)
-                    Log.d("W - Contratos pegos ", userAllWarzone.contracts)
-                    Log.d("W - Ressurgimentos ", userAllWarzone.revives)
-                    Log.d("W - Pontuação ", userAllWarzone.score)
-                    Log.d("W - Jogos jogados ", userAllWarzone.gamesPlayed)
-                    //textInputLayoutUser.error = ""
-                }
-
-                override fun onFailure(call: Call<UserDtoWarzone>, t: Throwable) {
-                    Log.e("API error ", t.toString())
-                }
-            })
     }
 
     private fun warzoneUserDontExists(response: Response<UserDtoWarzone>): Boolean {
