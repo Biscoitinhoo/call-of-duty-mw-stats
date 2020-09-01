@@ -33,13 +33,20 @@ class MainActivity : AppCompatActivity() {
     private fun buttonSearchClickListener() {
         val mainActivityViewModel = MainActivityViewModel()
         buttonSearch.setOnClickListener {
-            if (mainActivityViewModel.isValidFields(editTextNickname, autoCompleteTextViewPlatforms)) {
+            if (mainActivityViewModel.isValidFields(
+                    editTextNickname,
+                    autoCompleteTextViewPlatforms
+                )
+            ) {
                 getMultiplayerUser(it)
 
                 editTextNickname.error = null
                 autoCompleteTextViewPlatforms.error = null
             } else {
-                mainActivityViewModel.setErrorInFields(editTextNickname, autoCompleteTextViewPlatforms)
+                mainActivityViewModel.setErrorInFields(
+                    editTextNickname,
+                    autoCompleteTextViewPlatforms
+                )
             }
         }
     }
@@ -74,7 +81,8 @@ class MainActivity : AppCompatActivity() {
                             setMessageAndShowProgressDialog(progressDialog)
                         }
                         Status.SUCCESS -> {
-                            progressDialog.dismiss()
+                            if (progressDialog.isShowing)
+                                progressDialog.dismiss()
                             //Even if an incorrect user is passed, it will continue to fall into "SUCCESS", however the data will come null
                             resource.data?.let {
                                 handlesUserSituation(
@@ -85,9 +93,8 @@ class MainActivity : AppCompatActivity() {
                             }!!
                         }
                         Status.ERROR -> {
-                            Log.e("ERROR", "ERROR")
-                            showErrorSnackbar(v)
                             progressDialog.dismiss()
+                            showErrorSnackbar(v)
                         }
                     }
                 }
