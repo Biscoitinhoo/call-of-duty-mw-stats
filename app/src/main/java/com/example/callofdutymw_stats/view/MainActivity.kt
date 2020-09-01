@@ -1,11 +1,11 @@
 package com.example.callofdutymw_stats.view
 
-import android.graphics.drawable.ColorDrawable
+import android.app.ProgressDialog
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import com.example.callofdutymw_stats.R
 import com.example.callofdutymw_stats.model.multiplayer.lifetime.UserLifeTimeMultiplayer
 import com.example.callofdutymw_stats.model.multiplayer.lifetime.all.properties.UserInformationMultiplayer
@@ -13,10 +13,11 @@ import com.example.callofdutymw_stats.model.warzone.all.UserAllWarzone
 import com.example.callofdutymw_stats.model.warzone.dto.UserDtoWarzone
 import com.example.callofdutymw_stats.view.util.Status
 import com.example.callofdutymw_stats.viewmodel.MainActivityViewModel
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Response
 
-
+@Suppress("IMPLICIT_CAST_TO_ANY", "ControlFlowWithEmptyBody")
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,43 +26,75 @@ class MainActivity : AppCompatActivity() {
         supportActionBar!!.hide()
 
         setAutoCompletePlatforms()
+        buttonSearchClickListener()
+    }
+
+    private fun buttonSearchClickListener() {
+        buttonSearch.setOnClickListener {
+            //TODO: Refactor this, this is just a test.
+            if (
+                editTextNickname.text.toString().isNotEmpty() &&
+                autoCompleteTextViewPlatforms.text.toString().isNotEmpty()
+            ) {
+                getMultiplayerUser(it)
+
+                //Clear error fields
+                editTextNickname.error = null
+                autoCompleteTextViewPlatforms.error = null
+            } else {
+                if (editTextNickname.text.toString().isEmpty()) {
+                    editTextNickname.error = "Campo vazio"
+                }
+                if (autoCompleteTextViewPlatforms.text.toString().isEmpty()) {
+                    autoCompleteTextViewPlatforms.error = "Campo vazio"
+                }
+            }
+        }
     }
 
     private fun setAutoCompletePlatforms() {
         val platforms = arrayOf("psn", "steam", "xbl", "battle")
 
-        autoCompleteTextView.setAdapter(
+        autoCompleteTextViewPlatforms.setAdapter(
             ArrayAdapter<String>(
                 this,
                 android.R.layout.simple_list_item_1,
                 platforms
             )
         )
-        autoCompleteTextView.setOnClickListener {
-            autoCompleteTextView.showDropDown()
+        autoCompleteTextViewPlatforms.setOnClickListener {
+            autoCompleteTextViewPlatforms.showDropDown()
         }
-        Log.d("AutocompleteItem ", autoCompleteTextView.text.toString())
+        Log.d("AutocompleteItem ", autoCompleteTextViewPlatforms.text.toString())
     }
 
-    private fun getMultiplayerUser() {
+    private fun getMultiplayerUser(v: View) {
+        val selectedPlatform = autoCompleteTextViewPlatforms.text.toString()
+        val gamertag = editTextNickname.text.toString()
+        val progressDialog = ProgressDialog(this, R.style.myAlertDialogStyle)
+
         val mainActivityViewModel = MainActivityViewModel()
-        mainActivityViewModel.getMultiplayerUser("BiscoitinhoDoci", "psn")
+        mainActivityViewModel.getMultiplayerUser(gamertag = gamertag, platform = selectedPlatform)
             .observe(this, androidx.lifecycle.Observer {
                 it?.let { resource ->
                     when (resource.status) {
                         Status.LOADING -> {
-                            Log.e("Loading API ", "loading...")
+                            setMessageAndShowProgressDialog(progressDialog)
                         }
                         Status.SUCCESS -> {
-                            resource.data?.let { data ->
-                                Log.d(
-                                    "Testing API ",
-                                    data.userAllMultiplayer.userPropertiesMultiplayer.userInformationMultiplayer.deaths
+                            progressDialog.dismiss()
+                            //Even if an incorrect user is passed, it will continue to fall into "SUCCESS", however the data will come null
+                            resource.data?.let {
+                                handlesUserSituation(
+                                    userIsIncorrect = resource.data.error,
+                                    view = v
                                 )
                             }!!
                         }
                         Status.ERROR -> {
-                            Log.e("Exception ", it.message.toString())
+                            Log.e("ERROR", "ERROR")
+                            showErrorSnackbar(v)
+                            progressDialog.dismiss()
                         }
                     }
                 }
@@ -69,11 +102,35 @@ class MainActivity : AppCompatActivity() {
             )
     }
 
-    private fun warzoneUserDontExists(response: Response<UserDtoWarzone>): Boolean {
-        //Será pego um valor aleatório do objeto para ser comparado.
-        return response.body()?.userAllWarzone?.deaths == null
+    private fun handlesUserSituation(userIsIncorrect: Boolean, view: View) {
+        if (userIsIncorrect) {
+            showSnackbarErrorUser(view)
+        } else {
+            //TODO: CHANGE SCREEN
+        }
     }
 
+    //Snackbar
+    private fun showSnackbarErrorUser(v: View) {
+        Snackbar.make(v, R.string.user_dont_exists, Snackbar.LENGTH_LONG)
+            .setAction(R.string.help_snackbar) {
+                //TODO: Show dialog informing to check nickname or/and platform
+            }.show()
+    }
+
+    private fun setMessageAndShowProgressDialog(progressDialog: ProgressDialog) {
+        progressDialog.setMessage("Aguarde...")
+        progressDialog.show()
+    }
+
+    private fun showErrorSnackbar(v: View) {
+        Snackbar.make(v, R.string.ops_something_gone_wrong, Snackbar.LENGTH_LONG)
+            .setAction(R.string.help_snackbar) {
+                //TODO: Show dialog informing to check internet connection or warn that server is off
+            }.show()
+    }
+
+    //Create user
     private fun createNewWarzoneUser(response: Response<UserDtoWarzone>): UserAllWarzone {
         Log.d("Status code from W user", response.toString())
 

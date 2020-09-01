@@ -5,6 +5,8 @@ import com.google.gson.annotations.SerializedName
 
 class UserLifeTimeMultiplayer(
     @SerializedName("lifetime")
-    val userAllMultiplayer: UserAllMultiplayer
+    val userAllMultiplayer: UserAllMultiplayer,
+    @SerializedName("error")
+    val error: Boolean
 ) {
 }
