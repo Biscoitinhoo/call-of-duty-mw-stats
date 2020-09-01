@@ -19,8 +19,6 @@ Japp/src/main/java/com/example/callofdutymw_stats/rest/endpoint/EndPoint.kt,0\3
 Sapp/src/main/java/com/example/callofdutymw_stats/viewmodel/MainActivityViewModel.kt,7\1\7111b3b179bd6716afac025f78476a41eac951a9
 „
 Tapp/src/main/java/com/example/callofdutymw_stats/model/warzone/dto/UserDtoWarzone.kt,d\4\d4d17053276a6799e940fd54e3dd4add42753859
-Y
-)app/src/main/res/layout/activity_main.xml,7\6\76b07e40f24cce093536731477540f12e7da3cb6
 R
 "app/src/main/res/values/styles.xml,f\7\f79cc2688e29fcbc286fda14ae07b27c9e83690f
 W

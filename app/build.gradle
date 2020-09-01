@@ -41,4 +41,8 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
     //Logging Interceptor
     implementation 'com.squareup.okhttp3:logging-interceptor:3.9.0'
+    //Mock implementations
+    testImplementation 'org.mockito:mockito-core:3.3.3'
+    androidTestImplementation 'org.mockito:mockito-android:2.28.2'
+    testImplementation 'org.mockito:mockito-inline:2.28.2'
 }

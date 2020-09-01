@@ -23,19 +23,19 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun buttonFindUserClick() {
-        buttonFindUser.setOnClickListener {
-            //Now the response it's working!
-            //Isn't possible make 2 requests in the same time, will return null;
-            getMultiplayerUser()
-            //getWarzoneUser()
-        }
+//        buttonFindUser.setOnClickListener {
+//            //Now the response it's working!
+//            //Isn't possible make 2 requests in the same time, will return null;
+//            getMultiplayerUser()
+//            //getWarzoneUser()
+//        }
     }
 
     private fun getMultiplayerUser() {
         val mainActivityViewModel = MainActivityViewModel()
         mainActivityViewModel.getMultiplayerUser(
-            editTextUser.text.toString(),
-            editTextPlatform.text.toString()
+            "RandomUser",
+            "psn"
         ).enqueue(object : retrofit2.Callback<UserLifeTimeMultiplayer> {
             override fun onResponse(
                 call: Call<UserLifeTimeMultiplayer>,
@@ -72,8 +72,8 @@ class MainActivity : AppCompatActivity() {
     private fun getWarzoneUser() {
         val mainActivityViewModel = MainActivityViewModel()
         mainActivityViewModel.getWarzoneUser(
-            editTextUser.text.toString(),
-            editTextPlatform.text.toString()
+            "RandomUser",
+            "psn"
         )
             .enqueue(object : retrofit2.Callback<UserDtoWarzone> {
                 override fun onResponse(
@@ -93,7 +93,7 @@ class MainActivity : AppCompatActivity() {
                     Log.d("W - Ressurgimentos ", userAllWarzone.revives)
                     Log.d("W - Pontuação ", userAllWarzone.score)
                     Log.d("W - Jogos jogados ", userAllWarzone.gamesPlayed)
-                    textInputLayoutUser.error = ""
+                    //textInputLayoutUser.error = ""
                 }
 
                 override fun onFailure(call: Call<UserDtoWarzone>, t: Throwable) {
