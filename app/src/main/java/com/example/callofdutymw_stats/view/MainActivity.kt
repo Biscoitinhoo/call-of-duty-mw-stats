@@ -31,24 +31,15 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun buttonSearchClickListener() {
+        val mainActivityViewModel = MainActivityViewModel()
         buttonSearch.setOnClickListener {
-            //TODO: Refactor this, this is just a test.
-            if (
-                editTextNickname.text.toString().isNotEmpty() &&
-                autoCompleteTextViewPlatforms.text.toString().isNotEmpty()
-            ) {
+            if (mainActivityViewModel.isValidFields(editTextNickname, autoCompleteTextViewPlatforms)) {
                 getMultiplayerUser(it)
 
-                //Clear error fields
                 editTextNickname.error = null
                 autoCompleteTextViewPlatforms.error = null
             } else {
-                if (editTextNickname.text.toString().isEmpty()) {
-                    editTextNickname.error = "Campo vazio"
-                }
-                if (autoCompleteTextViewPlatforms.text.toString().isEmpty()) {
-                    autoCompleteTextViewPlatforms.error = "Campo vazio"
-                }
+                mainActivityViewModel.setErrorInFields(editTextNickname, autoCompleteTextViewPlatforms)
             }
         }
     }
