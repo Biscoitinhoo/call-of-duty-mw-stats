@@ -15,12 +15,12 @@
         android:layout_marginEnd="20dp"
         android:layout_marginRight="20dp"
         android:background="@drawable/edit_text_rounded_dark_background"
-        android:drawableLeft="@drawable/ic_baseline_search_24"
+        android:drawableStart="@drawable/ic_baseline_search_24"
         android:drawablePadding="15dp"
         android:ems="10"
-        android:hint="Procure por um usuário..."
+        android:hint="@string/search_for_user"
         android:inputType="textPersonName"
-        android:paddingLeft="15dp"
+        android:paddingStart="15dp"
         android:textColor="@color/colorEditTextText"
         android:textColorHint="@color/colorEditTextHint"
         android:textSize="15sp"
@@ -28,20 +28,30 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.050000012" />
+        app:layout_constraintVertical_bias="0.050000012"
+        tools:ignore="RtlSymmetry" />
 
-    <Spinner
-        android:id="@+id/spinner"
+    <AutoCompleteTextView
+        android:id="@+id/autoCompleteTextView"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_marginStart="20dp"
-        android:layout_marginLeft="20dp"
         android:layout_marginEnd="20dp"
-        android:layout_marginRight="20dp"
+        android:digits=""
+        android:inputType="text"
         android:background="@drawable/edit_text_rounded_dark_background"
+        android:drawableStart="@drawable/ic_baseline_videogame_asset_24"
+        android:drawablePadding="15dp"
+        android:paddingStart="15dp"
+        android:hint="psn, steam, xbl ou battle"
+        android:textColor="@color/colorEditTextText"
+        android:textColorHint="@color/colorEditTextHint"
+        android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextNickname"
-        app:layout_constraintVertical_bias="0.04000002" />
+        app:layout_constraintVertical_bias="0.04000002"
+        tools:ignore="HardcodedText,LabelFor,RtlSymmetry" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Call of Duty MW - Stats</string>
+    <string name="search_for_user">Procure por um usuário...</string>
+    <string-array name="platform_array">
+        <item>psn</item>
+        <item>steam</item>
+        <item>xbl</item>
+        <item>battle</item>
+    </string-array>
 </resources>

@@ -1,36 +1,46 @@
 package com.example.callofdutymw_stats.view
 
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
+import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import com.example.callofdutymw_stats.R
-import com.example.callofdutymw_stats.data.repository.Repository
-import com.example.callofdutymw_stats.domain.RepositoryImpl
 import com.example.callofdutymw_stats.model.multiplayer.lifetime.UserLifeTimeMultiplayer
 import com.example.callofdutymw_stats.model.multiplayer.lifetime.all.properties.UserInformationMultiplayer
 import com.example.callofdutymw_stats.model.warzone.all.UserAllWarzone
 import com.example.callofdutymw_stats.model.warzone.dto.UserDtoWarzone
 import com.example.callofdutymw_stats.view.util.Status
 import com.example.callofdutymw_stats.viewmodel.MainActivityViewModel
+import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Response
 
-class MainActivity : AppCompatActivity() {
 
+class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        setAutoCompletePlatforms()
         getMultiplayerUser()
-        buttonFindUserClick()
     }
 
-    private fun buttonFindUserClick() {
-//        buttonFindUser.setOnClickListener {
-//            //Now the response it's working!
-//            //Isn't possible make 2 requests in the same time, will return null;
-//            //getWarzoneUser()
-//        }
+    private fun setAutoCompletePlatforms() {
+        val platforms = arrayOf("psn", "steam", "xbl", "battle")
+
+        autoCompleteTextView.setAdapter(
+            ArrayAdapter<String>(
+                this,
+                android.R.layout.simple_list_item_1,
+                platforms
+            )
+        )
+        autoCompleteTextView.setOnClickListener {
+            autoCompleteTextView.showDropDown()
+        }
+        Log.d("AutocompleteItem ", autoCompleteTextView.text.toString())
     }
 
     private fun getMultiplayerUser() {
