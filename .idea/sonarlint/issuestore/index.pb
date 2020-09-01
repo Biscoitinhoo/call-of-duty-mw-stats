@@ -45,3 +45,11 @@ v
 Fapp/src/main/java/com/example/callofdutymw_stats/view/util/Resource.kt,e\c\ec6f4812ff383a507b4f257631be050a47d10b2d
 ~
 Napp/src/main/java/com/example/callofdutymw_stats/data/repository/Repository.kt,0\1\010cd8975880bf2b9329fdf88ff8e1302d9e1fb4
+l
+<app/src/main/res/drawable/ic_baseline_videogame_asset_24.xml,f\2\f2f7a181b013ef969a03ba97c6fc256bf1223e78
+Z
+*app/src/main/res/drawable/spinner_item.xml,2\6\267a8566da883a7588f0856a46793ce06574bd00
+m
+=app/src/main/res/drawable/spinner_rounded_dark_background.xml,1\4\1432b598269767f2637400419e6b217c1be152dc
+S
+#app/src/main/res/values/strings.xml,d\2\d2281fbb3027de2722081a53408dd77628bf080e
