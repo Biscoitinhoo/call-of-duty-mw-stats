@@ -3,29 +3,24 @@ package com.example.callofdutymw_stats.view
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProviders
 import com.example.callofdutymw_stats.R
-import com.example.callofdutymw_stats.data.helper.APIHelper
+import com.example.callofdutymw_stats.data.repository.Repository
+import com.example.callofdutymw_stats.domain.RepositoryImpl
 import com.example.callofdutymw_stats.model.multiplayer.lifetime.UserLifeTimeMultiplayer
 import com.example.callofdutymw_stats.model.multiplayer.lifetime.all.properties.UserInformationMultiplayer
 import com.example.callofdutymw_stats.model.warzone.all.UserAllWarzone
 import com.example.callofdutymw_stats.model.warzone.dto.UserDtoWarzone
-import com.example.callofdutymw_stats.rest.endpoint.EndPoint
-import com.example.callofdutymw_stats.rest.retrofit.RetrofitConfiguration
-import com.example.callofdutymw_stats.view.base.ViewModelFactory
 import com.example.callofdutymw_stats.view.util.Status
 import com.example.callofdutymw_stats.viewmodel.MainActivityViewModel
 import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var mainActivityViewModel: MainActivityViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        setupViewModel()
         getMultiplayerUser()
         buttonFindUserClick()
     }
@@ -37,7 +32,9 @@ class MainActivity : AppCompatActivity() {
 //            //getWarzoneUser()
 //        }
     }
+
     private fun getMultiplayerUser() {
+        val mainActivityViewModel = MainActivityViewModel()
         mainActivityViewModel.getMultiplayerUser("BiscoitinhoDoci", "psn")
             .observe(this, androidx.lifecycle.Observer {
                 it?.let { resource ->
@@ -48,7 +45,9 @@ class MainActivity : AppCompatActivity() {
                         Status.SUCCESS -> {
                             resource.data?.let { data ->
                                 Log.d(
-                                    "Testing API ", data.userAllMultiplayer.userPropertiesMultiplayer.userInformationMultiplayer.deaths)
+                                    "Testing API ",
+                                    data.userAllMultiplayer.userPropertiesMultiplayer.userInformationMultiplayer.deaths
+                                )
                             }!!
                         }
                         Status.ERROR -> {
@@ -56,18 +55,8 @@ class MainActivity : AppCompatActivity() {
                         }
                     }
                 }
-            })
-    }
-
-    private fun setupViewModel() {
-        mainActivityViewModel = ViewModelProviders.of(
-            this,
-            ViewModelFactory(
-                APIHelper(
-                    RetrofitConfiguration.getClient().create(EndPoint::class.java)
-                )
+            }
             )
-        ).get(MainActivityViewModel::class.java)
     }
 
     private fun warzoneUserDontExists(response: Response<UserDtoWarzone>): Boolean {

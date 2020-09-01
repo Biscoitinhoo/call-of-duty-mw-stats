@@ -2,11 +2,13 @@ package com.example.callofdutymw_stats.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
-import com.example.callofdutymw_stats.data.repository.Repository
+import com.example.callofdutymw_stats.domain.RepositoryImpl
 import com.example.callofdutymw_stats.view.util.Resource
 import kotlinx.coroutines.Dispatchers
 
-class MainActivityViewModel(private val repository: Repository) : ViewModel() {
+class MainActivityViewModel() : ViewModel() {
+
+    private val repository = RepositoryImpl()
 
     fun getWarzoneUser(
         gamertag: String,
@@ -15,7 +17,7 @@ class MainActivityViewModel(private val repository: Repository) : ViewModel() {
 
         emit(Resource.loading(null))
         try {
-          // emit(Resource.success(repository.getWarzoneUser(gamertag, platform)))
+            // emit(Resource.success(repository.getWarzoneUser(gamertag, platform)))
         } catch (e: Exception) {
             emit(Resource.error(null, e.toString()))
         }
