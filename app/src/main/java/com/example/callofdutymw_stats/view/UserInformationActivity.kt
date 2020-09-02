@@ -8,6 +8,7 @@ import com.example.callofdutymw_stats.model.multiplayer.lifetime.all.properties.
 import com.example.callofdutymw_stats.view.util.UserConstants
 import kotlinx.android.synthetic.main.activity_main.autoCompleteTextViewGameMode
 import kotlinx.android.synthetic.main.activity_user_information.*
+import java.text.DecimalFormat
 
 class UserInformationActivity : AppCompatActivity() {
 
@@ -29,24 +30,26 @@ class UserInformationActivity : AppCompatActivity() {
     }
 
     private fun setUserInformationsOnTextView(user: UserInformationMultiplayer) {
+        val formatter = DecimalFormat("##,###,###")
+
         textViewUserLevel.text = user.level.toString()
         textViewUserNickName.text = user.userNickname
         textViewKDRatio.text = user.kdRatio.toString().substring(0, 4)
         setKDArrowColor(user.kdRatio)
         textViewAccuracy.text = user.accuracy.substring(0, 4)
-        textViewTotalKills.text = user.totalKills
-        textViewTotalDeaths.text = user.totalDeaths
-        textViewHeadshots.text = user.headshots
-        textViewSuicides.text = user.suicides
-        textViewTotalAssists.text = user.assists
-        textViewTotalGamesPlayed.text = user.totalGamesPlayed
-        textViewWins.text = user.wins
-        textViewLosses.text = user.losses
-        textViewRecordKillsInMatch.text = user.recordKillsInMatch
-        textViewRecordDeathsInMatch.text = user.recordDeathsInMatch
-        textViewRecordKillStreak.text = user.recordKillStreak
-        textViewRecordWinStreak.text = user.recordWinStreak
-        textViewRecordXP.text = user.recordXP
+        textViewTotalKills.text = formatter.format(user.totalKills.toInt())
+        textViewTotalDeaths.text = formatter.format(user.totalDeaths.toInt())
+        textViewHeadshots.text = formatter.format(user.headshots.toInt())
+        textViewSuicides.text = formatter.format(user.suicides.toInt())
+        textViewTotalAssists.text = formatter.format(user.assists.toInt())
+        textViewTotalGamesPlayed.text = formatter.format(user.totalGamesPlayed.toInt())
+        textViewWins.text = formatter.format(user.wins.toInt())
+        textViewLosses.text = formatter.format(user.losses.toInt())
+        textViewRecordKillsInMatch.text = formatter.format(user.recordKillsInMatch.toInt())
+        textViewRecordDeathsInMatch.text = formatter.format(user.recordDeathsInMatch.toInt())
+        textViewRecordKillStreak.text = formatter.format(user.recordKillStreak.toInt())
+        textViewRecordWinStreak.text = formatter.format(user.recordWinStreak.toInt())
+        textViewRecordXP.text = formatter.format(user.recordXP.toInt())
     }
 
     private fun setKDArrowColor(kd: Double) {
