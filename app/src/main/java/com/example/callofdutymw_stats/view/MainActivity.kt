@@ -118,9 +118,7 @@ class MainActivity : AppCompatActivity() {
     //Snackbar
     private fun showSnackbarErrorUser(v: View) {
         Snackbar.make(v, R.string.user_dont_exists, Snackbar.LENGTH_LONG)
-            .setAction(R.string.help_snackbar) {
-                //TODO: Show dialog informing to check nickname or/and platform
-            }.show()
+            .show()
     }
 
     private fun setMessageAndShowProgressDialog(progressDialog: ProgressDialog) {
