@@ -7,7 +7,7 @@ class UserInformationMultiplayer(
     val userNickname: String,
     val level: Int,
     @SerializedName("recordLongestWinStreak")
-    val recordLongestWinStreak: String,
+    val recordWinStreak: String,
     @SerializedName("recordXpInAMatch")
     val recordXP: String,
     @SerializedName("accuracy")
@@ -19,11 +19,11 @@ class UserInformationMultiplayer(
     @SerializedName("score")
     val score: String,
     @SerializedName("deaths")
-    val deaths: String,
+    val totalDeaths: String,
     @SerializedName("wins")
     val wins: String,
     @SerializedName("kdRatio")
-    val kdRatio: String,
+    var kdRatio: Double,
     @SerializedName("bestAssists")
     val bestAssists: String,
     @SerializedName("bestScore")

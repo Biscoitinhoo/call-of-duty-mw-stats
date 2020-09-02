@@ -23,14 +23,34 @@ class UserInformationActivity : AppCompatActivity() {
     }
 
     private fun setUserInformations() {
-        val user: UserInformationMultiplayer = intent.getSerializableExtra(UserConstants.OBJECT_USER) as UserInformationMultiplayer
+        val user: UserInformationMultiplayer =
+            intent.getSerializableExtra(UserConstants.OBJECT_USER) as UserInformationMultiplayer
         setUserInformationsOnTextView(user)
     }
 
     private fun setUserInformationsOnTextView(user: UserInformationMultiplayer) {
         textViewUserLevel.text = user.level.toString()
         textViewUserNickName.text = user.userNickname
-        textViewKDRatio.text = user.kdRatio.substring(0, 4)
+        textViewKDRatio.text = user.kdRatio.toString().substring(0, 4)
+        setKDArrowColor(user.kdRatio)
+        textViewAccuracy.text = user.accuracy.substring(0, 4)
+        textViewTotalKills.text = user.totalKills
+        textViewTotalDeaths.text = user.totalDeaths
+        textViewHeadshots.text = user.headshots
+        textViewSuicides.text = user.suicides
+        textViewTotalAssists.text = user.assists
+        textViewTotalGamesPlayed.text = user.totalGamesPlayed
+        textViewWins.text = user.wins
+        textViewLosses.text = user.losses
+        textViewRecordKillsInMatch.text = user.recordKillsInMatch
+        textViewRecordDeathsInMatch.text = user.recordDeathsInMatch
+        textViewRecordKillStreak.text = user.recordKillStreak
+        textViewRecordWinStreak.text = user.recordWinStreak
+        textViewRecordXP.text = user.recordXP
+    }
+
+    private fun setKDArrowColor(kd: Double) {
+        if (kd.toInt() < 1.0) imageViewKDArrow.setImageResource(R.drawable.kd_arrow_down)
     }
 
     private fun setAutoCompleteGameMode() {

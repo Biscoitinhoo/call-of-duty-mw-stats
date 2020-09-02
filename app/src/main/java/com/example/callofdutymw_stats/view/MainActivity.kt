@@ -114,7 +114,7 @@ class MainActivity : AppCompatActivity() {
             showSnackbarErrorUser(view)
         } else {
             val user = createNewMultiplayerUser(resource)
-            Log.d("User KD ", user.kdRatio)
+            Log.d("User KD ", user.kdRatio.toString())
 
             val intent = Intent(this, UserInformationActivity::class.java)
             intent.putExtra(UserConstants.OBJECT_USER, user)
@@ -178,7 +178,7 @@ class MainActivity : AppCompatActivity() {
         val nickname = resource.data!!.nickName
         val level = resource.data.level
         val recordWinStreak =
-            resource.data.userAllMultiplayer.userPropertiesMultiplayer.userInformationMultiplayer.recordLongestWinStreak
+            resource.data.userAllMultiplayer.userPropertiesMultiplayer.userInformationMultiplayer.recordWinStreak
         val recordXP =
             resource.data.userAllMultiplayer.userPropertiesMultiplayer.userInformationMultiplayer.recordXP
         val accuracy =
@@ -190,7 +190,7 @@ class MainActivity : AppCompatActivity() {
         val score =
             resource.data.userAllMultiplayer.userPropertiesMultiplayer.userInformationMultiplayer.score
         val deaths =
-            resource.data.userAllMultiplayer.userPropertiesMultiplayer.userInformationMultiplayer.deaths
+            resource.data.userAllMultiplayer.userPropertiesMultiplayer.userInformationMultiplayer.totalDeaths
         val wins =
             resource.data.userAllMultiplayer.userPropertiesMultiplayer.userInformationMultiplayer.wins
         val kdRatio =
