@@ -5,8 +5,7 @@ import android.widget.EditText
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import com.example.callofdutymw_stats.domain.RepositoryImpl
-import com.example.callofdutymw_stats.view.util.Resource
-import kotlinx.android.synthetic.main.activity_main.*
+import com.example.callofdutymw_stats.util.Resource
 import kotlinx.coroutines.Dispatchers
 
 class MainActivityViewModel() : ViewModel() {

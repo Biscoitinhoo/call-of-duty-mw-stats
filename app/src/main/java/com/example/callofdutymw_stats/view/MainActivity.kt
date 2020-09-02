@@ -13,8 +13,8 @@ import com.example.callofdutymw_stats.model.multiplayer.lifetime.all.properties.
 import com.example.callofdutymw_stats.model.warzone.all.UserAllWarzone
 import com.example.callofdutymw_stats.model.warzone.dto.UserDtoWarzone
 import com.example.callofdutymw_stats.view.dialog.DialogCustomErrorAPI
-import com.example.callofdutymw_stats.view.util.Resource
-import com.example.callofdutymw_stats.view.util.Status
+import com.example.callofdutymw_stats.util.Resource
+import com.example.callofdutymw_stats.util.Status
 import com.example.callofdutymw_stats.view.util.UserConstants
 import com.example.callofdutymw_stats.viewmodel.MainActivityViewModel
 import com.google.android.material.snackbar.Snackbar
@@ -175,6 +175,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun createNewMultiplayerUser(resource: Resource<UserLifeTimeMultiplayer>): UserInformationMultiplayer {
         Log.d("Status code from M user", resource.toString())
+        val nickname = editTextNickname.text.toString()
         val recordWinStreak =
             resource.data?.userAllMultiplayer?.userPropertiesMultiplayer?.userInformationMultiplayer?.recordLongestWinStreak.toString()
         val recordXP =
@@ -212,6 +213,7 @@ class MainActivity : AppCompatActivity() {
         val recordKillStreak =
             resource.data?.userAllMultiplayer?.userPropertiesMultiplayer?.userInformationMultiplayer?.recordKillStreak.toString()
         return UserInformationMultiplayer(
+            nickname,
             recordWinStreak,
             recordXP,
             accuracy,

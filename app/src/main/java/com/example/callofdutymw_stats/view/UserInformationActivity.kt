@@ -1,13 +1,13 @@
 package com.example.callofdutymw_stats.view
 
 import android.os.Bundle
-import android.util.Log
 import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
 import com.example.callofdutymw_stats.R
 import com.example.callofdutymw_stats.model.multiplayer.lifetime.all.properties.UserInformationMultiplayer
 import com.example.callofdutymw_stats.view.util.UserConstants
-import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_main.autoCompleteTextViewGameMode
+import kotlinx.android.synthetic.main.activity_user_information.*
 
 class UserInformationActivity : AppCompatActivity() {
 
@@ -24,7 +24,12 @@ class UserInformationActivity : AppCompatActivity() {
 
     private fun setUserInformations() {
         val user: UserInformationMultiplayer = intent.getSerializableExtra(UserConstants.OBJECT_USER) as UserInformationMultiplayer
-        Log.d("User KD ", user.kdRatio)
+        setUserInformationsOnTextView(user)
+    }
+
+    private fun setUserInformationsOnTextView(user: UserInformationMultiplayer) {
+        textViewUserNickName.text = user.userNickname
+        textViewKDRatio.text = user.kdRatio
     }
 
     private fun setAutoCompleteGameMode() {

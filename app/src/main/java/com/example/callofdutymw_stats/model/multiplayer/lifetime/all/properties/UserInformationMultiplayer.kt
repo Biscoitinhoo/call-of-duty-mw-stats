@@ -4,6 +4,7 @@ import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
 class UserInformationMultiplayer(
+    val userNickname: String,
     @SerializedName("recordLongestWinStreak")
     val recordLongestWinStreak: String,
     @SerializedName("recordXpInAMatch")
