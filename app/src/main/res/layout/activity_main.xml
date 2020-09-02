@@ -34,7 +34,7 @@
         tools:ignore="RtlSymmetry" />
 
     <AutoCompleteTextView
-        android:id="@+id/autoCompleteTextViewPlatforms"
+        android:id="@+id/autoCompleteTextViewGameMode"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_marginStart="20dp"
@@ -46,6 +46,7 @@
         android:hint="psn, steam, xbl ou battle"
         android:inputType="text"
         android:paddingStart="15dp"
+        android:drawableEnd="@drawable/ic_baseline_arrow_drop_down_24"
         android:paddingEnd="15dp"
         android:textColor="@color/colorEditTextText"
         android:textColorHint="@color/colorEditTextHint"
@@ -68,7 +69,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/autoCompleteTextViewPlatforms"
+        app:layout_constraintTop_toBottomOf="@+id/autoCompleteTextViewGameMode"
         app:layout_constraintVertical_bias="0.050000012" />
 
     <TextView
