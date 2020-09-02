@@ -7,6 +7,10 @@ class UserLifeTimeMultiplayer(
     @SerializedName("lifetime")
     val userAllMultiplayer: UserAllMultiplayer,
     @SerializedName("error")
-    val error: Boolean
+    val error: Boolean,
+    @SerializedName("level")
+    val level: Int,
+    @SerializedName("username")
+    val nickName: String
 ) {
 }

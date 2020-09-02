@@ -134,12 +134,20 @@
                             android:id="@+id/textViewKDRatio"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="15dp"
+                            android:layout_marginLeft="5dp"
                             android:layout_marginTop="8dp"
                             android:layout_marginBottom="8dp"
-                            android:layout_weight="1"
                             android:text="0"
                             android:textColor="@color/colorWhite" />
+
+                        <ImageView
+                            android:id="@+id/imageViewKDArrow"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginTop="6dp"
+                            android:layout_marginBottom="5dp"
+                            app:srcCompat="@drawable/ic_baseline_arrow_drop_up_24" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -161,7 +169,7 @@
                             android:id="@+id/textViewAccuracy"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="15dp"
+                            android:layout_marginLeft="5dp"
                             android:layout_marginTop="8dp"
                             android:layout_marginBottom="8dp"
                             android:layout_weight="1"
@@ -188,7 +196,7 @@
                             android:id="@+id/textViewTotalKills"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="15dp"
+                            android:layout_marginLeft="5dp"
                             android:layout_marginTop="8dp"
                             android:layout_marginBottom="8dp"
                             android:layout_weight="1"
@@ -215,7 +223,7 @@
                             android:id="@+id/textViewTotalDeaths"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="15dp"
+                            android:layout_marginLeft="5dp"
                             android:layout_marginTop="8dp"
                             android:layout_marginBottom="8dp"
                             android:layout_weight="1"
@@ -242,7 +250,7 @@
                             android:id="@+id/textViewHeadshots"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="15dp"
+                            android:layout_marginLeft="5dp"
                             android:layout_marginTop="8dp"
                             android:layout_marginBottom="8dp"
                             android:layout_weight="1"
@@ -269,7 +277,7 @@
                             android:id="@+id/textViewSuicides"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="15dp"
+                            android:layout_marginLeft="5dp"
                             android:layout_marginTop="8dp"
                             android:layout_marginBottom="8dp"
                             android:layout_weight="1"
@@ -296,7 +304,7 @@
                             android:id="@+id/textViewTotalAssists"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="15dp"
+                            android:layout_marginLeft="5dp"
                             android:layout_marginTop="8dp"
                             android:layout_marginBottom="8dp"
                             android:layout_weight="1"
@@ -323,7 +331,7 @@
                             android:id="@+id/textViewTotalGamesPlayed"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="15dp"
+                            android:layout_marginLeft="5dp"
                             android:layout_marginTop="8dp"
                             android:layout_marginBottom="8dp"
                             android:layout_weight="1"
@@ -350,7 +358,7 @@
                             android:id="@+id/textViewWins"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="15dp"
+                            android:layout_marginLeft="5dp"
                             android:layout_marginTop="8dp"
                             android:layout_marginBottom="8dp"
                             android:layout_weight="1"
@@ -377,7 +385,7 @@
                             android:id="@+id/textViewLosses"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="15dp"
+                            android:layout_marginLeft="5dp"
                             android:layout_marginTop="8dp"
                             android:layout_marginBottom="8dp"
                             android:layout_weight="1"
@@ -404,7 +412,7 @@
                             android:id="@+id/textViewRecordKillsInMatch"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="15dp"
+                            android:layout_marginLeft="5dp"
                             android:layout_marginTop="8dp"
                             android:layout_marginBottom="8dp"
                             android:layout_weight="1"
@@ -431,7 +439,7 @@
                             android:id="@+id/textViewRecordDeathsInMatch"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="15dp"
+                            android:layout_marginLeft="5dp"
                             android:layout_marginTop="8dp"
                             android:layout_marginBottom="8dp"
                             android:layout_weight="1"
@@ -458,7 +466,7 @@
                             android:id="@+id/textViewRecordKillStreak"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="15dp"
+                            android:layout_marginLeft="5dp"
                             android:layout_marginTop="8dp"
                             android:layout_marginBottom="8dp"
                             android:layout_weight="1"
@@ -485,7 +493,7 @@
                             android:id="@+id/textViewRecordWinStreak"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="15dp"
+                            android:layout_marginLeft="5dp"
                             android:layout_marginTop="8dp"
                             android:layout_marginBottom="8dp"
                             android:layout_weight="1"
@@ -512,9 +520,9 @@
                             android:id="@+id/textViewRecordXP"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="15dp"
+                            android:layout_marginLeft="5dp"
                             android:layout_marginTop="8dp"
-                            android:layout_marginBottom="8dp"
+                            android:layout_marginBottom="15dp"
                             android:layout_weight="1"
                             android:text="0"
                             android:textColor="@color/colorWhite" />
@@ -524,8 +532,8 @@
 
             </LinearLayout>
 
-
         </ScrollView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
