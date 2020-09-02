@@ -1,6 +1,7 @@
 package com.example.callofdutymw_stats.view
 
 import android.app.ProgressDialog
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -36,17 +37,17 @@ class MainActivity : AppCompatActivity() {
         buttonSearch.setOnClickListener {
             if (mainActivityViewModel.isValidFields(
                     editTextNickname,
-                    autoCompleteTextViewPlatforms
+                    autoCompleteTextViewGameMode
                 )
             ) {
                 getMultiplayerUser(it)
 
                 editTextNickname.error = null
-                autoCompleteTextViewPlatforms.error = null
+                autoCompleteTextViewGameMode.error = null
             } else {
                 mainActivityViewModel.setErrorInFields(
                     editTextNickname,
-                    autoCompleteTextViewPlatforms
+                    autoCompleteTextViewGameMode
                 )
             }
         }
@@ -55,21 +56,21 @@ class MainActivity : AppCompatActivity() {
     private fun setAutoCompletePlatforms() {
         val platforms = arrayOf("psn", "steam", "xbl", "battle")
 
-        autoCompleteTextViewPlatforms.setAdapter(
+        autoCompleteTextViewGameMode.setAdapter(
             ArrayAdapter<String>(
                 this,
                 android.R.layout.simple_list_item_1,
                 platforms
             )
         )
-        autoCompleteTextViewPlatforms.setOnClickListener {
-            autoCompleteTextViewPlatforms.showDropDown()
+        autoCompleteTextViewGameMode.setOnClickListener {
+            autoCompleteTextViewGameMode.showDropDown()
         }
-        Log.d("AutocompleteItem ", autoCompleteTextViewPlatforms.text.toString())
+        Log.d("AutocompleteItem ", autoCompleteTextViewGameMode.text.toString())
     }
 
     private fun getMultiplayerUser(v: View) {
-        val selectedPlatform = autoCompleteTextViewPlatforms.text.toString()
+        val selectedPlatform = autoCompleteTextViewGameMode.text.toString()
         val gamertag = editTextNickname.text.toString()
         val progressDialog = ProgressDialog(this, R.style.myAlertDialogStyle)
 
@@ -113,6 +114,9 @@ class MainActivity : AppCompatActivity() {
         } else {
             val user = createNewMultiplayerUser(resource)
             Log.d("User KD ", user.kdRatio)
+
+            val intent = Intent(this, UserInformationActivity::class.java)
+            startActivity(intent)
         }
     }
 

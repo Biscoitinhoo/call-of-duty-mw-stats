@@ -53,3 +53,13 @@ m
 =app/src/main/res/drawable/spinner_rounded_dark_background.xml,1\4\1432b598269767f2637400419e6b217c1be152dc
 R
 "app/src/main/res/values/styles.xml,f\7\f79cc2688e29fcbc286fda14ae07b27c9e83690f
+R
+"app/src/main/res/values/colors.xml,9\6\969faa2a5d9f5e8390e958d2c07f2cfd54676e6b
+b
+2app/src/main/res/layout/alert_dialog_error_api.xml,1\5\1507814a1daa1c41de5d7b07137690fd9ed43c80
+S
+#app/src/main/res/values/strings.xml,d\2\d2281fbb3027de2722081a53408dd77628bf080e
+„
+Tapp/src/main/java/com/example/callofdutymw_stats/view/dialog/DialogCustomErrorAPI.kt,7\6\767020275359d6c35350e9b46ef3203b28a80704
+€
+Papp/src/main/java/com/example/callofdutymw_stats/view/UserInformationActivity.kt,4\3\435308c23e640d72bb48cf07aed86ecb4d5aae1b
