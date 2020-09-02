@@ -15,6 +15,7 @@ import com.example.callofdutymw_stats.model.warzone.dto.UserDtoWarzone
 import com.example.callofdutymw_stats.view.dialog.DialogCustomErrorAPI
 import com.example.callofdutymw_stats.view.util.Resource
 import com.example.callofdutymw_stats.view.util.Status
+import com.example.callofdutymw_stats.view.util.UserConstants
 import com.example.callofdutymw_stats.viewmodel.MainActivityViewModel
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
@@ -116,6 +117,7 @@ class MainActivity : AppCompatActivity() {
             Log.d("User KD ", user.kdRatio)
 
             val intent = Intent(this, UserInformationActivity::class.java)
+            intent.putExtra(UserConstants.OBJECT_USER, user)
             startActivity(intent)
         }
     }

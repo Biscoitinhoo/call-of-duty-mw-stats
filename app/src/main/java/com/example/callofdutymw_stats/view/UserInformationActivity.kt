@@ -1,9 +1,12 @@
 package com.example.callofdutymw_stats.view
 
 import android.os.Bundle
+import android.util.Log
 import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
 import com.example.callofdutymw_stats.R
+import com.example.callofdutymw_stats.model.multiplayer.lifetime.all.properties.UserInformationMultiplayer
+import com.example.callofdutymw_stats.view.util.UserConstants
 import kotlinx.android.synthetic.main.activity_main.*
 
 class UserInformationActivity : AppCompatActivity() {
@@ -14,6 +17,14 @@ class UserInformationActivity : AppCompatActivity() {
         supportActionBar!!.hide()
 
         setAutoCompleteGameMode()
+        //Testing user informations. Need to add a observer in spinner and check what game mode is
+        //selected;
+        setUserInformations()
+    }
+
+    private fun setUserInformations() {
+        val user: UserInformationMultiplayer = intent.getSerializableExtra(UserConstants.OBJECT_USER) as UserInformationMultiplayer
+        Log.d("User KD ", user.kdRatio)
     }
 
     private fun setAutoCompleteGameMode() {

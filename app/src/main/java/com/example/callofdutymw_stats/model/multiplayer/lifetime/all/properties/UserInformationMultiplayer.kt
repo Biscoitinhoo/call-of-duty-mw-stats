@@ -1,6 +1,7 @@
 package com.example.callofdutymw_stats.model.multiplayer.lifetime.all.properties
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 class UserInformationMultiplayer(
     @SerializedName("recordLongestWinStreak")
@@ -39,4 +40,4 @@ class UserInformationMultiplayer(
     val assists: String,
     @SerializedName("recordKillStreak")
     val recordKillStreak: String
-) {}
+) : Serializable {}
