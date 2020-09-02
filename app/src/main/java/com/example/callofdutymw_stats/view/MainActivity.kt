@@ -11,6 +11,7 @@ import com.example.callofdutymw_stats.model.multiplayer.lifetime.UserLifeTimeMul
 import com.example.callofdutymw_stats.model.multiplayer.lifetime.all.properties.UserInformationMultiplayer
 import com.example.callofdutymw_stats.model.warzone.all.UserAllWarzone
 import com.example.callofdutymw_stats.model.warzone.dto.UserDtoWarzone
+import com.example.callofdutymw_stats.view.dialog.DialogCustomErrorAPI
 import com.example.callofdutymw_stats.view.util.Resource
 import com.example.callofdutymw_stats.view.util.Status
 import com.example.callofdutymw_stats.viewmodel.MainActivityViewModel
@@ -129,7 +130,8 @@ class MainActivity : AppCompatActivity() {
     private fun showErrorSnackbar(v: View) {
         Snackbar.make(v, R.string.ops_something_gone_wrong, Snackbar.LENGTH_LONG)
             .setAction(R.string.help_snackbar) {
-                //TODO: Show dialog informing to check internet connection or warn that server is off
+                val dialogCustomErrorAPI = DialogCustomErrorAPI(this)
+                dialogCustomErrorAPI.showDialog()
             }.show()
     }
 
