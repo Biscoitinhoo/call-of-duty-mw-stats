@@ -12,9 +12,9 @@ import com.example.callofdutymw_stats.model.multiplayer.lifetime.UserLifeTimeMul
 import com.example.callofdutymw_stats.model.multiplayer.lifetime.all.properties.UserInformationMultiplayer
 import com.example.callofdutymw_stats.model.warzone.all.UserAllWarzone
 import com.example.callofdutymw_stats.model.warzone.dto.UserDtoWarzone
-import com.example.callofdutymw_stats.view.dialog.DialogCustomErrorAPI
 import com.example.callofdutymw_stats.util.Resource
 import com.example.callofdutymw_stats.util.Status
+import com.example.callofdutymw_stats.view.dialog.DialogCustomErrorAPI
 import com.example.callofdutymw_stats.view.util.UserConstants
 import com.example.callofdutymw_stats.viewmodel.MainActivityViewModel
 import com.google.android.material.snackbar.Snackbar
@@ -175,45 +175,47 @@ class MainActivity : AppCompatActivity() {
 
     private fun createNewMultiplayerUser(resource: Resource<UserLifeTimeMultiplayer>): UserInformationMultiplayer {
         Log.d("Status code from M user", resource.toString())
-        val nickname = editTextNickname.text.toString()
+        val nickname = resource.data!!.nickName
+        val level = resource.data.level
         val recordWinStreak =
-            resource.data?.userAllMultiplayer?.userPropertiesMultiplayer?.userInformationMultiplayer?.recordLongestWinStreak.toString()
+            resource.data.userAllMultiplayer.userPropertiesMultiplayer.userInformationMultiplayer.recordLongestWinStreak
         val recordXP =
-            resource.data?.userAllMultiplayer?.userPropertiesMultiplayer?.userInformationMultiplayer?.recordXP.toString()
+            resource.data.userAllMultiplayer.userPropertiesMultiplayer.userInformationMultiplayer.recordXP
         val accuracy =
-            resource.data?.userAllMultiplayer?.userPropertiesMultiplayer?.userInformationMultiplayer?.accuracy.toString()
+            resource.data.userAllMultiplayer.userPropertiesMultiplayer.userInformationMultiplayer.accuracy
         val losses =
-            resource.data?.userAllMultiplayer?.userPropertiesMultiplayer?.userInformationMultiplayer?.losses.toString()
+            resource.data.userAllMultiplayer.userPropertiesMultiplayer.userInformationMultiplayer.losses
         val totalGamesPlayed =
-            resource.data?.userAllMultiplayer?.userPropertiesMultiplayer?.userInformationMultiplayer?.totalGamesPlayed.toString()
+            resource.data.userAllMultiplayer.userPropertiesMultiplayer.userInformationMultiplayer.totalGamesPlayed
         val score =
-            resource.data?.userAllMultiplayer?.userPropertiesMultiplayer?.userInformationMultiplayer?.score.toString()
+            resource.data.userAllMultiplayer.userPropertiesMultiplayer.userInformationMultiplayer.score
         val deaths =
-            resource.data?.userAllMultiplayer?.userPropertiesMultiplayer?.userInformationMultiplayer?.deaths.toString()
+            resource.data.userAllMultiplayer.userPropertiesMultiplayer.userInformationMultiplayer.deaths
         val wins =
-            resource.data?.userAllMultiplayer?.userPropertiesMultiplayer?.userInformationMultiplayer?.wins.toString()
+            resource.data.userAllMultiplayer.userPropertiesMultiplayer.userInformationMultiplayer.wins
         val kdRatio =
-            resource.data?.userAllMultiplayer?.userPropertiesMultiplayer?.userInformationMultiplayer?.kdRatio.toString()
+            resource.data.userAllMultiplayer.userPropertiesMultiplayer.userInformationMultiplayer.kdRatio
         val bestAssists =
-            resource.data?.userAllMultiplayer?.userPropertiesMultiplayer?.userInformationMultiplayer?.bestAssists.toString()
+            resource.data.userAllMultiplayer.userPropertiesMultiplayer.userInformationMultiplayer.bestAssists
         val bestScore =
-            resource.data?.userAllMultiplayer?.userPropertiesMultiplayer?.userInformationMultiplayer?.bestScore.toString()
+            resource.data.userAllMultiplayer.userPropertiesMultiplayer.userInformationMultiplayer.bestScore
         val recordDeathsInMatch =
-            resource.data?.userAllMultiplayer?.userPropertiesMultiplayer?.userInformationMultiplayer?.recordDeathsInMatch.toString()
+            resource.data.userAllMultiplayer.userPropertiesMultiplayer.userInformationMultiplayer.recordDeathsInMatch
         val recordKillsInMatch =
-            resource.data?.userAllMultiplayer?.userPropertiesMultiplayer?.userInformationMultiplayer?.recordKillsInMatch.toString()
+            resource.data.userAllMultiplayer.userPropertiesMultiplayer.userInformationMultiplayer.recordKillsInMatch
         val suicides =
-            resource.data?.userAllMultiplayer?.userPropertiesMultiplayer?.userInformationMultiplayer?.suicides.toString()
+            resource.data.userAllMultiplayer.userPropertiesMultiplayer.userInformationMultiplayer.suicides
         val totalKills =
-            resource.data?.userAllMultiplayer?.userPropertiesMultiplayer?.userInformationMultiplayer?.totalKills.toString()
+            resource.data.userAllMultiplayer.userPropertiesMultiplayer.userInformationMultiplayer.totalKills
         val headshots =
-            resource.data?.userAllMultiplayer?.userPropertiesMultiplayer?.userInformationMultiplayer?.headshots.toString()
+            resource.data.userAllMultiplayer.userPropertiesMultiplayer.userInformationMultiplayer.headshots
         val assists =
-            resource.data?.userAllMultiplayer?.userPropertiesMultiplayer?.userInformationMultiplayer?.assists.toString()
+            resource.data.userAllMultiplayer.userPropertiesMultiplayer.userInformationMultiplayer.assists
         val recordKillStreak =
-            resource.data?.userAllMultiplayer?.userPropertiesMultiplayer?.userInformationMultiplayer?.recordKillStreak.toString()
+            resource.data.userAllMultiplayer.userPropertiesMultiplayer.userInformationMultiplayer.recordKillStreak
         return UserInformationMultiplayer(
             nickname,
+            level,
             recordWinStreak,
             recordXP,
             accuracy,

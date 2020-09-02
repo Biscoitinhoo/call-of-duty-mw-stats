@@ -5,6 +5,7 @@ import java.io.Serializable
 
 class UserInformationMultiplayer(
     val userNickname: String,
+    val level: Int,
     @SerializedName("recordLongestWinStreak")
     val recordLongestWinStreak: String,
     @SerializedName("recordXpInAMatch")

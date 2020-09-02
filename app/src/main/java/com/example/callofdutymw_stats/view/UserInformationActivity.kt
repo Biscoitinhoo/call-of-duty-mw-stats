@@ -28,8 +28,9 @@ class UserInformationActivity : AppCompatActivity() {
     }
 
     private fun setUserInformationsOnTextView(user: UserInformationMultiplayer) {
+        textViewUserLevel.text = user.level.toString()
         textViewUserNickName.text = user.userNickname
-        textViewKDRatio.text = user.kdRatio
+        textViewKDRatio.text = user.kdRatio.substring(0, 4)
     }
 
     private fun setAutoCompleteGameMode() {
