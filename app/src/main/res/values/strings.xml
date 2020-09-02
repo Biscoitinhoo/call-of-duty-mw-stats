@@ -4,6 +4,7 @@
     <string name="ops_something_gone_wrong">Ops! Algo deu errado...</string>
     <string name="help_snackbar">Ajuda</string>
     <string name="user_dont_exists">Usuário inválido. Talvez outra plataforma?</string>
+    <string name="error_api_dialog">Parece que houve um problema de conexão. Sua internet está conectada?</string>
     <string-array name="platform_array">
         <item>psn</item>
         <item>steam</item>
