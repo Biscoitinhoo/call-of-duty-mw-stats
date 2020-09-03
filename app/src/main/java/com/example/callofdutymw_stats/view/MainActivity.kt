@@ -41,22 +41,7 @@ class MainActivity : AppCompatActivity() {
                     autoCompleteTextViewGameMode
                 )
             ) {
-                mainActivityViewModel.getWarzoneUser(
-                    "BiscoitinhoDoci",
-                    "psn"
-                ).observe(this, androidx.lifecycle.Observer {
-                    it?.let { resource ->
-                        when (resource.status) {
-                            Status.SUCCESS -> Log.e(
-                                "Testing wins ",
-                                resource.data?.userAllWarzone?.wins.toString())
-                            Status.ERROR -> Log.e("Error in API ", resource.message.toString())
-                            Status.LOADING -> Log.d("Loading ", "loading...")
-                        }
-                    }
-                })
-
-
+                getMultiplayerUser(it)
                 editTextNickname.error = null
                 autoCompleteTextViewGameMode.error = null
             } else {
@@ -132,6 +117,11 @@ class MainActivity : AppCompatActivity() {
 
             val intent = Intent(this, UserInformationActivity::class.java)
             intent.putExtra(UserConstants.OBJECT_USER, user)
+            //TODO: putExtras
+            intent.putExtra("nickname_object ", user.userNickname)
+            intent.putExtra("platform_object ", user.platform)
+            Log.d("Nickname ", user.userNickname)
+            Log.d("Platform ", user.platform)
             startActivity(intent)
         }
     }
@@ -191,6 +181,7 @@ class MainActivity : AppCompatActivity() {
         Log.d("Status code from M user", resource.toString())
         val nickname = resource.data!!.nickName
         val level = resource.data.level
+        val platform = resource.data.platform
         val recordWinStreak =
             resource.data.userAllMultiplayer.userPropertiesMultiplayer.userInformationMultiplayer.recordWinStreak
         val recordXP =
@@ -230,6 +221,7 @@ class MainActivity : AppCompatActivity() {
         return UserInformationMultiplayer(
             nickname,
             level,
+            platform,
             recordWinStreak,
             recordXP,
             accuracy,

@@ -11,6 +11,8 @@ class UserLifeTimeMultiplayer(
     @SerializedName("level")
     val level: Int,
     @SerializedName("username")
-    val nickName: String
+    val nickName: String,
+    @SerializedName("platform")
+    val platform: String
 ) {
 }

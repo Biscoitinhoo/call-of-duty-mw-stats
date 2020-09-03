@@ -26,6 +26,7 @@ class UserInformationActivity : AppCompatActivity() {
     private fun setUserInformations() {
         val user: UserInformationMultiplayer =
             intent.getSerializableExtra(UserConstants.OBJECT_USER) as UserInformationMultiplayer
+        //TODO: get informations
         setUserInformationsOnTextView(user)
     }
 
