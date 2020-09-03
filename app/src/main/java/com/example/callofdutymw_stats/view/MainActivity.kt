@@ -41,7 +41,21 @@ class MainActivity : AppCompatActivity() {
                     autoCompleteTextViewGameMode
                 )
             ) {
-                getMultiplayerUser(it)
+                mainActivityViewModel.getWarzoneUser(
+                    "BiscoitinhoDoci",
+                    "psn"
+                ).observe(this, androidx.lifecycle.Observer {
+                    it?.let { resource ->
+                        when (resource.status) {
+                            Status.SUCCESS -> Log.e(
+                                "Testing wins ",
+                                resource.data?.userAllWarzone?.wins.toString())
+                            Status.ERROR -> Log.e("Error in API ", resource.message.toString())
+                            Status.LOADING -> Log.d("Loading ", "loading...")
+                        }
+                    }
+                })
+
 
                 editTextNickname.error = null
                 autoCompleteTextViewGameMode.error = null

@@ -8,7 +8,7 @@ import retrofit2.http.Path
 interface EndPoint {
 
     @GET("warzone/{gamertag}/{platform}")
-    fun getWarzoneUser(
+    suspend fun getWarzoneUser(
         @Path("gamertag") gamertag: String,
         @Path("platform") platForm: String
     ): UserDtoWarzone

@@ -20,7 +20,7 @@ class MainActivityViewModel() : ViewModel() {
 
         emit(Resource.loading(null))
         try {
-            // emit(Resource.success(repository.getWarzoneUser(gamertag, platform)))
+            emit(Resource.success(repository.getWarzoneUser(gamertag, platform)))
         } catch (e: Exception) {
             emit(Resource.error(null, e.toString()))
         }
@@ -41,7 +41,8 @@ class MainActivityViewModel() : ViewModel() {
 
     //Logic
     fun isValidFields(editText: EditText, autoCompleteTextView: AutoCompleteTextView): Boolean {
-        return editText.text.toString().isNotEmpty() && autoCompleteTextView.text.toString().isNotEmpty()
+        return editText.text.toString().isNotEmpty() && autoCompleteTextView.text.toString()
+            .isNotEmpty()
     }
 
     fun setErrorInFields(
