@@ -33,14 +33,10 @@ c
 3app/src/main/res/drawable/ic_baseline_search_24.xml,f\7\f739e1a582ae6189355f067801a6685283bfb145
 Z
 *app/src/test/java/com/api/ViewModelTest.kt,7\6\762b483f88a0ed2a2c6a8ea71817a52c0c149fde
-t
-Dapp/src/main/java/com/example/callofdutymw_stats/view/util/Status.kt,3\c\3c7543a8732b1d2f18167f67052c1fd1a96289ad
 ¨
 xapp/src/main/java/com/example/callofdutymw_stats/model/multiplayer/lifetime/all/properties/UserInformationMultiplayer.kt,a\e\ae5aafc8cb623a0290aabc722b84ce2ee890199b
 y
 Iapp/src/main/java/com/example/callofdutymw_stats/domain/RepositoryImpl.kt,0\c\0c809e0bff8a5afa3a0ef7af80996023ba07c617
-v
-Fapp/src/main/java/com/example/callofdutymw_stats/view/util/Resource.kt,e\c\ec6f4812ff383a507b4f257631be050a47d10b2d
 Z
 *app/src/main/res/drawable/spinner_item.xml,2\6\267a8566da883a7588f0856a46793ce06574bd00
 m
