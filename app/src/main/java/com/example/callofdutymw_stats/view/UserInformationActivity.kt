@@ -6,7 +6,6 @@ import android.text.TextWatcher
 import android.util.Log
 import android.view.View
 import android.widget.ArrayAdapter
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
@@ -24,6 +23,9 @@ import java.text.DecimalFormat
 
 @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
 class UserInformationActivity : AppCompatActivity() {
+
+    private var multiplayerCounter = 0
+    private var warzoneCounter = 0
 
     private val mutableLiveData = MutableLiveData<String>()
 
@@ -60,7 +62,7 @@ class UserInformationActivity : AppCompatActivity() {
                             setWarzoneTextViewInformations(it)
                         }
                         Status.ERROR -> {
-                            Toast.makeText(this, "Error...", Toast.LENGTH_LONG).show()
+                            Log.e("Error ", resource.message)
                         }
                     }
                 }
@@ -68,6 +70,7 @@ class UserInformationActivity : AppCompatActivity() {
     }
 
     private fun setWarzoneTextViewInformations(it: Resource<UserDtoWarzone>?) {
+        warzoneCounter++
         linearLayoutWarzone.visibility = View.VISIBLE
         linearLayoutMultiplayer.visibility = View.GONE
 
@@ -91,6 +94,7 @@ class UserInformationActivity : AppCompatActivity() {
     }
 
     private fun setMultiplayerUserInformation(user: UserInformationMultiplayer) {
+        multiplayerCounter++
         linearLayoutMultiplayer.visibility = View.VISIBLE
         linearLayoutWarzone.visibility = View.GONE
         val formatter = DecimalFormat("##,###,###")
@@ -154,11 +158,22 @@ class UserInformationActivity : AppCompatActivity() {
 
     private fun setMultiplayerOrWarzoneInformations(user: UserInformationMultiplayer) {
         mutableLiveData.observe(this, Observer {
+
             if (mutableLiveData.value == GameModeConstants.MULTIPLAYER_GAME_MODE) {
-                setMultiplayerUserInformation(user)
+                if (multiplayerCounter == 1) {
+                    linearLayoutMultiplayer.visibility = View.VISIBLE
+                    linearLayoutWarzone.visibility = View.GONE
+                } else {
+                    setMultiplayerUserInformation(user)
+                }
             }
             if (mutableLiveData.value == GameModeConstants.WARZONE_GAME_MODE) {
-                setWarzoneUserInformation(user.userNickname, user.platform)
+                if (warzoneCounter == 1) {
+                    linearLayoutWarzone.visibility = View.VISIBLE
+                    linearLayoutMultiplayer.visibility = View.GONE
+                } else {
+                    setWarzoneUserInformation(user.userNickname, user.platform)
+                }
             }
         })
     }

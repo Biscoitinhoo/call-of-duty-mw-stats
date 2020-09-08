@@ -25,8 +25,9 @@ class UserInformationViewModel {
         fun responseKDRatioIsValid(response: String): Boolean {
             return response.toDouble() != 0.0
         }
+
         fun responseAccuracyIsValid(accuracy: String): Boolean {
-            return accuracy.toInt() != 0
+            return accuracy.toDouble() != 0.0
         }
     }
 }
