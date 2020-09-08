@@ -83,8 +83,7 @@ class MainActivity : AppCompatActivity() {
                             setMessageAndShowProgressDialog(progressDialog)
                         }
                         Status.SUCCESS -> {
-                            if (progressDialog.isShowing)
-                                progressDialog.dismiss()
+                            if (progressDialog.isShowing) progressDialog.dismiss()
                             //Even if an incorrect user is passed, it will continue to fall into "SUCCESS", however the data will come null
                             resource.data?.let {
                                 handlesUserSituation(
@@ -95,7 +94,7 @@ class MainActivity : AppCompatActivity() {
                             }!!
                         }
                         Status.ERROR -> {
-                            progressDialog.dismiss()
+                            if (progressDialog.isShowing) progressDialog.dismiss()
                             showErrorSnackbar(v)
                         }
                     }
