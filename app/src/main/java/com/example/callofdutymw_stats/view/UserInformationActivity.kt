@@ -2,7 +2,6 @@ package com.example.callofdutymw_stats.view
 
 import android.app.ProgressDialog
 import android.os.Bundle
-import android.util.Log
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -28,19 +27,6 @@ class UserInformationActivity : AppCompatActivity() {
         setAutoCompleteGameMode()
         //Testing user informations. Need to add a observer in spinner and check what game mode is
         //selected;
-        setUserInformations()
-    }
-
-    private fun setUserInformations() {
-        val user: UserInformationMultiplayer =
-            intent.getSerializableExtra(UserConstants.OBJECT_USER) as UserInformationMultiplayer
-        Log.d("Nickname ", user.userNickname)
-        Log.d("Platform ", user.platform)
-        if (autoCompleteTextViewGameMode.text.toString() == "Multiplayer") {
-            setMultiplayerUserInformation(user)
-        } else {
-            setWarzoneUserInformation(user.userNickname, user.platform)
-        }
     }
 
     private fun setWarzoneUserInformation(userNickname: String, platform: String) {
@@ -52,8 +38,8 @@ class UserInformationActivity : AppCompatActivity() {
                     when (resource.status) {
                         Status.LOADING -> {
                             //TODO: Method.
-                            progressDialog.setMessage("Aguarde...")
-                            progressDialog.show()
+//                            progressDialog.setMessage("Aguarde...")
+//                            progressDialog.show()
                         }
                         Status.SUCCESS -> {
                             setWarzoneTextViewInformations(it)
@@ -67,7 +53,7 @@ class UserInformationActivity : AppCompatActivity() {
     }
 
     private fun setWarzoneTextViewInformations(it: Resource<UserDtoWarzone>?) {
-        //TODO
+
     }
 
     private fun setMultiplayerUserInformation(user: UserInformationMultiplayer) {
@@ -98,6 +84,10 @@ class UserInformationActivity : AppCompatActivity() {
     }
 
     private fun setAutoCompleteGameMode() {
+        //TODO: Refactor this.
+
+        autoCompleteTextViewGameMode.setText("Multiplayer")
+
         val gameMode = arrayOf("Multiplayer", "Warzone")
         autoCompleteTextViewGameMode.setAdapter(
             ArrayAdapter<String>(
@@ -106,8 +96,25 @@ class UserInformationActivity : AppCompatActivity() {
                 gameMode
             )
         )
+
+        //TODO: Put verifications in liveData.
+
+        val user: UserInformationMultiplayer =
+            intent.getSerializableExtra(UserConstants.OBJECT_USER) as UserInformationMultiplayer
+
+        if (autoCompleteTextViewGameMode.text.toString() == "Multiplayer") {
+            setMultiplayerUserInformation(user)
+        } else {
+            setWarzoneUserInformation(user.userNickname, user.platform)
+        }
+
         autoCompleteTextViewGameMode.setOnClickListener {
             autoCompleteTextViewGameMode.showDropDown()
+            if (autoCompleteTextViewGameMode.text.toString() == "Multiplayer") {
+                setMultiplayerUserInformation(user)
+            } else {
+                setWarzoneUserInformation(user.userNickname, user.platform)
+            }
         }
     }
 }

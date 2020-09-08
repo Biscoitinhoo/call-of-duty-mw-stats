@@ -55,3 +55,5 @@ Tapp/src/main/java/com/example/callofdutymw_stats/view/dialog/DialogCustomErrorA
 Papp/src/main/java/com/example/callofdutymw_stats/view/UserInformationActivity.kt,4\3\435308c23e640d72bb48cf07aed86ecb4d5aae1b
 ~
 Napp/src/main/java/com/example/callofdutymw_stats/data/repository/Repository.kt,0\1\010cd8975880bf2b9329fdf88ff8e1302d9e1fb4
+<
+build.gradle,f\0\f07866736216be0ee2aba49e392191aeae700a35
