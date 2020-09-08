@@ -24,8 +24,6 @@ import java.text.DecimalFormat
 @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
 class UserInformationActivity : AppCompatActivity() {
 
-    private var multiplayerRequestCalled = false
-    private var warzoneRequestCalled = false
     private val mutableLiveData = MutableLiveData<String>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,21 +32,27 @@ class UserInformationActivity : AppCompatActivity() {
         supportActionBar!!.hide()
 
         observeGameMode()
-        setUserDefaultInformations()
+        setAllUserInformations()
         setAutoCompleteGameMode()
         //Testing user informations. Need to add a observer in spinner and check what game mode is
         //selected;
     }
 
-    private fun setUserDefaultInformations() {
+    private fun setAllUserInformations() {
         val user: UserInformationMultiplayer =
             intent.getSerializableExtra(UserConstants.OBJECT_USER) as UserInformationMultiplayer
+
+        setUserDefaultInformations(user)
+        setWarzoneUserInformation(user.userNickname, user.platform)
+        setMultiplayerUserInformation(user)
+    }
+
+    private fun setUserDefaultInformations(user: UserInformationMultiplayer) {
         textViewUserLevel.text = user.level.toString()
         textViewUserNickName.text = user.userNickname
     }
 
     private fun setWarzoneUserInformation(userNickname: String, platform: String) {
-
         val userInformationViewModel = UserInformationViewModel()
         userInformationViewModel.getWarzoneUser(userNickname, platform)
             .observe(this, androidx.lifecycle.Observer {
@@ -69,10 +73,6 @@ class UserInformationActivity : AppCompatActivity() {
     }
 
     private fun setWarzoneTextViewInformations(it: Resource<UserDtoWarzone>?) {
-        warzoneRequestCalled = true
-        linearLayoutWarzone.visibility = View.VISIBLE
-        linearLayoutMultiplayer.visibility = View.GONE
-
         val formatter = DecimalFormat("##,###,###")
 
         textViewWarzoneKDRatio.text = it!!.data!!.userAllWarzone.kdRatio.toString().substring(0, 4)
@@ -93,14 +93,13 @@ class UserInformationActivity : AppCompatActivity() {
     }
 
     private fun setMultiplayerUserInformation(user: UserInformationMultiplayer) {
-        multiplayerRequestCalled = true
-        linearLayoutMultiplayer.visibility = View.VISIBLE
-        linearLayoutWarzone.visibility = View.GONE
         val formatter = DecimalFormat("##,###,###")
 
         setKDArrowColor(user.kdRatio)
-        if (UserInformationViewModel.responseKDRatioIsValid(user.kdRatio.toString())) textViewKDRatio.text = user.kdRatio.toString().substring(0, 4)
-        if (UserInformationViewModel.responseAccuracyIsValid(user.accuracy)) textViewAccuracy.text = user.accuracy.substring(0, 4)
+        if (UserInformationViewModel.responseKDRatioIsValid(user.kdRatio.toString())) textViewKDRatio.text =
+            user.kdRatio.toString().substring(0, 4)
+        if (UserInformationViewModel.responseAccuracyIsValid(user.accuracy)) textViewAccuracy.text =
+            user.accuracy.substring(0, 4)
         textViewTotalKills.text = formatter.format(user.totalKills.toInt())
         textViewTotalDeaths.text = formatter.format(user.totalDeaths.toInt())
         textViewHeadshots.text = formatter.format(user.headshots.toInt())
@@ -123,7 +122,8 @@ class UserInformationActivity : AppCompatActivity() {
     private fun setAutoCompleteGameMode() {
         autoCompleteTextViewGameMode.setText(GameModeConstants.MULTIPLAYER_GAME_MODE)
 
-        val gameMode = arrayOf(GameModeConstants.MULTIPLAYER_GAME_MODE, GameModeConstants.WARZONE_GAME_MODE)
+        val gameMode =
+            arrayOf(GameModeConstants.MULTIPLAYER_GAME_MODE, GameModeConstants.WARZONE_GAME_MODE)
         autoCompleteTextViewGameMode.setAdapter(
             ArrayAdapter<String>(
                 this,
@@ -135,11 +135,11 @@ class UserInformationActivity : AppCompatActivity() {
         val user: UserInformationMultiplayer =
             intent.getSerializableExtra(UserConstants.OBJECT_USER) as UserInformationMultiplayer
         //TODO: Refactor
-        setMultiplayerOrWarzoneInformations(user)
+        setMultiplayerOrWarzoneInformations()
 
         autoCompleteTextViewGameMode.setOnClickListener {
             autoCompleteTextViewGameMode.showDropDown()
-            setMultiplayerOrWarzoneInformations(user)
+            setMultiplayerOrWarzoneInformations()
         }
     }
 
@@ -155,24 +155,15 @@ class UserInformationActivity : AppCompatActivity() {
         })
     }
 
-    private fun setMultiplayerOrWarzoneInformations(user: UserInformationMultiplayer) {
+    private fun setMultiplayerOrWarzoneInformations() {
         mutableLiveData.observe(this, Observer {
-
             if (mutableLiveData.value == GameModeConstants.MULTIPLAYER_GAME_MODE) {
-                if (multiplayerRequestCalled) {
-                    linearLayoutMultiplayer.visibility = View.VISIBLE
-                    linearLayoutWarzone.visibility = View.GONE
-                } else {
-                    setMultiplayerUserInformation(user)
-                }
+                linearLayoutMultiplayer.visibility = View.VISIBLE
+                linearLayoutWarzone.visibility = View.GONE
             }
             if (mutableLiveData.value == GameModeConstants.WARZONE_GAME_MODE) {
-                if (warzoneRequestCalled) {
-                    linearLayoutWarzone.visibility = View.VISIBLE
-                    linearLayoutMultiplayer.visibility = View.GONE
-                } else {
-                    setWarzoneUserInformation(user.userNickname, user.platform)
-                }
+                linearLayoutWarzone.visibility = View.VISIBLE
+                linearLayoutMultiplayer.visibility = View.GONE
             }
         })
     }
