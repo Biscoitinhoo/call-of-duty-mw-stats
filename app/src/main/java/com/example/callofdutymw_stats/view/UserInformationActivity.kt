@@ -1,15 +1,23 @@
 package com.example.callofdutymw_stats.view
 
+import android.app.ProgressDialog
 import android.os.Bundle
+import android.util.Log
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.callofdutymw_stats.R
 import com.example.callofdutymw_stats.model.multiplayer.lifetime.all.properties.UserInformationMultiplayer
+import com.example.callofdutymw_stats.model.warzone.dto.UserDtoWarzone
+import com.example.callofdutymw_stats.util.Resource
+import com.example.callofdutymw_stats.util.Status
 import com.example.callofdutymw_stats.view.util.UserConstants
+import com.example.callofdutymw_stats.viewmodel.MainActivityViewModel
 import kotlinx.android.synthetic.main.activity_main.autoCompleteTextViewGameMode
 import kotlinx.android.synthetic.main.activity_user_information.*
 import java.text.DecimalFormat
 
+@Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
 class UserInformationActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,11 +34,43 @@ class UserInformationActivity : AppCompatActivity() {
     private fun setUserInformations() {
         val user: UserInformationMultiplayer =
             intent.getSerializableExtra(UserConstants.OBJECT_USER) as UserInformationMultiplayer
-        //TODO: get informations
-        setUserInformationsOnTextView(user)
+        Log.d("Nickname ", user.userNickname)
+        Log.d("Platform ", user.platform)
+        if (autoCompleteTextViewGameMode.text.toString() == "Multiplayer") {
+            setMultiplayerUserInformation(user)
+        } else {
+            setWarzoneUserInformation(user.userNickname, user.platform)
+        }
     }
 
-    private fun setUserInformationsOnTextView(user: UserInformationMultiplayer) {
+    private fun setWarzoneUserInformation(userNickname: String, platform: String) {
+        val progressDialog = ProgressDialog(this, R.style.myAlertDialogStyle)
+        val mainActivityViewModel = MainActivityViewModel()
+        mainActivityViewModel.getWarzoneUser(userNickname, platform)
+            .observe(this, androidx.lifecycle.Observer {
+                it?.let { resource ->
+                    when (resource.status) {
+                        Status.LOADING -> {
+                            //TODO: Method.
+                            progressDialog.setMessage("Aguarde...")
+                            progressDialog.show()
+                        }
+                        Status.SUCCESS -> {
+                            setWarzoneTextViewInformations(it)
+                        }
+                        Status.ERROR -> {
+                            Toast.makeText(this, "Error...", Toast.LENGTH_LONG).show()
+                        }
+                    }
+                }
+            })
+    }
+
+    private fun setWarzoneTextViewInformations(it: Resource<UserDtoWarzone>?) {
+        //TODO
+    }
+
+    private fun setMultiplayerUserInformation(user: UserInformationMultiplayer) {
         val formatter = DecimalFormat("##,###,###")
 
         textViewUserLevel.text = user.level.toString()

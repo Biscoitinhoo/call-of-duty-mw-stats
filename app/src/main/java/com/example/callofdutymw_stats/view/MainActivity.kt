@@ -113,15 +113,11 @@ class MainActivity : AppCompatActivity() {
             showSnackbarErrorUser(view)
         } else {
             val user = createNewMultiplayerUser(resource)
-            Log.d("User KD ", user.kdRatio.toString())
 
             val intent = Intent(this, UserInformationActivity::class.java)
             intent.putExtra(UserConstants.OBJECT_USER, user)
-            //TODO: putExtras
             intent.putExtra("nickname_object ", user.userNickname)
             intent.putExtra("platform_object ", user.platform)
-            Log.d("Nickname ", user.userNickname)
-            Log.d("Platform ", user.platform)
             startActivity(intent)
         }
     }
