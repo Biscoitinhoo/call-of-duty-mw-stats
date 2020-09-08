@@ -11,6 +11,10 @@ class RepositoryImpl : Repository {
     override suspend fun getMultiplayerUser(
         gamertag: String,
         platform: String
-        //This is a return :p
     ) = endPoint.getMultiplayerUser(gamertag, platform)
+
+    override suspend fun getWarzoneUser(
+        gamertag: String,
+        platform: String
+    ) = endPoint.getWarzoneUser(gamertag, platform)
 }

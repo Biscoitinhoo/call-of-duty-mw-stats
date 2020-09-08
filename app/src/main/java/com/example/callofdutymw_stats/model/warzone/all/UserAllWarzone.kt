@@ -10,7 +10,7 @@ class UserAllWarzone(
     @SerializedName("deaths")
     val deaths: String,
     @SerializedName("kdRatio")
-    val kd: String,
+    val kdRatio: Double,
     @SerializedName("downs")
     val downs: String,
     @SerializedName("topTwentyFive")

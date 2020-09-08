@@ -42,7 +42,6 @@ class MainActivity : AppCompatActivity() {
                 )
             ) {
                 getMultiplayerUser(it)
-
                 editTextNickname.error = null
                 autoCompleteTextViewGameMode.error = null
             } else {
@@ -84,8 +83,7 @@ class MainActivity : AppCompatActivity() {
                             setMessageAndShowProgressDialog(progressDialog)
                         }
                         Status.SUCCESS -> {
-                            if (progressDialog.isShowing)
-                                progressDialog.dismiss()
+                            if (progressDialog.isShowing) progressDialog.dismiss()
                             //Even if an incorrect user is passed, it will continue to fall into "SUCCESS", however the data will come null
                             resource.data?.let {
                                 handlesUserSituation(
@@ -96,7 +94,7 @@ class MainActivity : AppCompatActivity() {
                             }!!
                         }
                         Status.ERROR -> {
-                            progressDialog.dismiss()
+                            if (progressDialog.isShowing) progressDialog.dismiss()
                             showErrorSnackbar(v)
                         }
                     }
@@ -114,10 +112,11 @@ class MainActivity : AppCompatActivity() {
             showSnackbarErrorUser(view)
         } else {
             val user = createNewMultiplayerUser(resource)
-            Log.d("User KD ", user.kdRatio.toString())
 
             val intent = Intent(this, UserInformationActivity::class.java)
             intent.putExtra(UserConstants.OBJECT_USER, user)
+            intent.putExtra("nickname_object ", user.userNickname)
+            intent.putExtra("platform_object ", user.platform)
             startActivity(intent)
         }
     }
@@ -148,7 +147,7 @@ class MainActivity : AppCompatActivity() {
         val wins: String = response.body()?.userAllWarzone?.wins.toString()
         val kills: String = response.body()?.userAllWarzone?.kills.toString()
         val deaths: String = response.body()?.userAllWarzone?.deaths.toString()
-        val kd: String = response.body()?.userAllWarzone?.kd.toString()
+        val kd: Double = response.body()!!.userAllWarzone.kdRatio
         val downs: String = response.body()?.userAllWarzone?.downs.toString()
         val topTwentyFive: String = response.body()?.userAllWarzone?.topTwentyFive.toString()
         val topTen: String = response.body()?.userAllWarzone?.topTen.toString()
@@ -177,6 +176,7 @@ class MainActivity : AppCompatActivity() {
         Log.d("Status code from M user", resource.toString())
         val nickname = resource.data!!.nickName
         val level = resource.data.level
+        val platform = resource.data.platform
         val recordWinStreak =
             resource.data.userAllMultiplayer.userPropertiesMultiplayer.userInformationMultiplayer.recordWinStreak
         val recordXP =
@@ -216,6 +216,7 @@ class MainActivity : AppCompatActivity() {
         return UserInformationMultiplayer(
             nickname,
             level,
+            platform,
             recordWinStreak,
             recordXP,
             accuracy,

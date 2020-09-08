@@ -13,18 +13,6 @@ class MainActivityViewModel() : ViewModel() {
     private val repository = RepositoryImpl()
 
     //API call
-    fun getWarzoneUser(
-        gamertag: String,
-        platform: String
-    ) = liveData(Dispatchers.IO) {
-
-        emit(Resource.loading(null))
-        try {
-            // emit(Resource.success(repository.getWarzoneUser(gamertag, platform)))
-        } catch (e: Exception) {
-            emit(Resource.error(null, e.toString()))
-        }
-    }
 
     fun getMultiplayerUser(
         gamertag: String,
@@ -41,7 +29,8 @@ class MainActivityViewModel() : ViewModel() {
 
     //Logic
     fun isValidFields(editText: EditText, autoCompleteTextView: AutoCompleteTextView): Boolean {
-        return editText.text.toString().isNotEmpty() && autoCompleteTextView.text.toString().isNotEmpty()
+        return editText.text.toString().isNotEmpty() && autoCompleteTextView.text.toString()
+            .isNotEmpty()
     }
 
     fun setErrorInFields(
