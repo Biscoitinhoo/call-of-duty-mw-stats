@@ -1,15 +1,19 @@
 package com.example.callofdutymw_stats.view
 
-import android.app.ProgressDialog
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
 import com.example.callofdutymw_stats.R
 import com.example.callofdutymw_stats.model.multiplayer.lifetime.all.properties.UserInformationMultiplayer
 import com.example.callofdutymw_stats.model.warzone.dto.UserDtoWarzone
+import com.example.callofdutymw_stats.util.GameModeConstants
 import com.example.callofdutymw_stats.util.Resource
 import com.example.callofdutymw_stats.util.Status
 import com.example.callofdutymw_stats.view.util.UserConstants
@@ -21,20 +25,28 @@ import java.text.DecimalFormat
 @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
 class UserInformationActivity : AppCompatActivity() {
 
-    private val mutableLiveData = MutableLiveData<Boolean>()
+    private val mutableLiveData = MutableLiveData<String>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_information)
         supportActionBar!!.hide()
 
+        observeGameMode()
+        setUserDefaultInformations()
         setAutoCompleteGameMode()
         //Testing user informations. Need to add a observer in spinner and check what game mode is
         //selected;
     }
 
+    private fun setUserDefaultInformations() {
+        val user: UserInformationMultiplayer =
+            intent.getSerializableExtra(UserConstants.OBJECT_USER) as UserInformationMultiplayer
+        textViewUserLevel.text = user.level.toString()
+        textViewUserNickName.text = user.userNickname
+    }
+
     private fun setWarzoneUserInformation(userNickname: String, platform: String) {
-        val progressDialog = ProgressDialog(this, R.style.myAlertDialogStyle)
 
         val userInformationViewModel = UserInformationViewModel()
         userInformationViewModel.getWarzoneUser(userNickname, platform)
@@ -42,24 +54,17 @@ class UserInformationActivity : AppCompatActivity() {
                 it?.let { resource ->
                     when (resource.status) {
                         Status.LOADING -> {
-                            setProgressDialogMessage(progressDialog)
+                            Log.d("Loading ", "loading...")
                         }
                         Status.SUCCESS -> {
                             setWarzoneTextViewInformations(it)
-                            if (progressDialog.isShowing) progressDialog.dismiss()
                         }
                         Status.ERROR -> {
                             Toast.makeText(this, "Error...", Toast.LENGTH_LONG).show()
-                            if (progressDialog.isShowing) progressDialog.dismiss()
                         }
                     }
                 }
             })
-    }
-
-    private fun setProgressDialogMessage(progressDialog: ProgressDialog) {
-        progressDialog.setMessage("Aguarde...")
-        progressDialog.show()
     }
 
     private fun setWarzoneTextViewInformations(it: Resource<UserDtoWarzone>?) {
@@ -90,9 +95,9 @@ class UserInformationActivity : AppCompatActivity() {
         linearLayoutWarzone.visibility = View.GONE
         val formatter = DecimalFormat("##,###,###")
 
-        textViewKDRatio.text = user.kdRatio.toString().substring(0, 4)
         setKDArrowColor(user.kdRatio)
-        textViewAccuracy.text = user.accuracy.substring(0, 4)
+        if (UserInformationViewModel.responseKDRatioIsValid(user.kdRatio.toString())) textViewKDRatio.text = user.kdRatio.toString().substring(0, 4)
+        if (UserInformationViewModel.responseAccuracyIsValid(user.accuracy)) textViewAccuracy.text = user.accuracy.substring(0, 4)
         textViewTotalKills.text = formatter.format(user.totalKills.toInt())
         textViewTotalDeaths.text = formatter.format(user.totalDeaths.toInt())
         textViewHeadshots.text = formatter.format(user.headshots.toInt())
@@ -113,11 +118,9 @@ class UserInformationActivity : AppCompatActivity() {
     }
 
     private fun setAutoCompleteGameMode() {
-        //TODO: Refactor this.
+        autoCompleteTextViewGameMode.setText(GameModeConstants.MULTIPLAYER_GAME_MODE)
 
-        autoCompleteTextViewGameMode.setText("Multiplayer")
-
-        val gameMode = arrayOf("Multiplayer", "Warzone")
+        val gameMode = arrayOf(GameModeConstants.MULTIPLAYER_GAME_MODE, GameModeConstants.WARZONE_GAME_MODE)
         autoCompleteTextViewGameMode.setAdapter(
             ArrayAdapter<String>(
                 this,
@@ -126,32 +129,37 @@ class UserInformationActivity : AppCompatActivity() {
             )
         )
 
-        //TODO: Put verifications in liveData.
-
         val user: UserInformationMultiplayer =
             intent.getSerializableExtra(UserConstants.OBJECT_USER) as UserInformationMultiplayer
-
-        textViewUserLevel.text = user.level.toString()
-        textViewUserNickName.text = user.userNickname
-
-        if (autoCompleteTextViewGameMode.text.toString() == "Multiplayer") {
-            setMultiplayerUserInformation(user)
-        } else {
-            setWarzoneUserInformation(user.userNickname, user.platform)
-        }
+        //TODO: Refactor
+        setMultiplayerOrWarzoneInformations(user)
 
         autoCompleteTextViewGameMode.setOnClickListener {
             autoCompleteTextViewGameMode.showDropDown()
-            if (autoCompleteTextViewGameMode.text.toString() == "Multiplayer") {
-                setMultiplayerUserInformation(user)
-            } else {
-                setWarzoneUserInformation(user.userNickname, user.platform)
-            }
+            setMultiplayerOrWarzoneInformations(user)
         }
     }
 
     private fun observeGameMode() {
+        autoCompleteTextViewGameMode.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                mutableLiveData.postValue(s.toString())
+            }
 
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+        })
     }
 
+    private fun setMultiplayerOrWarzoneInformations(user: UserInformationMultiplayer) {
+        mutableLiveData.observe(this, Observer {
+            if (mutableLiveData.value == GameModeConstants.MULTIPLAYER_GAME_MODE) {
+                setMultiplayerUserInformation(user)
+            }
+            if (mutableLiveData.value == GameModeConstants.WARZONE_GAME_MODE) {
+                setWarzoneUserInformation(user.userNickname, user.platform)
+            }
+        })
+    }
 }

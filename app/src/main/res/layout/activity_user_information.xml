@@ -741,17 +741,17 @@
                         android:orientation="horizontal">
 
                         <TextView
-                            android:id="@+id/textViewWarzone4"
+                            android:id="@+id/textViewWarzone6"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="15dp"
                             android:layout_marginTop="8dp"
                             android:layout_marginBottom="8dp"
-                            android:text="Top 25:"
+                            android:text="Top 5:"
                             android:textColor="@color/colorGrey" />
 
                         <TextView
-                            android:id="@+id/textViewWarzoneTopTwentyFive"
+                            android:id="@+id/textViewWarzoneTopFive"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="5dp"
@@ -795,17 +795,17 @@
                         android:orientation="horizontal">
 
                         <TextView
-                            android:id="@+id/textViewWarzone6"
+                            android:id="@+id/textViewWarzone4"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="15dp"
                             android:layout_marginTop="8dp"
                             android:layout_marginBottom="8dp"
-                            android:text="Top 5:"
+                            android:text="Top 25:"
                             android:textColor="@color/colorGrey" />
 
                         <TextView
-                            android:id="@+id/textViewWarzoneTopFive"
+                            android:id="@+id/textViewWarzoneTopTwentyFive"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="5dp"
