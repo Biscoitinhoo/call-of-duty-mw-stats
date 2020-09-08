@@ -24,9 +24,8 @@ import java.text.DecimalFormat
 @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
 class UserInformationActivity : AppCompatActivity() {
 
-    private var multiplayerCounter = 0
-    private var warzoneCounter = 0
-
+    private var multiplayerRequestCalled = false
+    private var warzoneRequestCalled = false
     private val mutableLiveData = MutableLiveData<String>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -70,7 +69,7 @@ class UserInformationActivity : AppCompatActivity() {
     }
 
     private fun setWarzoneTextViewInformations(it: Resource<UserDtoWarzone>?) {
-        warzoneCounter++
+        warzoneRequestCalled = true
         linearLayoutWarzone.visibility = View.VISIBLE
         linearLayoutMultiplayer.visibility = View.GONE
 
@@ -94,7 +93,7 @@ class UserInformationActivity : AppCompatActivity() {
     }
 
     private fun setMultiplayerUserInformation(user: UserInformationMultiplayer) {
-        multiplayerCounter++
+        multiplayerRequestCalled = true
         linearLayoutMultiplayer.visibility = View.VISIBLE
         linearLayoutWarzone.visibility = View.GONE
         val formatter = DecimalFormat("##,###,###")
@@ -160,7 +159,7 @@ class UserInformationActivity : AppCompatActivity() {
         mutableLiveData.observe(this, Observer {
 
             if (mutableLiveData.value == GameModeConstants.MULTIPLAYER_GAME_MODE) {
-                if (multiplayerCounter == 1) {
+                if (multiplayerRequestCalled) {
                     linearLayoutMultiplayer.visibility = View.VISIBLE
                     linearLayoutWarzone.visibility = View.GONE
                 } else {
@@ -168,7 +167,7 @@ class UserInformationActivity : AppCompatActivity() {
                 }
             }
             if (mutableLiveData.value == GameModeConstants.WARZONE_GAME_MODE) {
-                if (warzoneCounter == 1) {
+                if (warzoneRequestCalled) {
                     linearLayoutWarzone.visibility = View.VISIBLE
                     linearLayoutMultiplayer.visibility = View.GONE
                 } else {
