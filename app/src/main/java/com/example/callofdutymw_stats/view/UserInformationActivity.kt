@@ -2,6 +2,8 @@ package com.example.callofdutymw_stats.view
 
 import android.app.ProgressDialog
 import android.os.Bundle
+import android.util.Log
+import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -53,14 +55,30 @@ class UserInformationActivity : AppCompatActivity() {
     }
 
     private fun setWarzoneTextViewInformations(it: Resource<UserDtoWarzone>?) {
+        linearLayoutWarzone.visibility = View.VISIBLE
+        linearLayoutMultiplayer.visibility = View.GONE
 
+        val formatter = DecimalFormat("##,###,###")
+
+        textViewWarzoneKDRatio.text = it!!.data!!.userAllWarzone.kdRatio.toString().substring(0, 4)
+        textViewWarzoneTotalKills.text = formatter.format(it.data?.userAllWarzone?.kills?.toInt())
+        textViewWarzoneTotalDeaths.text = formatter.format(it.data?.userAllWarzone?.deaths?.toInt())
+        textViewWarzoneDowns.text = formatter.format(it.data?.userAllWarzone?.downs?.toInt())
+        textViewWarzoneRevives.text = formatter.format(it.data?.userAllWarzone?.revives?.toInt())
+        textViewWarzoneGamesPlayed.text = formatter.format(it.data?.userAllWarzone?.gamesPlayed?.toInt())
+        textViewWarzoneWins.text = formatter.format(it.data?.userAllWarzone?.wins?.toInt())
+        textViewWarzoneTopTwentyFive.text = formatter.format(it.data?.userAllWarzone?.topTwentyFive?.toInt())
+        textViewWarzoneTopTen.text = formatter.format(it.data?.userAllWarzone?.topTen?.toInt())
+        textViewWarzoneTopFive.text = formatter.format(it.data?.userAllWarzone?.topFive?.toInt())
+        textViewWarzoneContracts.text = formatter.format(it.data?.userAllWarzone?.contracts?.toInt())
+        textViewWarzoneScore.text = formatter.format(it.data?.userAllWarzone?.score?.toInt())
     }
 
     private fun setMultiplayerUserInformation(user: UserInformationMultiplayer) {
+        linearLayoutMultiplayer.visibility = View.VISIBLE
+        linearLayoutWarzone.visibility = View.GONE
         val formatter = DecimalFormat("##,###,###")
 
-        textViewUserLevel.text = user.level.toString()
-        textViewUserNickName.text = user.userNickname
         textViewKDRatio.text = user.kdRatio.toString().substring(0, 4)
         setKDArrowColor(user.kdRatio)
         textViewAccuracy.text = user.accuracy.substring(0, 4)
@@ -101,6 +119,9 @@ class UserInformationActivity : AppCompatActivity() {
 
         val user: UserInformationMultiplayer =
             intent.getSerializableExtra(UserConstants.OBJECT_USER) as UserInformationMultiplayer
+
+        textViewUserLevel.text = user.level.toString()
+        textViewUserNickName.text = user.userNickname
 
         if (autoCompleteTextViewGameMode.text.toString() == "Multiplayer") {
             setMultiplayerUserInformation(user)

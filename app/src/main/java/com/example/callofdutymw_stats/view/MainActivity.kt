@@ -148,7 +148,7 @@ class MainActivity : AppCompatActivity() {
         val wins: String = response.body()?.userAllWarzone?.wins.toString()
         val kills: String = response.body()?.userAllWarzone?.kills.toString()
         val deaths: String = response.body()?.userAllWarzone?.deaths.toString()
-        val kd: String = response.body()?.userAllWarzone?.kd.toString()
+        val kd: Double = response.body()!!.userAllWarzone.kdRatio
         val downs: String = response.body()?.userAllWarzone?.downs.toString()
         val topTwentyFive: String = response.body()?.userAllWarzone?.topTwentyFive.toString()
         val topTen: String = response.body()?.userAllWarzone?.topTen.toString()
