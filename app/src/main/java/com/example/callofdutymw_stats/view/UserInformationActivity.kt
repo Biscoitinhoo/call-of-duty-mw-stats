@@ -131,12 +131,7 @@ class UserInformationActivity : AppCompatActivity() {
                 gameMode
             )
         )
-
-        val user: UserInformationMultiplayer =
-            intent.getSerializableExtra(UserConstants.OBJECT_USER) as UserInformationMultiplayer
-        //TODO: Refactor
         setMultiplayerOrWarzoneInformations()
-
         autoCompleteTextViewGameMode.setOnClickListener {
             autoCompleteTextViewGameMode.showDropDown()
             setMultiplayerOrWarzoneInformations()
