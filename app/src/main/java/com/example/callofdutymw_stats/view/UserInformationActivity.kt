@@ -25,6 +25,7 @@ import java.text.DecimalFormat
 class UserInformationActivity : AppCompatActivity() {
 
     private val mutableLiveData = MutableLiveData<String>()
+    private var favoriteStarClicked = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,10 +33,21 @@ class UserInformationActivity : AppCompatActivity() {
         supportActionBar!!.hide()
 
         observeGameMode()
+        textViewAddUserFavorite.setOnClickListener {
+            addPlayerInFavorites()
+        }
         setAllUserInformations()
         setAutoCompleteGameMode()
-        //Testing user informations. Need to add a observer in spinner and check what game mode is
-        //selected;
+    }
+
+    private fun addPlayerInFavorites() {
+        favoriteStarClicked = if (!favoriteStarClicked) {
+            imageViewStarFavoritePlayer.setImageResource(R.drawable.ic_baseline_star_24)
+            true
+        } else {
+            imageViewStarFavoritePlayer.setImageResource(R.drawable.ic_baseline_star_border_outlined_24)
+            false
+        }
     }
 
     private fun setAllUserInformations() {

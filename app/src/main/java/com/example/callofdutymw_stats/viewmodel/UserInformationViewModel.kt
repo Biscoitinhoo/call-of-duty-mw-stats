@@ -1,6 +1,8 @@
 package com.example.callofdutymw_stats.viewmodel
 
+import android.widget.ImageView
 import androidx.lifecycle.liveData
+import com.example.callofdutymw_stats.R
 import com.example.callofdutymw_stats.domain.RepositoryImpl
 import com.example.callofdutymw_stats.util.Resource
 import kotlinx.coroutines.Dispatchers
@@ -21,6 +23,7 @@ class UserInformationViewModel {
             emit(Resource.error(null, e.toString()))
         }
     }
+
     companion object {
         fun responseKDRatioIsValid(response: String): Boolean {
             return response.toDouble() != 0.0
