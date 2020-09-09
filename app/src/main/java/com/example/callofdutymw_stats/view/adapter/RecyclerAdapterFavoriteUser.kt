@@ -16,11 +16,19 @@ class RecyclerAdapterFavoriteUser : RecyclerView.Adapter<RecyclerAdapterFavorite
 
         fun addUserToFavorites(user: UserInformationMultiplayer) {
             listOfFavoriteUser.add(user)
+            Log.d("User added ", user.userNickname)
         }
+
         fun removeUserToFavorites(user: UserInformationMultiplayer) {
             listOfFavoriteUser.remove(user)
+            Log.d("User removed ", user.userNickname)
+        }
+
+        fun getListOfFavoriteUser(): List<UserInformationMultiplayer> {
+            return listOfFavoriteUser
         }
     }
+
     private lateinit var onClickListener: OnClickListener
 
     override fun onCreateViewHolder(

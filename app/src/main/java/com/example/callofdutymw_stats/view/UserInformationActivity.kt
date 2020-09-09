@@ -6,9 +6,11 @@ import android.text.TextWatcher
 import android.util.Log
 import android.view.View
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.RecyclerView
 import com.example.callofdutymw_stats.R
 import com.example.callofdutymw_stats.model.multiplayer.lifetime.all.properties.UserInformationMultiplayer
 import com.example.callofdutymw_stats.model.warzone.dto.UserDtoWarzone
@@ -50,16 +52,22 @@ class UserInformationActivity : AppCompatActivity() {
         //TODO: put this on ViewModel;
         val user: UserInformationMultiplayer =
             intent.getSerializableExtra(UserConstants.OBJECT_USER) as UserInformationMultiplayer
+
         favoriteStarClicked = if (!favoriteStarClicked) {
             imageViewStarFavoritePlayer.setImageResource(R.drawable.ic_baseline_star_24)
             RecyclerAdapterFavoriteUser.addUserToFavorites(user)
+
             Snackbar.make(view, R.string.added_to_favorites, Snackbar.LENGTH_LONG).show()
             true
         } else {
             imageViewStarFavoritePlayer.setImageResource(R.drawable.ic_baseline_star_border_outlined_24)
             RecyclerAdapterFavoriteUser.removeUserToFavorites(user)
+
             Snackbar.make(view, R.string.removed_to_favorites, Snackbar.LENGTH_LONG).show()
             false
+        }
+        for (i in RecyclerAdapterFavoriteUser.getListOfFavoriteUser().indices) {
+            Log.d("All users added to favorite ", RecyclerAdapterFavoriteUser.getListOfFavoriteUser()[i].userNickname)
         }
     }
 
