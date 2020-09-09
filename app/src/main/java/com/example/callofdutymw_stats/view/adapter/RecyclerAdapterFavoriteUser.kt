@@ -6,12 +6,15 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.callofdutymw_stats.R
 import com.example.callofdutymw_stats.model.multiplayer.lifetime.all.properties.UserInformationMultiplayer
+import kotlinx.android.synthetic.main.recycler_view_favorite_user.view.*
 
 class RecyclerAdapterFavoriteUser : RecyclerView.Adapter<RecyclerAdapterFavoriteUser.ViewHolder>() {
 
     companion object {
-        val listOfFavoriteUser = ArrayList<UserInformationMultiplayer>()
+        private val listOfFavoriteUser = ArrayList<UserInformationMultiplayer>()
     }
+
+    private lateinit var onClickListener: OnClickListener
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -24,6 +27,13 @@ class RecyclerAdapterFavoriteUser : RecyclerView.Adapter<RecyclerAdapterFavorite
 
     override fun onBindViewHolder(holder: RecyclerAdapterFavoriteUser.ViewHolder, position: Int) {
         holder.bindItems(listOfFavoriteUser[position])
+        deleteIconOnClick(holder, position)
+    }
+
+    private fun deleteIconOnClick(holder: RecyclerAdapterFavoriteUser.ViewHolder, position: Int) {
+        holder.itemView.imageViewDeleteFavoriteUser.setOnClickListener {
+            onClickListener.onClick(position)
+        }
     }
 
     override fun getItemCount(): Int {
@@ -32,7 +42,12 @@ class RecyclerAdapterFavoriteUser : RecyclerView.Adapter<RecyclerAdapterFavorite
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bindItems(userInformationMultiplayer: UserInformationMultiplayer) {
-
+            itemView.textViewUserLevel.text = userInformationMultiplayer.level.toString()
+            itemView.textViewUsername.text = userInformationMultiplayer.userNickname
         }
+    }
+
+    public interface OnClickListener {
+        fun onClick(position: Int)
     }
 }
