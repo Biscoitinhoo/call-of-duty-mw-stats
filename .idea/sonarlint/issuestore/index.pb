@@ -61,8 +61,6 @@ q
 Aapp/src/main/res/drawable/ic_baseline_star_border_outlined_24.xml,a\e\ae44afa6a0eb3f02efc6589c478d6c493258017e
 †
 Vapp/src/main/java/com/example/callofdutymw_stats/viewmodel/UserInformationViewModel.kt,1\6\16fd6426de78087a0ec6e86a6c721b3efacc6df4
-e
-5app/src/main/res/layout/activity_user_information.xml,5\9\598bdf6c7491b631ab0dcab0ccb0b7b6f2a08d7c
 c
 3app/src/main/res/drawable/ic_baseline_delete_24.xml,4\6\46f5555803e414f73683f219f9fc503d6e5686db
 Œ
