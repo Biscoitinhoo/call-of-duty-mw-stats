@@ -33,19 +33,23 @@ class UserInformationActivity : AppCompatActivity() {
         supportActionBar!!.hide()
 
         observeGameMode()
-        textViewAddUserFavorite.setOnClickListener {
-            addPlayerInFavorites()
-        }
+        textViewFavoriteUserClick()
         setAllUserInformations()
         setAutoCompleteGameMode()
     }
 
-    private fun addPlayerInFavorites() {
+    private fun textViewFavoriteUserClick() {
+        setStarStatusAndAddUser()
+    }
+
+    private fun setStarStatusAndAddUser() {
         favoriteStarClicked = if (!favoriteStarClicked) {
             imageViewStarFavoritePlayer.setImageResource(R.drawable.ic_baseline_star_24)
+            //TODO: addUserToFavorites()
             true
         } else {
             imageViewStarFavoritePlayer.setImageResource(R.drawable.ic_baseline_star_border_outlined_24)
+            //TODO: removeUserToFavorites()
             false
         }
     }
