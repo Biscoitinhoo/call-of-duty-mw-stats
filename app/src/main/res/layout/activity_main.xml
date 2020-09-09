@@ -45,7 +45,7 @@
         android:drawableEnd="@drawable/ic_baseline_arrow_drop_down_24"
         android:drawablePadding="15dp"
         android:focusableInTouchMode="false"
-        android:hint="psn, steam, xbl ou battle"
+        android:hint="PSN, Steam, XBL ou Battle"
         android:inputType="text"
         android:paddingStart="15dp"
         android:paddingEnd="15dp"

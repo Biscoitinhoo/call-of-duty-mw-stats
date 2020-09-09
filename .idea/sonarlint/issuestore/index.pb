@@ -43,8 +43,6 @@ m
 =app/src/main/res/drawable/spinner_rounded_dark_background.xml,1\4\1432b598269767f2637400419e6b217c1be152dc
 R
 "app/src/main/res/values/styles.xml,f\7\f79cc2688e29fcbc286fda14ae07b27c9e83690f
-R
-"app/src/main/res/values/colors.xml,9\6\969faa2a5d9f5e8390e958d2c07f2cfd54676e6b
 b
 2app/src/main/res/layout/alert_dialog_error_api.xml,1\5\1507814a1daa1c41de5d7b07137690fd9ed43c80
 S
