@@ -11,7 +11,7 @@ import org.junit.Assert.*
 /**
  * Instrumented test, which will execute on an Android device.
  *
- * See [testing documentation](http://d.android.com/tools/testing).
+ * See [user_information_background documentation](http://d.android.com/tools/user_information_background).
  */
 @RunWith(AndroidJUnit4::class)
 class ExampleInstrumentedTest {
