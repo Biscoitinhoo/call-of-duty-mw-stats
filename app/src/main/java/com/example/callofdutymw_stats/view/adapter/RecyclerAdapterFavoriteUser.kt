@@ -1,5 +1,6 @@
 package com.example.callofdutymw_stats.view.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,8 +13,14 @@ class RecyclerAdapterFavoriteUser : RecyclerView.Adapter<RecyclerAdapterFavorite
 
     companion object {
         private val listOfFavoriteUser = ArrayList<UserInformationMultiplayer>()
-    }
 
+        fun addUserToFavorites(user: UserInformationMultiplayer) {
+            listOfFavoriteUser.add(user)
+        }
+        fun removeUserToFavorites(user: UserInformationMultiplayer) {
+            listOfFavoriteUser.remove(user)
+        }
+    }
     private lateinit var onClickListener: OnClickListener
 
     override fun onCreateViewHolder(

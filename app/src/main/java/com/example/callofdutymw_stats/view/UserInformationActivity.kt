@@ -15,8 +15,10 @@ import com.example.callofdutymw_stats.model.warzone.dto.UserDtoWarzone
 import com.example.callofdutymw_stats.util.GameModeConstants
 import com.example.callofdutymw_stats.util.Resource
 import com.example.callofdutymw_stats.util.Status
+import com.example.callofdutymw_stats.view.adapter.RecyclerAdapterFavoriteUser
 import com.example.callofdutymw_stats.view.util.UserConstants
 import com.example.callofdutymw_stats.viewmodel.UserInformationViewModel
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.autoCompleteTextViewGameMode
 import kotlinx.android.synthetic.main.activity_user_information.*
 import java.text.DecimalFormat
@@ -39,17 +41,24 @@ class UserInformationActivity : AppCompatActivity() {
     }
 
     private fun textViewFavoriteUserClick() {
-        setStarStatusAndAddUser()
+        textViewAddUserFavorite.setOnClickListener {
+            setStarStatusAndAddUser(it)
+        }
     }
 
-    private fun setStarStatusAndAddUser() {
+    private fun setStarStatusAndAddUser(view: View) {
+        //TODO: put this on ViewModel;
+        val user: UserInformationMultiplayer =
+            intent.getSerializableExtra(UserConstants.OBJECT_USER) as UserInformationMultiplayer
         favoriteStarClicked = if (!favoriteStarClicked) {
             imageViewStarFavoritePlayer.setImageResource(R.drawable.ic_baseline_star_24)
-            //TODO: addUserToFavorites()
+            RecyclerAdapterFavoriteUser.addUserToFavorites(user)
+            Snackbar.make(view, R.string.added_to_favorites, Snackbar.LENGTH_LONG).show()
             true
         } else {
             imageViewStarFavoritePlayer.setImageResource(R.drawable.ic_baseline_star_border_outlined_24)
-            //TODO: removeUserToFavorites()
+            RecyclerAdapterFavoriteUser.removeUserToFavorites(user)
+            Snackbar.make(view, R.string.removed_to_favorites, Snackbar.LENGTH_LONG).show()
             false
         }
     }
