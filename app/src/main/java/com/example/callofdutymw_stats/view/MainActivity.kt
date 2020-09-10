@@ -35,9 +35,16 @@ class MainActivity : AppCompatActivity() {
         supportActionBar!!.hide()
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING)
 
+        justTestingCoroutines()
+
         setRecyclerAdapter()
         setAutoCompletePlatforms()
         buttonSearchClickListener()
+    }
+
+    private fun justTestingCoroutines() {
+        val mainActivityViewModel = MainActivityViewModel()
+        mainActivityViewModel.addUserInFavorites()
     }
 
     override fun onResume() {
