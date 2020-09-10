@@ -47,7 +47,7 @@ class RecyclerAdapterFavoriteUser : RecyclerView.Adapter<RecyclerAdapterFavorite
 
     private fun deleteIconOnClick(holder: RecyclerAdapterFavoriteUser.ViewHolder, position: Int) {
         holder.itemView.imageViewDeleteFavoriteUser.setOnClickListener {
-            onClickListener.onClick(position)
+            //if (onClickListener != null) onClickListener.onClick(position)
         }
     }
 

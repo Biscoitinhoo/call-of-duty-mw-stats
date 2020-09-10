@@ -7,8 +7,6 @@ import java.io.Serializable
 
 @Entity(tableName = "user")
 class UserInformationMultiplayer(
-    @PrimaryKey
-    val uid: Int,
     val userNickname: String,
     val level: Int,
     val platform: String,
@@ -48,4 +46,7 @@ class UserInformationMultiplayer(
     val assists: String,
     @SerializedName("recordKillStreak")
     val recordKillStreak: String
-) : Serializable {}
+) : Serializable {
+    @PrimaryKey(autoGenerate = true)
+    var uid: Int = 0
+}

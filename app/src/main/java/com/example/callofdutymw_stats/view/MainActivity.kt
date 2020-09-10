@@ -234,9 +234,7 @@ class MainActivity : AppCompatActivity() {
             resource.data.userAllMultiplayer.userPropertiesMultiplayer.userInformationMultiplayer.assists
         val recordKillStreak =
             resource.data.userAllMultiplayer.userPropertiesMultiplayer.userInformationMultiplayer.recordKillStreak
-        //TODO: replace ID
         return UserInformationMultiplayer(
-            1,
             nickname,
             level,
             platform,
