@@ -1,7 +1,6 @@
 package com.example.callofdutymw_stats.view
 
 import android.os.Bundle
-import android.provider.Settings
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log

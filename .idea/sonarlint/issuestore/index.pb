@@ -67,3 +67,5 @@ c
 \app/src/main/java/com/example/callofdutymw_stats/view/adapter/RecyclerAdapterFavoriteUser.kt,0\9\0911a72ab4b121b4c28409fef5e98b2830e2109b
 ‚
 Rapp/src/main/java/com/example/callofdutymw_stats/database/room/RoomDatabaseImpl.kt,3\6\369887512b5e6c2ccfdcd4580d5e3a0dae25e978
+x
+Happ/src/main/java/com/example/callofdutymw_stats/database/dao/UserDAO.kt,2\4\24429d967fa41e7cc28a6fbad3d50b1c6ebaa724
