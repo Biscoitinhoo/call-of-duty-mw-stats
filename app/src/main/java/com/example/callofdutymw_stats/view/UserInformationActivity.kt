@@ -23,6 +23,8 @@ import com.example.callofdutymw_stats.viewmodel.UserInformationViewModel
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.autoCompleteTextViewGameMode
 import kotlinx.android.synthetic.main.activity_user_information.*
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import java.text.DecimalFormat
 
 @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
@@ -55,7 +57,7 @@ class UserInformationActivity : AppCompatActivity() {
 
         favoriteStarClicked = if (!favoriteStarClicked) {
             imageViewStarFavoritePlayer.setImageResource(R.drawable.ic_baseline_star_24)
-            RecyclerAdapterFavoriteUser.addUserToFavorites(user)
+            addUserInFavorites(user)
 
             Snackbar.make(view, R.string.added_to_favorites, Snackbar.LENGTH_LONG).show()
             true
@@ -68,6 +70,16 @@ class UserInformationActivity : AppCompatActivity() {
         }
         for (i in RecyclerAdapterFavoriteUser.getListOfFavoriteUser().indices) {
             Log.d("All users added to favorite ", RecyclerAdapterFavoriteUser.getListOfFavoriteUser()[i].userNickname)
+        }
+    }
+
+    private fun addUserInFavorites(user: UserInformationMultiplayer) {
+        val userInformationViewModel = UserInformationViewModel(this)
+        GlobalScope.launch {
+            userInformationViewModel.addUserInFavorites(user)
+            for (i in RecyclerAdapterFavoriteUser.getListOfFavoriteUser().indices) {
+                Log.d("Users added to favorites ", RecyclerAdapterFavoriteUser.getListOfFavoriteUser()[i].userNickname)
+            }
         }
     }
 
@@ -86,7 +98,7 @@ class UserInformationActivity : AppCompatActivity() {
     }
 
     private fun setWarzoneUserInformation(userNickname: String, platform: String) {
-        val userInformationViewModel = UserInformationViewModel()
+        val userInformationViewModel = UserInformationViewModel(this)
         userInformationViewModel.getWarzoneUser(userNickname, platform)
             .observe(this, androidx.lifecycle.Observer {
                 it?.let { resource ->

@@ -11,7 +11,9 @@ class RoomDatabaseImpl {
 
     @Database(entities = [UserInformationMultiplayer::class], version = 1)
     abstract class AppDatabase : RoomDatabase() {
+
         abstract fun userDAO(): UserDAO
+
         object DatabaseBuilder {
             private var INSTANCE: AppDatabase? = null
             fun getInstance(context: Context): AppDatabase {
@@ -22,15 +24,13 @@ class RoomDatabaseImpl {
                 }
                 return INSTANCE!!
             }
+
             private fun buildRoomDB(context: Context) =
                 Room.databaseBuilder(
                     context.applicationContext,
                     AppDatabase::class.java,
                     "mindorks-example-coroutines"
                 ).fallbackToDestructiveMigration().build()
-
         }
-
     }
-
 }

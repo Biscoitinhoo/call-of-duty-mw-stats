@@ -65,3 +65,5 @@ c
 3app/src/main/res/drawable/ic_baseline_delete_24.xml,4\6\46f5555803e414f73683f219f9fc503d6e5686db
 Œ
 \app/src/main/java/com/example/callofdutymw_stats/view/adapter/RecyclerAdapterFavoriteUser.kt,0\9\0911a72ab4b121b4c28409fef5e98b2830e2109b
+‚
+Rapp/src/main/java/com/example/callofdutymw_stats/database/room/RoomDatabaseImpl.kt,3\6\369887512b5e6c2ccfdcd4580d5e3a0dae25e978

@@ -14,11 +14,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
-class MainActivityViewModel(context: Context) : ViewModel() {
+class MainActivityViewModel() : ViewModel() {
 
     private val repository = RepositoryImpl()
-    private val roomDatabaseImpl = RoomDatabaseImpl.AppDatabase.DatabaseBuilder.getInstance(context)
-    private val userDAO: UserDAO = roomDatabaseImpl.userDAO()
 
     //API call
 
@@ -32,12 +30,6 @@ class MainActivityViewModel(context: Context) : ViewModel() {
             emit(Resource.success(repository.getMultiplayerUser(gamertag, platform)))
         } catch (e: Exception) {
             emit(Resource.error(null, e.toString()))
-        }
-    }
-
-    fun addUserInFavorites(user: UserInformationMultiplayer, context: Context) {
-        GlobalScope.launch {
-            userDAO.insertUser(user)
         }
     }
 

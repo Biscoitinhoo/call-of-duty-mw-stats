@@ -1,7 +1,10 @@
 package com.example.callofdutymw_stats.model.multiplayer.lifetime.all.properties
 
+import androidx.annotation.NonNull
+import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import androidx.room.RoomWarnings
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
@@ -48,5 +51,6 @@ class UserInformationMultiplayer(
     val recordKillStreak: String
 ) : Serializable {
     @PrimaryKey(autoGenerate = true)
-    var uid: Int = 0
+    @ColumnInfo(name = "id")
+    private var id: Int = 0
 }
