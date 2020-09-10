@@ -1,9 +1,14 @@
 package com.example.callofdutymw_stats.model.multiplayer.lifetime.all.properties
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
+@Entity(tableName = "user")
 class UserInformationMultiplayer(
+    @PrimaryKey
+    val uid: Int,
     val userNickname: String,
     val level: Int,
     val platform: String,

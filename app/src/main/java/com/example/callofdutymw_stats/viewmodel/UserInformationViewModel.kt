@@ -2,6 +2,7 @@ package com.example.callofdutymw_stats.viewmodel
 
 import android.content.Context
 import android.widget.ImageView
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import com.example.callofdutymw_stats.R
 import com.example.callofdutymw_stats.database.room.RoomDatabaseImpl
@@ -10,7 +11,7 @@ import com.example.callofdutymw_stats.domain.RepositoryImpl
 import com.example.callofdutymw_stats.util.Resource
 import kotlinx.coroutines.Dispatchers
 
-class UserInformationViewModel {
+class UserInformationViewModel: ViewModel() {
 
     private val repository = RepositoryImpl()
 

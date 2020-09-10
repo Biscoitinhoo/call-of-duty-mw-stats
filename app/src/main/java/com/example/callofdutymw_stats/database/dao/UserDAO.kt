@@ -14,6 +14,6 @@ interface UserDAO {
     @Delete
     suspend fun deleteUser(userInformationMultiplayer: UserInformationMultiplayer)
 
-    @Query("SELECT * FROM users")
+    @Query("SELECT * FROM user")
     suspend fun getAllUsers(): List<UserInformationMultiplayer>
 }
