@@ -43,8 +43,6 @@ m
 =app/src/main/res/drawable/spinner_rounded_dark_background.xml,1\4\1432b598269767f2637400419e6b217c1be152dc
 R
 "app/src/main/res/values/styles.xml,f\7\f79cc2688e29fcbc286fda14ae07b27c9e83690f
-R
-"app/src/main/res/values/colors.xml,9\6\969faa2a5d9f5e8390e958d2c07f2cfd54676e6b
 b
 2app/src/main/res/layout/alert_dialog_error_api.xml,1\5\1507814a1daa1c41de5d7b07137690fd9ed43c80
 S
@@ -57,3 +55,13 @@ Papp/src/main/java/com/example/callofdutymw_stats/view/UserInformationActivity.k
 Napp/src/main/java/com/example/callofdutymw_stats/data/repository/Repository.kt,0\1\010cd8975880bf2b9329fdf88ff8e1302d9e1fb4
 <
 build.gradle,f\0\f07866736216be0ee2aba49e392191aeae700a35
+a
+1app/src/main/res/drawable/ic_baseline_star_24.xml,9\2\92b304bcb78550ad4ba04366de33163fcf8e212d
+q
+Aapp/src/main/res/drawable/ic_baseline_star_border_outlined_24.xml,a\e\ae44afa6a0eb3f02efc6589c478d6c493258017e
+†
+Vapp/src/main/java/com/example/callofdutymw_stats/viewmodel/UserInformationViewModel.kt,1\6\16fd6426de78087a0ec6e86a6c721b3efacc6df4
+c
+3app/src/main/res/drawable/ic_baseline_delete_24.xml,4\6\46f5555803e414f73683f219f9fc503d6e5686db
+Œ
+\app/src/main/java/com/example/callofdutymw_stats/view/adapter/RecyclerAdapterFavoriteUser.kt,0\9\0911a72ab4b121b4c28409fef5e98b2830e2109b

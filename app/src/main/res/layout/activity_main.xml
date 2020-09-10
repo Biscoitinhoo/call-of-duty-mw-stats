@@ -45,7 +45,7 @@
         android:drawableEnd="@drawable/ic_baseline_arrow_drop_down_24"
         android:drawablePadding="15dp"
         android:focusableInTouchMode="false"
-        android:hint="psn, steam, xbl ou battle"
+        android:hint="PSN, Steam, XBL ou Battle"
         android:inputType="text"
         android:paddingStart="15dp"
         android:paddingEnd="15dp"
@@ -73,20 +73,51 @@
         app:layout_constraintTop_toBottomOf="@+id/autoCompleteTextViewGameMode"
         app:layout_constraintVertical_bias="0.050000012" />
 
-    <TextView
-        android:id="@+id/textViewEmptyHistoric"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayoutEmptyHistory"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginEnd="30dp"
-        android:fontFamily="@font/modern_warfare_main_font"
-        android:gravity="center"
-        android:text="SEM JOGADORES POR ENQUANTO"
-        android:textColor="#fff"
-        android:textSize="16sp"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonSearch" />
+        app:layout_constraintTop_toBottomOf="@+id/buttonSearch"
+        app:layout_constraintVertical_bias="0.25">
+
+        <TextView
+            android:id="@+id/textViewEmptyHistoric"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:fontFamily="@font/modern_warfare_main_font"
+            android:gravity="center"
+            android:text="SEM JOGADORES POR ENQUANTO"
+            android:textColor="#fff"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayoutHistory"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonSearch"
+        app:layout_constraintVertical_bias="1.0">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewFavoriteUser"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:listitem="@layout/recycler_view_favorite_user" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

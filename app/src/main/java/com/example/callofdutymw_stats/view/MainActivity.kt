@@ -5,8 +5,10 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.WindowManager
 import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.callofdutymw_stats.R
 import com.example.callofdutymw_stats.model.multiplayer.lifetime.UserLifeTimeMultiplayer
 import com.example.callofdutymw_stats.model.multiplayer.lifetime.all.properties.UserInformationMultiplayer
@@ -14,6 +16,7 @@ import com.example.callofdutymw_stats.model.warzone.all.UserAllWarzone
 import com.example.callofdutymw_stats.model.warzone.dto.UserDtoWarzone
 import com.example.callofdutymw_stats.util.Resource
 import com.example.callofdutymw_stats.util.Status
+import com.example.callofdutymw_stats.view.adapter.RecyclerAdapterFavoriteUser
 import com.example.callofdutymw_stats.view.dialog.DialogCustomErrorAPI
 import com.example.callofdutymw_stats.view.util.UserConstants
 import com.example.callofdutymw_stats.viewmodel.MainActivityViewModel
@@ -24,13 +27,31 @@ import retrofit2.Response
 @Suppress("IMPLICIT_CAST_TO_ANY", "ControlFlowWithEmptyBody")
 class MainActivity : AppCompatActivity() {
 
+    private lateinit var recyclerAdapterFavoriteUser: RecyclerAdapterFavoriteUser
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         supportActionBar!!.hide()
+        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING)
 
+        setRecyclerAdapter()
         setAutoCompletePlatforms()
         buttonSearchClickListener()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        recyclerAdapterFavoriteUser.notifyDataSetChanged()
+    }
+
+    private fun setRecyclerAdapter() {
+        //TODO: Add a property to the user object to indicate whether or not it is starred.
+        //TODO: Add click interface
+        recyclerAdapterFavoriteUser = RecyclerAdapterFavoriteUser()
+        recyclerViewFavoriteUser.adapter = recyclerAdapterFavoriteUser
+        recyclerViewFavoriteUser.layoutManager = LinearLayoutManager(this)
+        recyclerAdapterFavoriteUser.notifyDataSetChanged()
     }
 
     private fun buttonSearchClickListener() {
