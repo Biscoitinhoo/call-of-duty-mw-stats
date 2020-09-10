@@ -48,5 +48,5 @@ class UserInformationMultiplayer(
     val recordKillStreak: String
 ) : Serializable {
     @PrimaryKey(autoGenerate = true)
-    private var id: Int = 0
+    var id: Int = 0
 }

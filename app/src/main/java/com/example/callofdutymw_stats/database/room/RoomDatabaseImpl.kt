@@ -9,7 +9,7 @@ import com.example.callofdutymw_stats.model.multiplayer.lifetime.all.properties.
 
 class RoomDatabaseImpl {
 
-    @Database(entities = [UserInformationMultiplayer::class], version = 1)
+    @Database(entities = [UserInformationMultiplayer::class], version = 1, exportSchema = false)
     abstract class AppDatabase : RoomDatabase() {
 
         abstract fun userDAO(): UserDAO

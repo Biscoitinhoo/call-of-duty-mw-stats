@@ -1,6 +1,7 @@
 package com.example.callofdutymw_stats.view
 
 import android.os.Bundle
+import android.provider.Settings
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
@@ -10,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.example.callofdutymw_stats.R
+import com.example.callofdutymw_stats.database.room.RoomDatabaseImpl
 import com.example.callofdutymw_stats.model.multiplayer.lifetime.all.properties.UserInformationMultiplayer
 import com.example.callofdutymw_stats.model.warzone.dto.UserDtoWarzone
 import com.example.callofdutymw_stats.util.GameModeConstants
@@ -21,6 +23,8 @@ import com.example.callofdutymw_stats.viewmodel.UserInformationViewModel
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.autoCompleteTextViewGameMode
 import kotlinx.android.synthetic.main.activity_user_information.*
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import java.text.DecimalFormat
 
 @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
@@ -67,14 +71,19 @@ class UserInformationActivity : AppCompatActivity() {
     }
 
     private fun addUserInFavorites(user: UserInformationMultiplayer) {
-        RecyclerAdapterFavoriteUser.addUserToFavorites(user)
-        //TODO:
-        /*
         val userInformationViewModel = UserInformationViewModel(this)
-        GlobalScope.launch {
         userInformationViewModel.addUserInFavorites(user)
+
+        //Testing database insertions, TODO: remove that instances
+        val roomDatabaseImpl = RoomDatabaseImpl.AppDatabase.DatabaseBuilder.getInstance(this)
+        val userDAO = roomDatabaseImpl.userDAO()
+
+        GlobalScope.launch {
+            for (i in userDAO.getAllFavoriteUsers().indices) {
+                Log.d("All users added to favorite ", userDAO.getAllFavoriteUsers()[i].userNickname)
+            }
         }
-        */
+
     }
 
     private fun setAllUserInformations() {

@@ -32,6 +32,9 @@ android {
     }
 }
 
+//Kapt plugin
+apply plugin: 'kotlin-kapt'
+
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
@@ -68,6 +71,19 @@ dependencies {
     implementation "androidx.room:room-runtime:$room_version"
     annotationProcessor "androidx.room:room-compiler:$room_version"
     testImplementation "androidx.room:room-testing:$room_version"
+
+    //Kotlin runtime processor (1)
+    implementation "android.arch.lifecycle:extensions:1.1.1"
+    //noinspection LifecycleAnnotationProcessorWithJava8
+    kapt "android.arch.lifecycle:compiler:1.1.1"
+    implementation "androidx.room:room-runtime:2.2.5"
+    kapt  "androidx.room:room-compiler:2.2.5"
+
+    implementation 'androidx.room:room-ktx:2.2.1'
+    kapt "androidx.room:room-compiler:2.2.1"
+
+    //Annotation processor
+    kapt 'android.arch.persistence.room:compiler:1.1.1'
 
     //LiveData and lifecycle
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.2.0'
