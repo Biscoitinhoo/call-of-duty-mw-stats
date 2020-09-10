@@ -5,8 +5,6 @@ import android.widget.AutoCompleteTextView
 import android.widget.EditText
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
-import com.example.callofdutymw_stats.database.dao.UserDAO
-import com.example.callofdutymw_stats.database.room.RoomDatabaseImpl
 import com.example.callofdutymw_stats.domain.RepositoryImpl
 import com.example.callofdutymw_stats.model.multiplayer.lifetime.all.properties.UserInformationMultiplayer
 import com.example.callofdutymw_stats.util.Resource

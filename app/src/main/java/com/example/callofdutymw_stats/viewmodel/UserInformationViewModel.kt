@@ -3,8 +3,6 @@ package com.example.callofdutymw_stats.viewmodel
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
-import com.example.callofdutymw_stats.database.dao.UserDAO
-import com.example.callofdutymw_stats.database.room.RoomDatabaseImpl
 import com.example.callofdutymw_stats.domain.RepositoryImpl
 import com.example.callofdutymw_stats.model.multiplayer.lifetime.all.properties.UserInformationMultiplayer
 import com.example.callofdutymw_stats.util.Resource
@@ -15,8 +13,6 @@ import kotlinx.coroutines.launch
 class UserInformationViewModel(context: Context) : ViewModel() {
 
     private val repository = RepositoryImpl()
-    private val roomDatabaseImpl = RoomDatabaseImpl.AppDatabase.DatabaseBuilder.getInstance(context)
-    private val userDAO: UserDAO = roomDatabaseImpl.userDAO()
 
     fun getWarzoneUser(
         gamertag: String,
@@ -32,9 +28,6 @@ class UserInformationViewModel(context: Context) : ViewModel() {
     }
 
     fun addUserInFavorites(user: UserInformationMultiplayer) {
-        GlobalScope.launch {
-            userDAO.insertUser(user)
-        }
     }
 
     companion object {

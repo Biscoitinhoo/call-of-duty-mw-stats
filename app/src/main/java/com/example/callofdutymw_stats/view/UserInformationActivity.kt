@@ -74,13 +74,7 @@ class UserInformationActivity : AppCompatActivity() {
     }
 
     private fun addUserInFavorites(user: UserInformationMultiplayer) {
-        val userInformationViewModel = UserInformationViewModel(this)
-        GlobalScope.launch {
-            userInformationViewModel.addUserInFavorites(user)
-            for (i in RecyclerAdapterFavoriteUser.getListOfFavoriteUser().indices) {
-                Log.d("Users added to favorites ", RecyclerAdapterFavoriteUser.getListOfFavoriteUser()[i].userNickname)
-            }
-        }
+        RecyclerAdapterFavoriteUser.addUserToFavorites(user)
     }
 
     private fun setAllUserInformations() {
