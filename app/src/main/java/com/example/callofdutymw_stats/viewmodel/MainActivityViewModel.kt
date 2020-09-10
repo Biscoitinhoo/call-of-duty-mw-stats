@@ -1,20 +1,25 @@
 package com.example.callofdutymw_stats.viewmodel
 
-import android.util.Log
+import android.content.Context
 import android.widget.AutoCompleteTextView
 import android.widget.EditText
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
+import com.example.callofdutymw_stats.database.dao.UserDAO
+import com.example.callofdutymw_stats.database.room.RoomDatabaseImpl
 import com.example.callofdutymw_stats.domain.RepositoryImpl
+import com.example.callofdutymw_stats.model.multiplayer.lifetime.all.properties.UserInformationMultiplayer
 import com.example.callofdutymw_stats.util.Resource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-class MainActivityViewModel() : ViewModel() {
+class MainActivityViewModel(context: Context) : ViewModel() {
 
     private val repository = RepositoryImpl()
+    private val roomDatabaseImpl = RoomDatabaseImpl.AppDatabase.DatabaseBuilder.getInstance(context)
+    private val userDAO: UserDAO = roomDatabaseImpl.userDAO()
+
     //API call
 
     fun getMultiplayerUser(
@@ -30,12 +35,10 @@ class MainActivityViewModel() : ViewModel() {
         }
     }
 
-    fun addUserInFavorites() {
+    fun addUserInFavorites(user: UserInformationMultiplayer, context: Context) {
         GlobalScope.launch {
-            delay(1000L)
-            Log.d("Message 1 ", "need to appear later")
+            userDAO.insertUser(user)
         }
-        Log.d("Message 2 ", "need to appear before")
     }
 
     //Logic
