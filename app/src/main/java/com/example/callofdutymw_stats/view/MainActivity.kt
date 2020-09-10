@@ -47,6 +47,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun setRecyclerAdapter() {
         //TODO: Add a property to the user object to indicate whether or not it is starred.
+        //TODO: Add click interface
         recyclerAdapterFavoriteUser = RecyclerAdapterFavoriteUser()
         recyclerViewFavoriteUser.adapter = recyclerAdapterFavoriteUser
         recyclerViewFavoriteUser.layoutManager = LinearLayoutManager(this)
