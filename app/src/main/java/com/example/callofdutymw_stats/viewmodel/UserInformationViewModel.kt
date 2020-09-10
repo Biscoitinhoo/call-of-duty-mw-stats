@@ -13,6 +13,11 @@ import kotlinx.coroutines.launch
 class UserInformationViewModel(context: Context) : ViewModel() {
 
     private val repository = RepositoryImpl()
+    //Here is the crash
+    /*
+    private val roomDatabaseImpl = RoomDatabaseImpl.AppDatabase.DatabaseBuilder.getInstance(context)
+    private val userDAO = roomDatabaseImpl.userDAO()
+    */
 
     fun getWarzoneUser(
         gamertag: String,
@@ -28,6 +33,9 @@ class UserInformationViewModel(context: Context) : ViewModel() {
     }
 
     fun addUserInFavorites(user: UserInformationMultiplayer) {
+        GlobalScope.launch {
+            //TODO: userDAO.addUserInFavorites(user)
+        }
     }
 
     companion object {

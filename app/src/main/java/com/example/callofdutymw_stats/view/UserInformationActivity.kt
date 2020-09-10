@@ -6,11 +6,9 @@ import android.text.TextWatcher
 import android.util.Log
 import android.view.View
 import android.widget.ArrayAdapter
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.RecyclerView
 import com.example.callofdutymw_stats.R
 import com.example.callofdutymw_stats.model.multiplayer.lifetime.all.properties.UserInformationMultiplayer
 import com.example.callofdutymw_stats.model.warzone.dto.UserDtoWarzone
@@ -23,8 +21,6 @@ import com.example.callofdutymw_stats.viewmodel.UserInformationViewModel
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.autoCompleteTextViewGameMode
 import kotlinx.android.synthetic.main.activity_user_information.*
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 import java.text.DecimalFormat
 
 @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
@@ -68,13 +64,17 @@ class UserInformationActivity : AppCompatActivity() {
             Snackbar.make(view, R.string.removed_to_favorites, Snackbar.LENGTH_LONG).show()
             false
         }
-        for (i in RecyclerAdapterFavoriteUser.getListOfFavoriteUser().indices) {
-            Log.d("All users added to favorite ", RecyclerAdapterFavoriteUser.getListOfFavoriteUser()[i].userNickname)
-        }
     }
 
     private fun addUserInFavorites(user: UserInformationMultiplayer) {
         RecyclerAdapterFavoriteUser.addUserToFavorites(user)
+        //TODO:
+        /*
+        val userInformationViewModel = UserInformationViewModel(this)
+        GlobalScope.launch {
+        userInformationViewModel.addUserInFavorites(user)
+        }
+        */
     }
 
     private fun setAllUserInformations() {
