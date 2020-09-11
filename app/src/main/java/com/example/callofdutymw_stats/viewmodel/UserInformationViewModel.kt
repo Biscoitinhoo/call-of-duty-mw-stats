@@ -10,6 +10,7 @@ import com.example.callofdutymw_stats.util.Resource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 
 class UserInformationViewModel(context: Context) : ViewModel() {
 
@@ -36,9 +37,14 @@ class UserInformationViewModel(context: Context) : ViewModel() {
         }
     }
 
-    fun getAllFavoriteUsers(): List<UserInformationMultiplayer>? {
-        //TODO: return userDAO.getAllFavoriteUsers()
-        return null
+    fun deleteUserInFavorites(user: UserInformationMultiplayer) {
+        GlobalScope.launch {
+            userDAO.deleteUserInFavorites(user)
+        }
+    }
+
+    fun getAllFavoriteUsers(): List<UserInformationMultiplayer> = runBlocking {
+        return@runBlocking userDAO.getAllFavoriteUsers()
     }
 
     companion object {

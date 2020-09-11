@@ -1,28 +1,19 @@
 package com.example.callofdutymw_stats.view.adapter
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.callofdutymw_stats.R
 import com.example.callofdutymw_stats.model.multiplayer.lifetime.all.properties.UserInformationMultiplayer
+import com.example.callofdutymw_stats.viewmodel.UserInformationViewModel
 import kotlinx.android.synthetic.main.recycler_view_favorite_user.view.*
 
-class RecyclerAdapterFavoriteUser(private val listOfFavoriteUser: ArrayList<UserInformationMultiplayer>) :
+class RecyclerAdapterFavoriteUser(context: Context) :
     RecyclerView.Adapter<RecyclerAdapterFavoriteUser.ViewHolder>() {
 
-    fun addUserToFavorites(user: UserInformationMultiplayer) {
-        listOfFavoriteUser.add(user)
-    }
-
-    fun deleteUserInFavorites(user: UserInformationMultiplayer) {
-        listOfFavoriteUser.remove(user)
-    }
-
-    fun getListOfFavoriteUser(): List<UserInformationMultiplayer> {
-        return listOfFavoriteUser
-    }
-
+    private val userInformationViewModel = UserInformationViewModel(context)
     private lateinit var onClickListener: OnClickListener
 
     override fun onCreateViewHolder(
@@ -35,7 +26,7 @@ class RecyclerAdapterFavoriteUser(private val listOfFavoriteUser: ArrayList<User
     }
 
     override fun onBindViewHolder(holder: RecyclerAdapterFavoriteUser.ViewHolder, position: Int) {
-        holder.bindItems(listOfFavoriteUser[position])
+        holder.bindItems(userInformationViewModel.getAllFavoriteUsers()[position])
         deleteIconOnClick(holder, position)
     }
 
@@ -46,7 +37,7 @@ class RecyclerAdapterFavoriteUser(private val listOfFavoriteUser: ArrayList<User
     }
 
     override fun getItemCount(): Int {
-        return listOfFavoriteUser.size
+        return userInformationViewModel.getAllFavoriteUsers().size
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
