@@ -31,8 +31,6 @@ eapp/src/main/java/com/example/callofdutymw_stats/model/multiplayer/lifetime/all
 wapp/src/main/java/com/example/callofdutymw_stats/model/multiplayer/lifetime/all/properties/UserPropertiesMultiplayer.kt,9\4\942badc094fc556831485d6fb74bfcbb497df7cc
 c
 3app/src/main/res/drawable/ic_baseline_search_24.xml,f\7\f739e1a582ae6189355f067801a6685283bfb145
-Z
-*app/src/test/java/com/api/ViewModelTest.kt,7\6\762b483f88a0ed2a2c6a8ea71817a52c0c149fde
 ¨
 xapp/src/main/java/com/example/callofdutymw_stats/model/multiplayer/lifetime/all/properties/UserInformationMultiplayer.kt,a\e\ae5aafc8cb623a0290aabc722b84ce2ee890199b
 y
@@ -65,3 +63,7 @@ c
 3app/src/main/res/drawable/ic_baseline_delete_24.xml,4\6\46f5555803e414f73683f219f9fc503d6e5686db
 Œ
 \app/src/main/java/com/example/callofdutymw_stats/view/adapter/RecyclerAdapterFavoriteUser.kt,0\9\0911a72ab4b121b4c28409fef5e98b2830e2109b
+‚
+Rapp/src/main/java/com/example/callofdutymw_stats/database/room/RoomDatabaseImpl.kt,3\6\369887512b5e6c2ccfdcd4580d5e3a0dae25e978
+x
+Happ/src/main/java/com/example/callofdutymw_stats/database/dao/UserDAO.kt,2\4\24429d967fa41e7cc28a6fbad3d50b1c6ebaa724

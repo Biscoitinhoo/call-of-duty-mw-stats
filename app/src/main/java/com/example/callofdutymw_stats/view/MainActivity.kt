@@ -1,12 +1,14 @@
 package com.example.callofdutymw_stats.view
 
 import android.app.ProgressDialog
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.callofdutymw_stats.R
@@ -20,6 +22,7 @@ import com.example.callofdutymw_stats.view.adapter.RecyclerAdapterFavoriteUser
 import com.example.callofdutymw_stats.view.dialog.DialogCustomErrorAPI
 import com.example.callofdutymw_stats.view.util.UserConstants
 import com.example.callofdutymw_stats.viewmodel.MainActivityViewModel
+import com.example.callofdutymw_stats.viewmodel.UserInformationViewModel
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Response
@@ -28,6 +31,7 @@ import retrofit2.Response
 class MainActivity : AppCompatActivity() {
 
     private lateinit var recyclerAdapterFavoriteUser: RecyclerAdapterFavoriteUser
+    private val context: Context = this
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,6 +40,8 @@ class MainActivity : AppCompatActivity() {
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING)
 
         setRecyclerAdapter()
+        recyclerAdapterDeleteIconClick()
+
         setAutoCompletePlatforms()
         buttonSearchClickListener()
     }
@@ -47,11 +53,25 @@ class MainActivity : AppCompatActivity() {
 
     private fun setRecyclerAdapter() {
         //TODO: Add a property to the user object to indicate whether or not it is starred.
-        //TODO: Add click interface
-        recyclerAdapterFavoriteUser = RecyclerAdapterFavoriteUser()
+        recyclerAdapterFavoriteUser = RecyclerAdapterFavoriteUser(this)
         recyclerViewFavoriteUser.adapter = recyclerAdapterFavoriteUser
-        recyclerViewFavoriteUser.layoutManager = LinearLayoutManager(this)
+        recyclerViewFavoriteUser.layoutManager = LinearLayoutManager(context)
         recyclerAdapterFavoriteUser.notifyDataSetChanged()
+    }
+
+    private fun recyclerAdapterDeleteIconClick() {
+        recyclerAdapterFavoriteUser.setOnClickListener(object :
+            RecyclerAdapterFavoriteUser.OnClickListener {
+            override fun onClick(position: Int) {
+                val userInformationViewModel = UserInformationViewModel(context)
+                val user = userInformationViewModel.getAllFavoriteUsers()[position]
+
+                userInformationViewModel.deleteUserInFavorites(user)
+
+                recyclerAdapterFavoriteUser.notifyItemRemoved(position)
+                recyclerAdapterFavoriteUser.notifyItemRangeChanged(position, userInformationViewModel.getAllFavoriteUsers().size)
+            }
+        })
     }
 
     private fun buttonSearchClickListener() {

@@ -1,12 +1,16 @@
 package com.example.callofdutymw_stats.viewmodel
 
+import android.content.Context
 import android.widget.AutoCompleteTextView
 import android.widget.EditText
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import com.example.callofdutymw_stats.domain.RepositoryImpl
+import com.example.callofdutymw_stats.model.multiplayer.lifetime.all.properties.UserInformationMultiplayer
 import com.example.callofdutymw_stats.util.Resource
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 class MainActivityViewModel() : ViewModel() {
 

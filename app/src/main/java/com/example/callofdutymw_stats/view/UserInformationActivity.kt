@@ -6,18 +6,15 @@ import android.text.TextWatcher
 import android.util.Log
 import android.view.View
 import android.widget.ArrayAdapter
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.RecyclerView
 import com.example.callofdutymw_stats.R
 import com.example.callofdutymw_stats.model.multiplayer.lifetime.all.properties.UserInformationMultiplayer
 import com.example.callofdutymw_stats.model.warzone.dto.UserDtoWarzone
 import com.example.callofdutymw_stats.util.GameModeConstants
 import com.example.callofdutymw_stats.util.Resource
 import com.example.callofdutymw_stats.util.Status
-import com.example.callofdutymw_stats.view.adapter.RecyclerAdapterFavoriteUser
 import com.example.callofdutymw_stats.view.util.UserConstants
 import com.example.callofdutymw_stats.viewmodel.UserInformationViewModel
 import com.google.android.material.snackbar.Snackbar
@@ -55,20 +52,27 @@ class UserInformationActivity : AppCompatActivity() {
 
         favoriteStarClicked = if (!favoriteStarClicked) {
             imageViewStarFavoritePlayer.setImageResource(R.drawable.ic_baseline_star_24)
-            RecyclerAdapterFavoriteUser.addUserToFavorites(user)
+            addUserInFavorites(user)
 
             Snackbar.make(view, R.string.added_to_favorites, Snackbar.LENGTH_LONG).show()
             true
         } else {
             imageViewStarFavoritePlayer.setImageResource(R.drawable.ic_baseline_star_border_outlined_24)
-            RecyclerAdapterFavoriteUser.removeUserToFavorites(user)
+            deleteUserInFavorites(user)
 
             Snackbar.make(view, R.string.removed_to_favorites, Snackbar.LENGTH_LONG).show()
             false
         }
-        for (i in RecyclerAdapterFavoriteUser.getListOfFavoriteUser().indices) {
-            Log.d("All users added to favorite ", RecyclerAdapterFavoriteUser.getListOfFavoriteUser()[i].userNickname)
-        }
+    }
+
+    private fun addUserInFavorites(user: UserInformationMultiplayer) {
+        val userInformationViewModel = UserInformationViewModel(this)
+        userInformationViewModel.addUserInFavorites(user)
+    }
+
+    private fun deleteUserInFavorites(user: UserInformationMultiplayer) {
+        val userInformationViewModel = UserInformationViewModel(this)
+        userInformationViewModel.deleteUserInFavorites(user)
     }
 
     private fun setAllUserInformations() {
@@ -86,7 +90,7 @@ class UserInformationActivity : AppCompatActivity() {
     }
 
     private fun setWarzoneUserInformation(userNickname: String, platform: String) {
-        val userInformationViewModel = UserInformationViewModel()
+        val userInformationViewModel = UserInformationViewModel(this)
         userInformationViewModel.getWarzoneUser(userNickname, platform)
             .observe(this, androidx.lifecycle.Observer {
                 it?.let { resource ->

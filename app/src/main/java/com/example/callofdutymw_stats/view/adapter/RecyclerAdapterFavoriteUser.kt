@@ -1,34 +1,19 @@
 package com.example.callofdutymw_stats.view.adapter
 
-import android.util.Log
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.callofdutymw_stats.R
 import com.example.callofdutymw_stats.model.multiplayer.lifetime.all.properties.UserInformationMultiplayer
+import com.example.callofdutymw_stats.viewmodel.UserInformationViewModel
 import kotlinx.android.synthetic.main.recycler_view_favorite_user.view.*
 
-class RecyclerAdapterFavoriteUser : RecyclerView.Adapter<RecyclerAdapterFavoriteUser.ViewHolder>() {
+class RecyclerAdapterFavoriteUser(context: Context) :
+    RecyclerView.Adapter<RecyclerAdapterFavoriteUser.ViewHolder>() {
 
-    companion object {
-        private val listOfFavoriteUser = ArrayList<UserInformationMultiplayer>()
-
-        fun addUserToFavorites(user: UserInformationMultiplayer) {
-            listOfFavoriteUser.add(user)
-            Log.d("User added ", user.userNickname)
-        }
-
-        fun removeUserToFavorites(user: UserInformationMultiplayer) {
-            listOfFavoriteUser.remove(user)
-            Log.d("User removed ", user.userNickname)
-        }
-
-        fun getListOfFavoriteUser(): List<UserInformationMultiplayer> {
-            return listOfFavoriteUser
-        }
-    }
-
+    private val userInformationViewModel = UserInformationViewModel(context)
     private lateinit var onClickListener: OnClickListener
 
     override fun onCreateViewHolder(
@@ -41,7 +26,7 @@ class RecyclerAdapterFavoriteUser : RecyclerView.Adapter<RecyclerAdapterFavorite
     }
 
     override fun onBindViewHolder(holder: RecyclerAdapterFavoriteUser.ViewHolder, position: Int) {
-        holder.bindItems(listOfFavoriteUser[position])
+        holder.bindItems(userInformationViewModel.getAllFavoriteUsers()[position])
         deleteIconOnClick(holder, position)
     }
 
@@ -52,7 +37,7 @@ class RecyclerAdapterFavoriteUser : RecyclerView.Adapter<RecyclerAdapterFavorite
     }
 
     override fun getItemCount(): Int {
-        return listOfFavoriteUser.size
+        return userInformationViewModel.getAllFavoriteUsers().size
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -60,6 +45,10 @@ class RecyclerAdapterFavoriteUser : RecyclerView.Adapter<RecyclerAdapterFavorite
             itemView.textViewUserLevel.text = userInformationMultiplayer.level.toString()
             itemView.textViewUsername.text = userInformationMultiplayer.userNickname
         }
+    }
+
+    fun setOnClickListener(onClickListener: OnClickListener) {
+        this.onClickListener = onClickListener
     }
 
     public interface OnClickListener {

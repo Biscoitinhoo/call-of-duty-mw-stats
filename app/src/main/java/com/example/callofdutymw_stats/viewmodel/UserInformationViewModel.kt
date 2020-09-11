@@ -1,15 +1,22 @@
 package com.example.callofdutymw_stats.viewmodel
 
-import android.widget.ImageView
+import android.content.Context
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
-import com.example.callofdutymw_stats.R
+import com.example.callofdutymw_stats.database.room.RoomDatabaseImpl
 import com.example.callofdutymw_stats.domain.RepositoryImpl
+import com.example.callofdutymw_stats.model.multiplayer.lifetime.all.properties.UserInformationMultiplayer
 import com.example.callofdutymw_stats.util.Resource
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 
-class UserInformationViewModel {
+class UserInformationViewModel(context: Context) : ViewModel() {
 
     private val repository = RepositoryImpl()
+    private var roomDatabaseImpl = RoomDatabaseImpl.AppDatabase.DatabaseBuilder.getInstance(context)
+    private val userDAO = roomDatabaseImpl.userDAO()
 
     fun getWarzoneUser(
         gamertag: String,
@@ -22,6 +29,22 @@ class UserInformationViewModel {
         } catch (e: Exception) {
             emit(Resource.error(null, e.toString()))
         }
+    }
+
+    fun addUserInFavorites(user: UserInformationMultiplayer) {
+        GlobalScope.launch {
+            userDAO.addUserInFavorites(user)
+        }
+    }
+
+    fun deleteUserInFavorites(user: UserInformationMultiplayer) {
+        GlobalScope.launch {
+            userDAO.deleteUserInFavorites(user)
+        }
+    }
+
+    fun getAllFavoriteUsers(): List<UserInformationMultiplayer> = runBlocking {
+        return@runBlocking userDAO.getAllFavoriteUsers()
     }
 
     companion object {
