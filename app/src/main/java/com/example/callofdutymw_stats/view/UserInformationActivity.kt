@@ -33,15 +33,17 @@ class UserInformationActivity : AppCompatActivity() {
         setContentView(R.layout.activity_user_information)
         supportActionBar!!.hide()
 
-        val user: UserInformationMultiplayer =
-            intent.getSerializableExtra(UserConstants.OBJECT_USER) as UserInformationMultiplayer
-        setStarStatusAgainstUser(user)
+        setStarStatusAgainstUser(getSearchedUser())
 
         observeGameMode()
         textViewFavoriteUserClick()
 
         setAllUserInformations()
         setAutoCompleteGameMode()
+    }
+
+    private fun getSearchedUser(): UserInformationMultiplayer {
+        return intent.getSerializableExtra(UserConstants.OBJECT_USER) as UserInformationMultiplayer
     }
 
     private fun setStarStatusAgainstUser(user: UserInformationMultiplayer) {
@@ -62,14 +64,12 @@ class UserInformationActivity : AppCompatActivity() {
     }
 
     private fun setStarStatusAndAddUser(view: View) {
-        val user: UserInformationMultiplayer =
-            intent.getSerializableExtra(UserConstants.OBJECT_USER) as UserInformationMultiplayer
         val userInformationViewModel = UserInformationViewModel(this)
 
         favoriteStarClicked = if (!favoriteStarClicked) {
             if (userInformationViewModel.starredLimitIsValid(userInformationViewModel.getAllFavoriteUsers())) {
                 imageViewStarFavoritePlayer.setImageResource(R.drawable.ic_baseline_star_24)
-                addUserInFavorites(user)
+                addUserInFavorites(getSearchedUser())
 
                 Snackbar.make(view, R.string.added_to_favorites, Snackbar.LENGTH_LONG).show()
                 true
@@ -79,7 +79,7 @@ class UserInformationActivity : AppCompatActivity() {
             }
         } else {
             imageViewStarFavoritePlayer.setImageResource(R.drawable.ic_baseline_star_border_outlined_24)
-            deleteUserInFavorites(user)
+            deleteUserInFavorites(getSearchedUser())
 
             Snackbar.make(view, R.string.removed_to_favorites, Snackbar.LENGTH_LONG).show()
             false
@@ -97,12 +97,9 @@ class UserInformationActivity : AppCompatActivity() {
     }
 
     private fun setAllUserInformations() {
-        val user: UserInformationMultiplayer =
-            intent.getSerializableExtra(UserConstants.OBJECT_USER) as UserInformationMultiplayer
-
-        setUserDefaultInformations(user)
-        setWarzoneUserInformation(user.userNickname, user.platform)
-        setMultiplayerUserInformation(user)
+        setUserDefaultInformations(getSearchedUser())
+        setWarzoneUserInformation(getSearchedUser().userNickname, getSearchedUser().platform)
+        setMultiplayerUserInformation(getSearchedUser())
     }
 
     private fun setUserDefaultInformations(user: UserInformationMultiplayer) {
