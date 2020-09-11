@@ -1,6 +1,5 @@
 package com.example.callofdutymw_stats.view.adapter
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,24 +8,19 @@ import com.example.callofdutymw_stats.R
 import com.example.callofdutymw_stats.model.multiplayer.lifetime.all.properties.UserInformationMultiplayer
 import kotlinx.android.synthetic.main.recycler_view_favorite_user.view.*
 
-class RecyclerAdapterFavoriteUser : RecyclerView.Adapter<RecyclerAdapterFavoriteUser.ViewHolder>() {
+class RecyclerAdapterFavoriteUser(private val listOfFavoriteUser: ArrayList<UserInformationMultiplayer>) :
+    RecyclerView.Adapter<RecyclerAdapterFavoriteUser.ViewHolder>() {
 
-    companion object {
-        private val listOfFavoriteUser = ArrayList<UserInformationMultiplayer>()
+    fun addUserToFavorites(user: UserInformationMultiplayer) {
+        listOfFavoriteUser.add(user)
+    }
 
-        fun addUserToFavorites(user: UserInformationMultiplayer) {
-            listOfFavoriteUser.add(user)
-            Log.d("User added ", user.userNickname)
-        }
+    fun deleteUserInFavorites(user: UserInformationMultiplayer) {
+        listOfFavoriteUser.remove(user)
+    }
 
-        fun removeUserToFavorites(user: UserInformationMultiplayer) {
-            listOfFavoriteUser.remove(user)
-            Log.d("User removed ", user.userNickname)
-        }
-
-        fun getListOfFavoriteUser(): List<UserInformationMultiplayer> {
-            return listOfFavoriteUser
-        }
+    fun getListOfFavoriteUser(): List<UserInformationMultiplayer> {
+        return listOfFavoriteUser
     }
 
     private lateinit var onClickListener: OnClickListener

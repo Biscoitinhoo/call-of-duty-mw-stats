@@ -1,6 +1,7 @@
 package com.example.callofdutymw_stats.view
 
 import android.app.ProgressDialog
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -10,6 +11,7 @@ import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.callofdutymw_stats.R
+import com.example.callofdutymw_stats.database.room.RoomDatabaseImpl
 import com.example.callofdutymw_stats.model.multiplayer.lifetime.UserLifeTimeMultiplayer
 import com.example.callofdutymw_stats.model.multiplayer.lifetime.all.properties.UserInformationMultiplayer
 import com.example.callofdutymw_stats.model.warzone.all.UserAllWarzone
@@ -22,12 +24,15 @@ import com.example.callofdutymw_stats.view.util.UserConstants
 import com.example.callofdutymw_stats.viewmodel.MainActivityViewModel
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import retrofit2.Response
 
 @Suppress("IMPLICIT_CAST_TO_ANY", "ControlFlowWithEmptyBody")
 class MainActivity : AppCompatActivity() {
 
     private lateinit var recyclerAdapterFavoriteUser: RecyclerAdapterFavoriteUser
+    private val context: Context = this
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,10 +53,18 @@ class MainActivity : AppCompatActivity() {
     private fun setRecyclerAdapter() {
         //TODO: Add a property to the user object to indicate whether or not it is starred.
         //TODO: Add click interface
-        recyclerAdapterFavoriteUser = RecyclerAdapterFavoriteUser()
-        recyclerViewFavoriteUser.adapter = recyclerAdapterFavoriteUser
-        recyclerViewFavoriteUser.layoutManager = LinearLayoutManager(this)
-        recyclerAdapterFavoriteUser.notifyDataSetChanged()
+
+        val roomDataBaseImpl = RoomDatabaseImpl.AppDatabase.DatabaseBuilder.getInstance(this)
+        val userDAO = roomDataBaseImpl.userDAO()
+
+        GlobalScope.launch {
+            recyclerAdapterFavoriteUser = RecyclerAdapterFavoriteUser(
+                userDAO.getAllFavoriteUsers().toList() as ArrayList<UserInformationMultiplayer>
+            )
+            recyclerViewFavoriteUser.adapter = recyclerAdapterFavoriteUser
+            recyclerViewFavoriteUser.layoutManager = LinearLayoutManager(context)
+            recyclerAdapterFavoriteUser.notifyDataSetChanged()
+        }
     }
 
     private fun buttonSearchClickListener() {

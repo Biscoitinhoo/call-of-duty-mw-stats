@@ -62,7 +62,7 @@ class UserInformationActivity : AppCompatActivity() {
             true
         } else {
             imageViewStarFavoritePlayer.setImageResource(R.drawable.ic_baseline_star_border_outlined_24)
-            RecyclerAdapterFavoriteUser.removeUserToFavorites(user)
+            //RecyclerAdapterFavoriteUser.removeUserToFavorites(user)
 
             Snackbar.make(view, R.string.removed_to_favorites, Snackbar.LENGTH_LONG).show()
             false
@@ -82,7 +82,6 @@ class UserInformationActivity : AppCompatActivity() {
                 Log.d("All users added to favorite ", userDAO.getAllFavoriteUsers()[i].userNickname)
             }
         }
-
     }
 
     private fun setAllUserInformations() {
