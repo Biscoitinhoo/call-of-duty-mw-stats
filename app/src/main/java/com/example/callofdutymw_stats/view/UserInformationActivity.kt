@@ -133,10 +133,22 @@ class UserInformationActivity : AppCompatActivity() {
         val formatter = DecimalFormat("##,###,###")
 
         setKDArrowColor(user.kdRatio)
-        if (UserInformationViewModel.responseKDRatioIsValid(user.kdRatio.toString())) textViewKDRatio.text =
-            user.kdRatio.toString().substring(0, 4)
-        if (UserInformationViewModel.responseAccuracyIsValid(user.accuracy)) textViewAccuracy.text =
-            user.accuracy.substring(0, 4)
+
+        /**
+         * Obs.: this "if" conditions need be refactored.
+         */
+        if (UserInformationViewModel.responseKDRatioIsValid(user.kdRatio.toString())) {
+            textViewKDRatio.text = user.kdRatio.toString().substring(0, 4)
+        } else {
+            textViewKDRatio.text = user.kdRatio.toString()
+        }
+        if (UserInformationViewModel.responseAccuracyIsValid(user.accuracy)) {
+            textViewAccuracy.text =
+                user.accuracy.substring(0, 4)
+        } else {
+            textViewAccuracy.text =
+                user.accuracy
+        }
         textViewTotalKills.text = formatter.format(user.totalKills.toInt())
         textViewTotalDeaths.text = formatter.format(user.totalDeaths.toInt())
         textViewHeadshots.text = formatter.format(user.headshots.toInt())

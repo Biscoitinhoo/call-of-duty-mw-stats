@@ -49,7 +49,7 @@ class UserInformationViewModel(context: Context) : ViewModel() {
 
     companion object {
         fun responseKDRatioIsValid(response: String): Boolean {
-            return response.toDouble() != 0.0
+            return response.toDouble() != 0.0 && response.toDouble() != 1.0
         }
 
         fun responseAccuracyIsValid(accuracy: String): Boolean {
