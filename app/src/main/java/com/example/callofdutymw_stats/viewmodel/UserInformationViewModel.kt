@@ -43,6 +43,18 @@ class UserInformationViewModel(context: Context) : ViewModel() {
         }
     }
 
+    fun userAlreadyStarred(
+        user: UserInformationMultiplayer,
+        databaseUsers: List<UserInformationMultiplayer>,
+        i: Int
+    ): Boolean {
+        return databaseUsers[i].userNickname == user.userNickname && databaseUsers[i].platform == user.platform
+    }
+
+    fun starredLimitIsValid(listStarredUsers: List<UserInformationMultiplayer>): Boolean {
+         return listStarredUsers.size < 5
+    }
+
     fun getAllFavoriteUsers(): List<UserInformationMultiplayer> = runBlocking {
         return@runBlocking userDAO.getAllFavoriteUsers()
     }

@@ -33,10 +33,26 @@ class UserInformationActivity : AppCompatActivity() {
         setContentView(R.layout.activity_user_information)
         supportActionBar!!.hide()
 
+        val user: UserInformationMultiplayer =
+            intent.getSerializableExtra(UserConstants.OBJECT_USER) as UserInformationMultiplayer
+        setStarStatusAgainstUser(user)
+
         observeGameMode()
         textViewFavoriteUserClick()
+
         setAllUserInformations()
         setAutoCompleteGameMode()
+    }
+
+    private fun setStarStatusAgainstUser(user: UserInformationMultiplayer) {
+        val userInformationViewModel = UserInformationViewModel(this)
+        val databaseUsers = userInformationViewModel.getAllFavoriteUsers()
+        for (i in databaseUsers.indices) {
+            if (userInformationViewModel.userAlreadyStarred(user, databaseUsers, i)) {
+                imageViewStarFavoritePlayer.setImageResource(R.drawable.ic_baseline_star_24)
+                favoriteStarClicked = true
+            }
+        }
     }
 
     private fun textViewFavoriteUserClick() {
@@ -46,16 +62,21 @@ class UserInformationActivity : AppCompatActivity() {
     }
 
     private fun setStarStatusAndAddUser(view: View) {
-        //TODO: put this on ViewModel;
         val user: UserInformationMultiplayer =
             intent.getSerializableExtra(UserConstants.OBJECT_USER) as UserInformationMultiplayer
+        val userInformationViewModel = UserInformationViewModel(this)
 
         favoriteStarClicked = if (!favoriteStarClicked) {
-            imageViewStarFavoritePlayer.setImageResource(R.drawable.ic_baseline_star_24)
-            addUserInFavorites(user)
+            if (userInformationViewModel.starredLimitIsValid(userInformationViewModel.getAllFavoriteUsers())) {
+                imageViewStarFavoritePlayer.setImageResource(R.drawable.ic_baseline_star_24)
+                addUserInFavorites(user)
 
-            Snackbar.make(view, R.string.added_to_favorites, Snackbar.LENGTH_LONG).show()
-            true
+                Snackbar.make(view, R.string.added_to_favorites, Snackbar.LENGTH_LONG).show()
+                true
+            } else {
+                Snackbar.make(view, R.string.limited_exceeded, Snackbar.LENGTH_LONG).show()
+                false
+            }
         } else {
             imageViewStarFavoritePlayer.setImageResource(R.drawable.ic_baseline_star_border_outlined_24)
             deleteUserInFavorites(user)
