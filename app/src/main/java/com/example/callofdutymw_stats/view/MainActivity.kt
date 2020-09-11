@@ -1,5 +1,6 @@
 package com.example.callofdutymw_stats.view
 
+import android.annotation.SuppressLint
 import android.app.ProgressDialog
 import android.content.Context
 import android.content.Intent
@@ -8,7 +9,6 @@ import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import android.widget.ArrayAdapter
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.callofdutymw_stats.R
@@ -39,6 +39,7 @@ class MainActivity : AppCompatActivity() {
         supportActionBar!!.hide()
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING)
 
+        changeConstraintHistory()
         setRecyclerAdapter()
         recyclerAdapterDeleteIconClick()
 
@@ -49,6 +50,27 @@ class MainActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         recyclerAdapterFavoriteUser.notifyDataSetChanged()
+        changeConstraintHistory()
+    }
+
+    private fun changeConstraintHistory() {
+        //TODO: Observe list of starred users and change constraint through it.
+        val userInformationViewModel = UserInformationViewModel(this)
+        if (userInformationViewModel.getAllFavoriteUsers().isEmpty()) {
+            constraintLayoutEmptyHistory.visibility = View.VISIBLE
+            constraintLayoutHistory.visibility = View.GONE
+        } else {
+            constraintLayoutHistory.visibility = View.VISIBLE
+            constraintLayoutEmptyHistory.visibility = View.GONE
+        }
+        setStarredUserCounter()
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun setStarredUserCounter() {
+        val userInformationViewModel = UserInformationViewModel(this)
+        val starredCounter = userInformationViewModel.getAllFavoriteUsers().size
+        textViewFavoriteUsers.text = "Usuários favoritos: $starredCounter/5"
     }
 
     private fun setRecyclerAdapter() {
@@ -69,7 +91,11 @@ class MainActivity : AppCompatActivity() {
                 userInformationViewModel.deleteUserInFavorites(user)
 
                 recyclerAdapterFavoriteUser.notifyItemRemoved(position)
-                recyclerAdapterFavoriteUser.notifyItemRangeChanged(position, userInformationViewModel.getAllFavoriteUsers().size)
+                recyclerAdapterFavoriteUser.notifyItemRangeChanged(
+                    position,
+                    userInformationViewModel.getAllFavoriteUsers().size
+                )
+                changeConstraintHistory()
             }
         })
     }
