@@ -10,20 +10,16 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.example.callofdutymw_stats.R
-import com.example.callofdutymw_stats.database.room.RoomDatabaseImpl
 import com.example.callofdutymw_stats.model.multiplayer.lifetime.all.properties.UserInformationMultiplayer
 import com.example.callofdutymw_stats.model.warzone.dto.UserDtoWarzone
 import com.example.callofdutymw_stats.util.GameModeConstants
 import com.example.callofdutymw_stats.util.Resource
 import com.example.callofdutymw_stats.util.Status
-import com.example.callofdutymw_stats.view.adapter.RecyclerAdapterFavoriteUser
 import com.example.callofdutymw_stats.view.util.UserConstants
 import com.example.callofdutymw_stats.viewmodel.UserInformationViewModel
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.autoCompleteTextViewGameMode
 import kotlinx.android.synthetic.main.activity_user_information.*
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 import java.text.DecimalFormat
 
 @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
@@ -62,7 +58,7 @@ class UserInformationActivity : AppCompatActivity() {
             true
         } else {
             imageViewStarFavoritePlayer.setImageResource(R.drawable.ic_baseline_star_border_outlined_24)
-            //RecyclerAdapterFavoriteUser.removeUserToFavorites(user)
+            deleteUserInFavorites(user)
 
             Snackbar.make(view, R.string.removed_to_favorites, Snackbar.LENGTH_LONG).show()
             false
@@ -72,16 +68,11 @@ class UserInformationActivity : AppCompatActivity() {
     private fun addUserInFavorites(user: UserInformationMultiplayer) {
         val userInformationViewModel = UserInformationViewModel(this)
         userInformationViewModel.addUserInFavorites(user)
+    }
 
-        //Testing database insertions, TODO: remove that instances
-        val roomDatabaseImpl = RoomDatabaseImpl.AppDatabase.DatabaseBuilder.getInstance(this)
-        val userDAO = roomDatabaseImpl.userDAO()
-
-        GlobalScope.launch {
-            for (i in userDAO.getAllFavoriteUsers().indices) {
-                Log.d("All users added to favorite ", userDAO.getAllFavoriteUsers()[i].userNickname)
-            }
-        }
+    private fun deleteUserInFavorites(user: UserInformationMultiplayer) {
+        val userInformationViewModel = UserInformationViewModel(this)
+        userInformationViewModel.deleteUserInFavorites(user)
     }
 
     private fun setAllUserInformations() {

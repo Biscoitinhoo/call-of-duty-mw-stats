@@ -32,7 +32,7 @@ class RecyclerAdapterFavoriteUser(context: Context) :
 
     private fun deleteIconOnClick(holder: RecyclerAdapterFavoriteUser.ViewHolder, position: Int) {
         holder.itemView.imageViewDeleteFavoriteUser.setOnClickListener {
-            //if (onClickListener != null) onClickListener.onClick(position)
+            onClickListener.onClick(position)
         }
     }
 
@@ -45,6 +45,10 @@ class RecyclerAdapterFavoriteUser(context: Context) :
             itemView.textViewUserLevel.text = userInformationMultiplayer.level.toString()
             itemView.textViewUsername.text = userInformationMultiplayer.userNickname
         }
+    }
+
+    fun setOnClickListener(onClickListener: OnClickListener) {
+        this.onClickListener = onClickListener
     }
 
     public interface OnClickListener {
