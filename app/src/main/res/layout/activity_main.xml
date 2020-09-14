@@ -109,14 +109,39 @@
         app:layout_constraintTop_toBottomOf="@+id/buttonSearch"
         app:layout_constraintVertical_bias="1.0">
 
+        <TextView
+            android:id="@+id/textViewFavoriteUsers"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Usuários favoritos: 0/5"
+            android:textColor="@color/colorWhite"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toTopOf="@+id/recyclerViewFavoriteUser"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.110000014" />
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="200dp"
+            android:layout_height="0.5dp"
+            android:background="@color/colorGrey"
+            app:layout_constraintBottom_toTopOf="@+id/recyclerViewFavoriteUser"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewFavoriteUsers"
+            app:layout_constraintVertical_bias="0.3" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewFavoriteUser"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="350dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0"
             tools:listitem="@layout/recycler_view_favorite_user" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 

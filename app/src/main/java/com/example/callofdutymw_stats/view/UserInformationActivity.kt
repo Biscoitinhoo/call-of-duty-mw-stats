@@ -33,10 +33,28 @@ class UserInformationActivity : AppCompatActivity() {
         setContentView(R.layout.activity_user_information)
         supportActionBar!!.hide()
 
+        setStarStatusAgainstUser(getSearchedUser())
+
         observeGameMode()
         textViewFavoriteUserClick()
+
         setAllUserInformations()
         setAutoCompleteGameMode()
+    }
+
+    private fun getSearchedUser(): UserInformationMultiplayer {
+        return intent.getSerializableExtra(UserConstants.OBJECT_USER) as UserInformationMultiplayer
+    }
+
+    private fun setStarStatusAgainstUser(user: UserInformationMultiplayer) {
+        val userInformationViewModel = UserInformationViewModel(this)
+        val databaseUsers = userInformationViewModel.getAllFavoriteUsers()
+        for (i in databaseUsers.indices) {
+            if (userInformationViewModel.userAlreadyStarred(user, databaseUsers, i)) {
+                imageViewStarFavoritePlayer.setImageResource(R.drawable.ic_baseline_star_24)
+                favoriteStarClicked = true
+            }
+        }
     }
 
     private fun textViewFavoriteUserClick() {
@@ -46,19 +64,22 @@ class UserInformationActivity : AppCompatActivity() {
     }
 
     private fun setStarStatusAndAddUser(view: View) {
-        //TODO: put this on ViewModel;
-        val user: UserInformationMultiplayer =
-            intent.getSerializableExtra(UserConstants.OBJECT_USER) as UserInformationMultiplayer
+        val userInformationViewModel = UserInformationViewModel(this)
 
         favoriteStarClicked = if (!favoriteStarClicked) {
-            imageViewStarFavoritePlayer.setImageResource(R.drawable.ic_baseline_star_24)
-            addUserInFavorites(user)
+            if (userInformationViewModel.starredLimitIsValid(userInformationViewModel.getAllFavoriteUsers())) {
+                imageViewStarFavoritePlayer.setImageResource(R.drawable.ic_baseline_star_24)
+                addUserInFavorites(getSearchedUser())
 
-            Snackbar.make(view, R.string.added_to_favorites, Snackbar.LENGTH_LONG).show()
-            true
+                Snackbar.make(view, R.string.added_to_favorites, Snackbar.LENGTH_LONG).show()
+                true
+            } else {
+                Snackbar.make(view, R.string.limited_exceeded, Snackbar.LENGTH_LONG).show()
+                false
+            }
         } else {
             imageViewStarFavoritePlayer.setImageResource(R.drawable.ic_baseline_star_border_outlined_24)
-            deleteUserInFavorites(user)
+            deleteUserInFavorites(getSearchedUser())
 
             Snackbar.make(view, R.string.removed_to_favorites, Snackbar.LENGTH_LONG).show()
             false
@@ -76,12 +97,9 @@ class UserInformationActivity : AppCompatActivity() {
     }
 
     private fun setAllUserInformations() {
-        val user: UserInformationMultiplayer =
-            intent.getSerializableExtra(UserConstants.OBJECT_USER) as UserInformationMultiplayer
-
-        setUserDefaultInformations(user)
-        setWarzoneUserInformation(user.userNickname, user.platform)
-        setMultiplayerUserInformation(user)
+        setUserDefaultInformations(getSearchedUser())
+        setWarzoneUserInformation(getSearchedUser().userNickname, getSearchedUser().platform)
+        setMultiplayerUserInformation(getSearchedUser())
     }
 
     private fun setUserDefaultInformations(user: UserInformationMultiplayer) {
