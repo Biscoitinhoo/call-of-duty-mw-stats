@@ -2,7 +2,6 @@ package com.example.callofdutymw_stats.view
 
 import android.annotation.SuppressLint
 import android.app.ProgressDialog
-import android.content.ClipData.newIntent
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -28,7 +27,6 @@ import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Response
 
-
 @Suppress("IMPLICIT_CAST_TO_ANY", "ControlFlowWithEmptyBody")
 class MainActivity : AppCompatActivity() {
 
@@ -44,9 +42,7 @@ class MainActivity : AppCompatActivity() {
         changeConstraintHistory()
         setRecyclerAdapter()
 
-        /** fix this two clicks */
-        recyclerAdapterDeleteIconClick()
-        recyclerAdapterUserClick()
+        recyclerAdapterClickListener()
 
         setAutoCompletePlatforms()
         buttonSearchClickListener()
@@ -87,34 +83,42 @@ class MainActivity : AppCompatActivity() {
         recyclerAdapterFavoriteUser.notifyDataSetChanged()
     }
 
-    private fun recyclerAdapterDeleteIconClick() {
+    private fun recyclerAdapterClickListener() {
+
         recyclerAdapterFavoriteUser.setOnClickListener(object :
             RecyclerAdapterFavoriteUser.OnClickListener {
-            override fun onClick(position: Int) {
-                val userInformationViewModel = UserInformationViewModel(context)
-                val user = userInformationViewModel.getAllFavoriteUsers()[position]
+            override fun onClickImage(position: Int) {
+                recyclerAdapterDeleteUser(position)
+            }
 
-                userInformationViewModel.deleteUserInFavorites(user)
-
-                recyclerAdapterFavoriteUser.notifyItemRemoved(position)
-                recyclerAdapterFavoriteUser.notifyItemRangeChanged(
-                    position,
-                    userInformationViewModel.getAllFavoriteUsers().size
-                )
-                changeConstraintHistory()
+            override fun onClickConstraint(position: Int) {
+                recyclerAdapterUserClick(position)
             }
         })
     }
 
-    private fun recyclerAdapterUserClick() {
+    private fun recyclerAdapterDeleteUser(position: Int) {
+        val userInformationViewModel = UserInformationViewModel(context)
+        val user = userInformationViewModel.getAllFavoriteUsers()[position]
+
+        userInformationViewModel.deleteUserInFavorites(user)
+
+        recyclerAdapterFavoriteUser.notifyItemRemoved(position)
+        recyclerAdapterFavoriteUser.notifyItemRangeChanged(
+            position,
+            userInformationViewModel.getAllFavoriteUsers().size
+        )
+        changeConstraintHistory()
+    }
+
+    private fun recyclerAdapterUserClick(position: Int) {
         val intent = Intent(this, UserInformationActivity::class.java)
-        val userInformationViewModel = UserInformationViewModel(this)
-        recyclerAdapterFavoriteUser.setOnClickListener(object : RecyclerAdapterFavoriteUser.OnClickListener {
-            override fun onClick(position: Int) {
-                intent.putExtra(UserConstants.OBJECT_USER, userInformationViewModel.getAllFavoriteUsers()[position])
-                startActivity(intent)
-            }
-        })
+        val userInformationViewModel = UserInformationViewModel(context)
+        intent.putExtra(
+            UserConstants.OBJECT_USER,
+            userInformationViewModel.getAllFavoriteUsers()[position]
+        )
+        startActivity(intent)
     }
 
     private fun buttonSearchClickListener() {

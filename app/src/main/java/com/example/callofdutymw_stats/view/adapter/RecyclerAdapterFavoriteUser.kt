@@ -14,7 +14,9 @@ class RecyclerAdapterFavoriteUser(context: Context) :
     RecyclerView.Adapter<RecyclerAdapterFavoriteUser.ViewHolder>() {
 
     private val userInformationViewModel = UserInformationViewModel(context)
-    private lateinit var onClickListener: OnClickListener
+
+    private lateinit var onClickListenerImage: OnClickListener
+    private lateinit var onClickListenerConstraint: OnClickListener
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -33,13 +35,13 @@ class RecyclerAdapterFavoriteUser(context: Context) :
 
     private fun deleteIconOnClick(holder: RecyclerAdapterFavoriteUser.ViewHolder, position: Int) {
         holder.itemView.imageViewDeleteFavoriteUser.setOnClickListener {
-            onClickListener.onClick(position)
+            onClickListenerImage.onClickImage(position)
         }
     }
 
     private fun userClick(holder: RecyclerAdapterFavoriteUser.ViewHolder, position: Int) {
         holder.itemView.constraintLayoutUser.setOnClickListener {
-            onClickListener.onClick(position)
+            onClickListenerConstraint.onClickConstraint(position)
         }
     }
 
@@ -55,10 +57,12 @@ class RecyclerAdapterFavoriteUser(context: Context) :
     }
 
     fun setOnClickListener(onClickListener: OnClickListener) {
-        this.onClickListener = onClickListener
+        this.onClickListenerImage = onClickListener
+        this.onClickListenerConstraint = onClickListener
     }
 
     public interface OnClickListener {
-        fun onClick(position: Int)
+        fun onClickImage(position: Int)
+        fun onClickConstraint(position: Int)
     }
 }
