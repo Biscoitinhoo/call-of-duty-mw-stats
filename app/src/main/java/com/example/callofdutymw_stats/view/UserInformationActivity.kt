@@ -66,11 +66,12 @@ class UserInformationActivity : AppCompatActivity() {
 
     private fun setStarStatusAndAddUser(view: View) {
         val userInformationViewModel = UserInformationViewModel(this)
+        val user = getSearchedUser()
 
         favoriteStarClicked = if (!favoriteStarClicked) {
             if (userInformationViewModel.starredLimitIsValid(userInformationViewModel.getAllFavoriteUsers())) {
                 imageViewStarFavoritePlayer.setImageResource(R.drawable.ic_baseline_star_24)
-                addUserInFavorites(getSearchedUser())
+                addUserInFavorites(user)
 
                 Snackbar.make(view, R.string.added_to_favorites, Snackbar.LENGTH_LONG).show()
                 true
@@ -79,9 +80,8 @@ class UserInformationActivity : AppCompatActivity() {
                 false
             }
         } else {
-            Log.e("Testing here ", "testing")
             imageViewStarFavoritePlayer.setImageResource(R.drawable.ic_baseline_star_border_outlined_24)
-            deleteUserInFavorites(getSearchedUser())
+            deleteUserInFavorites(user)
 
             Snackbar.make(view, R.string.removed_to_favorites, Snackbar.LENGTH_LONG).show()
             false
@@ -89,11 +89,13 @@ class UserInformationActivity : AppCompatActivity() {
     }
 
     private fun addUserInFavorites(user: UserInformationMultiplayer) {
+        Log.d("User added ", user.toString())
         val userInformationViewModel = UserInformationViewModel(this)
         userInformationViewModel.addUserInFavorites(user)
     }
 
     private fun deleteUserInFavorites(user: UserInformationMultiplayer) {
+        Log.d("User removed ", user.toString())
         val userInformationViewModel = UserInformationViewModel(this)
         userInformationViewModel.deleteUserInFavorites(user)
     }

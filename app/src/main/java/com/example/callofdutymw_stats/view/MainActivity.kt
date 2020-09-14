@@ -61,7 +61,6 @@ class MainActivity : AppCompatActivity() {
             constraintLayoutEmptyHistory.visibility = View.VISIBLE
             constraintLayoutHistory.visibility = View.GONE
         } else {
-            MainActivityViewModel.startFadeInAnimation(this, constraintLayoutHistory)
             constraintLayoutHistory.visibility = View.VISIBLE
             constraintLayoutEmptyHistory.visibility = View.GONE
         }
