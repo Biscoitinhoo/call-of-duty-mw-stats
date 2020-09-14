@@ -2,6 +2,7 @@ package com.example.callofdutymw_stats.view
 
 import android.annotation.SuppressLint
 import android.app.ProgressDialog
+import android.content.ClipData.newIntent
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -27,6 +28,7 @@ import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Response
 
+
 @Suppress("IMPLICIT_CAST_TO_ANY", "ControlFlowWithEmptyBody")
 class MainActivity : AppCompatActivity() {
 
@@ -41,7 +43,10 @@ class MainActivity : AppCompatActivity() {
 
         changeConstraintHistory()
         setRecyclerAdapter()
+
+        /** fix this two clicks */
         recyclerAdapterDeleteIconClick()
+        recyclerAdapterUserClick()
 
         setAutoCompletePlatforms()
         buttonSearchClickListener()
@@ -97,6 +102,17 @@ class MainActivity : AppCompatActivity() {
                     userInformationViewModel.getAllFavoriteUsers().size
                 )
                 changeConstraintHistory()
+            }
+        })
+    }
+
+    private fun recyclerAdapterUserClick() {
+        val intent = Intent(this, UserInformationActivity::class.java)
+        val userInformationViewModel = UserInformationViewModel(this)
+        recyclerAdapterFavoriteUser.setOnClickListener(object : RecyclerAdapterFavoriteUser.OnClickListener {
+            override fun onClick(position: Int) {
+                intent.putExtra(UserConstants.OBJECT_USER, userInformationViewModel.getAllFavoriteUsers()[position])
+                startActivity(intent)
             }
         })
     }

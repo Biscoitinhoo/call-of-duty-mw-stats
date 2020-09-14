@@ -78,6 +78,7 @@ class UserInformationActivity : AppCompatActivity() {
                 false
             }
         } else {
+            Log.e("Testing here ", "testing")
             imageViewStarFavoritePlayer.setImageResource(R.drawable.ic_baseline_star_border_outlined_24)
             deleteUserInFavorites(getSearchedUser())
 

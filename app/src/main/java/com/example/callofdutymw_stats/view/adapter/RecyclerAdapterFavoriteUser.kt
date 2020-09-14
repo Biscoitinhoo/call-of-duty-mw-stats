@@ -28,10 +28,17 @@ class RecyclerAdapterFavoriteUser(context: Context) :
     override fun onBindViewHolder(holder: RecyclerAdapterFavoriteUser.ViewHolder, position: Int) {
         holder.bindItems(userInformationViewModel.getAllFavoriteUsers()[position])
         deleteIconOnClick(holder, position)
+        userClick(holder, position)
     }
 
     private fun deleteIconOnClick(holder: RecyclerAdapterFavoriteUser.ViewHolder, position: Int) {
         holder.itemView.imageViewDeleteFavoriteUser.setOnClickListener {
+            onClickListener.onClick(position)
+        }
+    }
+
+    private fun userClick(holder: RecyclerAdapterFavoriteUser.ViewHolder, position: Int) {
+        holder.itemView.constraintLayoutUser.setOnClickListener {
             onClickListener.onClick(position)
         }
     }
