@@ -41,7 +41,8 @@ class MainActivity : AppCompatActivity() {
 
         changeConstraintHistory()
         setRecyclerAdapter()
-        recyclerAdapterDeleteIconClick()
+
+        recyclerAdapterClickListener()
 
         setAutoCompletePlatforms()
         buttonSearchClickListener()
@@ -82,23 +83,42 @@ class MainActivity : AppCompatActivity() {
         recyclerAdapterFavoriteUser.notifyDataSetChanged()
     }
 
-    private fun recyclerAdapterDeleteIconClick() {
+    private fun recyclerAdapterClickListener() {
+
         recyclerAdapterFavoriteUser.setOnClickListener(object :
             RecyclerAdapterFavoriteUser.OnClickListener {
-            override fun onClick(position: Int) {
-                val userInformationViewModel = UserInformationViewModel(context)
-                val user = userInformationViewModel.getAllFavoriteUsers()[position]
+            override fun onClickImage(position: Int) {
+                recyclerAdapterDeleteUser(position)
+            }
 
-                userInformationViewModel.deleteUserInFavorites(user)
-
-                recyclerAdapterFavoriteUser.notifyItemRemoved(position)
-                recyclerAdapterFavoriteUser.notifyItemRangeChanged(
-                    position,
-                    userInformationViewModel.getAllFavoriteUsers().size
-                )
-                changeConstraintHistory()
+            override fun onClickConstraint(position: Int) {
+                recyclerAdapterUserClick(position)
             }
         })
+    }
+
+    private fun recyclerAdapterDeleteUser(position: Int) {
+        val userInformationViewModel = UserInformationViewModel(context)
+        val user = userInformationViewModel.getAllFavoriteUsers()[position]
+
+        userInformationViewModel.deleteUserInFavorites(user)
+
+        recyclerAdapterFavoriteUser.notifyItemRemoved(position)
+        recyclerAdapterFavoriteUser.notifyItemRangeChanged(
+            position,
+            userInformationViewModel.getAllFavoriteUsers().size
+        )
+        changeConstraintHistory()
+    }
+
+    private fun recyclerAdapterUserClick(position: Int) {
+        val intent = Intent(this, UserInformationActivity::class.java)
+        val userInformationViewModel = UserInformationViewModel(context)
+        intent.putExtra(
+            UserConstants.OBJECT_USER,
+            userInformationViewModel.getAllFavoriteUsers()[position]
+        )
+        startActivity(intent)
     }
 
     private fun buttonSearchClickListener() {

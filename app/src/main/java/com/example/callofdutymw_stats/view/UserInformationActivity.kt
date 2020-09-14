@@ -6,6 +6,7 @@ import android.text.TextWatcher
 import android.util.Log
 import android.view.View
 import android.widget.ArrayAdapter
+import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
@@ -78,6 +79,7 @@ class UserInformationActivity : AppCompatActivity() {
                 false
             }
         } else {
+            Log.e("Testing here ", "testing")
             imageViewStarFavoritePlayer.setImageResource(R.drawable.ic_baseline_star_border_outlined_24)
             deleteUserInFavorites(getSearchedUser())
 
@@ -127,8 +129,11 @@ class UserInformationActivity : AppCompatActivity() {
             })
     }
 
-    private fun setWarzoneTextViewInformations(it: Resource<UserDtoWarzone>?) {
+    private fun setWarzoneTextViewInformations(
+        it: Resource<UserDtoWarzone>?
+    ) {
         val formatter = DecimalFormat("##,###,###")
+        setKDArrowColor(it!!.data!!.userAllWarzone.kdRatio, imageViewWarzoneKDArrow)
 
         textViewWarzoneKDRatio.text = it!!.data!!.userAllWarzone.kdRatio.toString().substring(0, 4)
         textViewWarzoneTotalKills.text = formatter.format(it.data?.userAllWarzone?.kills?.toInt())
@@ -149,12 +154,8 @@ class UserInformationActivity : AppCompatActivity() {
 
     private fun setMultiplayerUserInformation(user: UserInformationMultiplayer) {
         val formatter = DecimalFormat("##,###,###")
+        setKDArrowColor(user.kdRatio, imageViewKDArrow)
 
-        setKDArrowColor(user.kdRatio)
-
-        /**
-         * Obs.: this "if" conditions need be refactored.
-         */
         if (UserInformationViewModel.responseKDRatioIsValid(user.kdRatio.toString())) {
             textViewKDRatio.text = user.kdRatio.toString().substring(0, 4)
         } else {
@@ -182,8 +183,8 @@ class UserInformationActivity : AppCompatActivity() {
         textViewRecordXP.text = formatter.format(user.recordXP.toInt())
     }
 
-    private fun setKDArrowColor(kd: Double) {
-        if (kd.toInt() < 1.0) imageViewKDArrow.setImageResource(R.drawable.kd_arrow_down)
+    private fun setKDArrowColor(kd: Double, imageView: ImageView) {
+        if (kd < 0.99) imageView.setImageResource(R.drawable.kd_arrow_down)
     }
 
     private fun setAutoCompleteGameMode() {
