@@ -54,12 +54,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun changeConstraintHistory() {
-        //TODO: Observe list of starred users and change constraint through it.
         val userInformationViewModel = UserInformationViewModel(this)
         if (userInformationViewModel.getAllFavoriteUsers().isEmpty()) {
+            MainActivityViewModel.startFadeInAnimation(this, constraintLayoutEmptyHistory)
             constraintLayoutEmptyHistory.visibility = View.VISIBLE
             constraintLayoutHistory.visibility = View.GONE
         } else {
+            MainActivityViewModel.startFadeInAnimation(this, constraintLayoutHistory)
             constraintLayoutHistory.visibility = View.VISIBLE
             constraintLayoutEmptyHistory.visibility = View.GONE
         }

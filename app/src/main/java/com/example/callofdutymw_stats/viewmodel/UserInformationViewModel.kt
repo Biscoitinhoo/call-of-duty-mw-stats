@@ -1,8 +1,11 @@
 package com.example.callofdutymw_stats.viewmodel
 
 import android.content.Context
+import android.view.animation.AnimationUtils
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
+import com.example.callofdutymw_stats.R
 import com.example.callofdutymw_stats.database.room.RoomDatabaseImpl
 import com.example.callofdutymw_stats.domain.RepositoryImpl
 import com.example.callofdutymw_stats.model.multiplayer.lifetime.all.properties.UserInformationMultiplayer
@@ -52,7 +55,7 @@ class UserInformationViewModel(context: Context) : ViewModel() {
     }
 
     fun starredLimitIsValid(listStarredUsers: List<UserInformationMultiplayer>): Boolean {
-         return listStarredUsers.size < 5
+        return listStarredUsers.size < 5
     }
 
     fun getAllFavoriteUsers(): List<UserInformationMultiplayer> = runBlocking {
