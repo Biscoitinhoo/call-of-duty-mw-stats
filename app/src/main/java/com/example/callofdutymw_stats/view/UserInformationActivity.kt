@@ -65,6 +65,7 @@ class UserInformationActivity : AppCompatActivity() {
     }
 
     private fun setStarStatusAndAddUser(view: View) {
+        //TODO: fix this
         val userInformationViewModel = UserInformationViewModel(this)
         val user = getSearchedUser()
 
