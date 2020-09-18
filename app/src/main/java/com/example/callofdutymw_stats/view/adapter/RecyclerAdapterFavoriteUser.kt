@@ -1,5 +1,6 @@
 package com.example.callofdutymw_stats.view.adapter
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -50,6 +51,7 @@ class RecyclerAdapterFavoriteUser(context: Context) :
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        @SuppressLint("SetTextI18n")
         fun bindItems(userInformationMultiplayer: UserInformationMultiplayer) {
             itemView.textViewUserLevel.text = userInformationMultiplayer.level.toString()
             itemView.textViewUsername.text = userInformationMultiplayer.userNickname
@@ -61,7 +63,7 @@ class RecyclerAdapterFavoriteUser(context: Context) :
         this.onClickListenerConstraint = onClickListener
     }
 
-    public interface OnClickListener {
+    interface OnClickListener {
         fun onClickImage(position: Int)
         fun onClickConstraint(position: Int)
     }

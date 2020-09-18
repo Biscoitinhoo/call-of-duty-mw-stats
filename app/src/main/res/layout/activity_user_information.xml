@@ -58,22 +58,23 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
                         android:layout_weight="1"
                         android:text="55"
                         android:textColor="@color/colorWhite"
-                        android:textSize="16sp" />
+                        android:textSize="18sp" />
 
                     <TextView
                         android:id="@+id/textViewUserNickName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_marginLeft="15dp"
                         android:layout_marginRight="15dp"
                         android:layout_weight="1"
-                        android:fontFamily="@font/modern_warfare_main_font"
+                        android:fontFamily="sans-serif"
                         android:text="USERNAME"
-                        android:textColor="@color/colorWhite" />
+                        android:textColor="@color/colorWhite"
+                        android:textSize="18sp" />
                 </LinearLayout>
 
                 <LinearLayout

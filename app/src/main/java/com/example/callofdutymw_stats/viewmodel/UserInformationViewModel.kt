@@ -1,11 +1,9 @@
 package com.example.callofdutymw_stats.viewmodel
 
 import android.content.Context
-import android.view.animation.AnimationUtils
-import androidx.constraintlayout.widget.ConstraintLayout
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
-import com.example.callofdutymw_stats.R
 import com.example.callofdutymw_stats.database.room.RoomDatabaseImpl
 import com.example.callofdutymw_stats.domain.RepositoryImpl
 import com.example.callofdutymw_stats.model.multiplayer.lifetime.all.properties.UserInformationMultiplayer
@@ -48,10 +46,10 @@ class UserInformationViewModel(context: Context) : ViewModel() {
 
     fun userAlreadyStarred(
         user: UserInformationMultiplayer,
-        databaseUsers: List<UserInformationMultiplayer>,
+        favoriteUsers: List<UserInformationMultiplayer>,
         i: Int
     ): Boolean {
-        return databaseUsers[i].userNickname == user.userNickname && databaseUsers[i].platform == user.platform
+        return favoriteUsers[i].userNickname == user.userNickname && favoriteUsers[i].platform == user.platform
     }
 
     fun starredLimitIsValid(listStarredUsers: List<UserInformationMultiplayer>): Boolean {
