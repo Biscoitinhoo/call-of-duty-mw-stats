@@ -1,12 +1,16 @@
 package com.example.callofdutymw_stats.view
 
+import android.annotation.SuppressLint
 import android.app.ProgressDialog
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.WindowManager
 import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.callofdutymw_stats.R
 import com.example.callofdutymw_stats.model.multiplayer.lifetime.UserLifeTimeMultiplayer
 import com.example.callofdutymw_stats.model.multiplayer.lifetime.all.properties.UserInformationMultiplayer
@@ -14,9 +18,11 @@ import com.example.callofdutymw_stats.model.warzone.all.UserAllWarzone
 import com.example.callofdutymw_stats.model.warzone.dto.UserDtoWarzone
 import com.example.callofdutymw_stats.util.Resource
 import com.example.callofdutymw_stats.util.Status
+import com.example.callofdutymw_stats.view.adapter.RecyclerAdapterFavoriteUser
 import com.example.callofdutymw_stats.view.dialog.DialogCustomErrorAPI
 import com.example.callofdutymw_stats.view.util.UserConstants
 import com.example.callofdutymw_stats.viewmodel.MainActivityViewModel
+import com.example.callofdutymw_stats.viewmodel.UserInformationViewModel
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Response
@@ -24,13 +30,94 @@ import retrofit2.Response
 @Suppress("IMPLICIT_CAST_TO_ANY", "ControlFlowWithEmptyBody")
 class MainActivity : AppCompatActivity() {
 
+    private lateinit var recyclerAdapterFavoriteUser: RecyclerAdapterFavoriteUser
+    private val context: Context = this
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         supportActionBar!!.hide()
+        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING)
+
+        changeConstraintHistory()
+        setRecyclerAdapter()
+
+        recyclerAdapterClickListener()
 
         setAutoCompletePlatforms()
         buttonSearchClickListener()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        recyclerAdapterFavoriteUser.notifyDataSetChanged()
+        changeConstraintHistory()
+    }
+
+    private fun changeConstraintHistory() {
+        val userInformationViewModel = UserInformationViewModel(this)
+        if (userInformationViewModel.getAllFavoriteUsers().isEmpty()) {
+            MainActivityViewModel.startFadeInAnimation(this, constraintLayoutEmptyHistory)
+            constraintLayoutEmptyHistory.visibility = View.VISIBLE
+            constraintLayoutHistory.visibility = View.GONE
+        } else {
+            constraintLayoutHistory.visibility = View.VISIBLE
+            constraintLayoutEmptyHistory.visibility = View.GONE
+        }
+        setStarredUserCounter()
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun setStarredUserCounter() {
+        val userInformationViewModel = UserInformationViewModel(this)
+        val starredCounter = userInformationViewModel.getAllFavoriteUsers().size
+        textViewFavoriteUsers.text = "Usuários favoritos: $starredCounter/5"
+    }
+
+    private fun setRecyclerAdapter() {
+        //TODO: Add a property to the user object to indicate whether or not it is starred.
+        recyclerAdapterFavoriteUser = RecyclerAdapterFavoriteUser(this)
+        recyclerViewFavoriteUser.adapter = recyclerAdapterFavoriteUser
+        recyclerViewFavoriteUser.layoutManager = LinearLayoutManager(context)
+        recyclerAdapterFavoriteUser.notifyDataSetChanged()
+    }
+
+    private fun recyclerAdapterClickListener() {
+
+        recyclerAdapterFavoriteUser.setOnClickListener(object :
+            RecyclerAdapterFavoriteUser.OnClickListener {
+            override fun onClickImage(position: Int) {
+                recyclerAdapterDeleteUser(position)
+            }
+
+            override fun onClickConstraint(position: Int) {
+                recyclerAdapterUserClick(position)
+            }
+        })
+    }
+
+    private fun recyclerAdapterDeleteUser(position: Int) {
+        val userInformationViewModel = UserInformationViewModel(context)
+        val user = userInformationViewModel.getAllFavoriteUsers()[position]
+
+        userInformationViewModel.deleteUserInFavorites(user)
+
+        recyclerAdapterFavoriteUser.notifyItemRemoved(position)
+        recyclerAdapterFavoriteUser.notifyItemRangeChanged(
+            position,
+            userInformationViewModel.getAllFavoriteUsers().size
+        )
+        changeConstraintHistory()
+    }
+
+    private fun recyclerAdapterUserClick(position: Int) {
+        val intent = Intent(this, UserInformationActivity::class.java)
+        val userInformationViewModel = UserInformationViewModel(context)
+        intent.putExtra(
+            UserConstants.OBJECT_USER,
+            userInformationViewModel.getAllFavoriteUsers()[position]
+        )
+        startActivity(intent)
     }
 
     private fun buttonSearchClickListener() {
@@ -54,7 +141,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setAutoCompletePlatforms() {
-        val platforms = arrayOf("psn", "steam", "xbl", "battle")
+        val platforms = arrayOf("Playstation", "Steam", "Xbox", "Battle")
 
         autoCompleteTextViewGameMode.setAdapter(
             ArrayAdapter<String>(
@@ -66,11 +153,10 @@ class MainActivity : AppCompatActivity() {
         autoCompleteTextViewGameMode.setOnClickListener {
             autoCompleteTextViewGameMode.showDropDown()
         }
-        Log.d("AutocompleteItem ", autoCompleteTextViewGameMode.text.toString())
     }
 
     private fun getMultiplayerUser(v: View) {
-        val selectedPlatform = autoCompleteTextViewGameMode.text.toString()
+        val selectedPlatform = getAutoCompleteSelectedPlatform()
         val gamertag = editTextNickname.text.toString()
         val progressDialog = ProgressDialog(this, R.style.myAlertDialogStyle)
 
@@ -101,6 +187,22 @@ class MainActivity : AppCompatActivity() {
                 }
             }
             )
+    }
+
+    private fun getAutoCompleteSelectedPlatform(): String {
+        if (autoCompleteTextViewGameMode.text.toString() == "Playstation") {
+            return "psn"
+        }
+        if (autoCompleteTextViewGameMode.text.toString() == "Steam") {
+            return "steam"
+        }
+        if (autoCompleteTextViewGameMode.text.toString() == "Xbox") {
+            return "xbl"
+        }
+        if (autoCompleteTextViewGameMode.text.toString() == "Battle") {
+            return "battle"
+        }
+        return ""
     }
 
     private fun handlesUserSituation(

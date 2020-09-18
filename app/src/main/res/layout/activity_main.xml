@@ -12,9 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_marginStart="20dp"
-        android:layout_marginLeft="20dp"
         android:layout_marginEnd="20dp"
-        android:layout_marginRight="20dp"
         android:background="@drawable/edit_text_rounded_dark_background"
         android:drawableStart="@drawable/ic_baseline_search_24"
         android:drawablePadding="15dp"
@@ -30,7 +28,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.050000012"
+        app:layout_constraintVertical_bias="0.029999971"
         tools:ignore="RtlSymmetry" />
 
     <AutoCompleteTextView
@@ -45,7 +43,7 @@
         android:drawableEnd="@drawable/ic_baseline_arrow_drop_down_24"
         android:drawablePadding="15dp"
         android:focusableInTouchMode="false"
-        android:hint="psn, steam, xbl ou battle"
+        android:hint="PSN, Steam, Xbox ou Battle"
         android:inputType="text"
         android:paddingStart="15dp"
         android:paddingEnd="15dp"
@@ -73,20 +71,92 @@
         app:layout_constraintTop_toBottomOf="@+id/autoCompleteTextViewGameMode"
         app:layout_constraintVertical_bias="0.050000012" />
 
-    <TextView
-        android:id="@+id/textViewEmptyHistoric"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayoutEmptyHistory"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginEnd="30dp"
-        android:fontFamily="@font/modern_warfare_main_font"
-        android:gravity="center"
-        android:text="SEM JOGADORES POR ENQUANTO"
-        android:textColor="#fff"
-        android:textSize="16sp"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonSearch" />
+        app:layout_constraintTop_toBottomOf="@+id/buttonSearch"
+        app:layout_constraintVertical_bias="0.25">
+
+        <TextView
+            android:id="@+id/textViewEmptyHistoric"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:fontFamily="sans-serif"
+            android:gravity="center"
+            android:lineSpacingExtra="8sp"
+            android:text="SEM JOGADORES FAVORITADOS POR ENQUANTO..."
+            android:textColor="#fff"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:src="@drawable/ic_baseline_star_24"
+            app:layout_constraintBottom_toTopOf="@+id/textViewEmptyHistoric"
+            app:layout_constraintEnd_toEndOf="@+id/textViewEmptyHistoric"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayoutHistory"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonSearch"
+        app:layout_constraintVertical_bias="1.0">
+
+        <TextView
+            android:id="@+id/textViewFavoriteUsers"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Usuários favoritos: 0/5"
+            android:textColor="@color/colorWhite"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toTopOf="@+id/recyclerViewFavoriteUser"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.110000014" />
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="200dp"
+            android:layout_height="0.5dp"
+            android:background="@color/colorGrey"
+            app:layout_constraintBottom_toTopOf="@+id/recyclerViewFavoriteUser"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewFavoriteUsers"
+            app:layout_constraintVertical_bias="0.3" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewFavoriteUser"
+            android:layout_width="match_parent"
+            android:layout_height="350dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0"
+            tools:listitem="@layout/recycler_view_favorite_user" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

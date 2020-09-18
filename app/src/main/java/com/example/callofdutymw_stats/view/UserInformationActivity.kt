@@ -6,6 +6,7 @@ import android.text.TextWatcher
 import android.util.Log
 import android.view.View
 import android.widget.ArrayAdapter
+import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
@@ -17,6 +18,7 @@ import com.example.callofdutymw_stats.util.Resource
 import com.example.callofdutymw_stats.util.Status
 import com.example.callofdutymw_stats.view.util.UserConstants
 import com.example.callofdutymw_stats.viewmodel.UserInformationViewModel
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.autoCompleteTextViewGameMode
 import kotlinx.android.synthetic.main.activity_user_information.*
 import java.text.DecimalFormat
@@ -24,27 +26,90 @@ import java.text.DecimalFormat
 @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
 class UserInformationActivity : AppCompatActivity() {
 
+    /**
+     * Atual problema nessa classe:
+     * Quando você salva um usuário como favorito, e no mesmo momento deleta ela, ao invés dele
+     * ser deletado o Room não faz isso. Ou seja, se o clique de favorito for clicado três vezes
+     * (objeto user ser adicionado 3 vezes e removido 3 vezes, ou seja, no fim ele não vai ser um
+     * user favorito), três usuários iguais serão adicionados.
+     */
+
     private val mutableLiveData = MutableLiveData<String>()
+    private var favoriteStarClicked = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_information)
         supportActionBar!!.hide()
 
+        setStarStatusAgainstUser(getSearchedUser())
+
         observeGameMode()
+        textViewFavoriteUserClick()
+
         setAllUserInformations()
         setAutoCompleteGameMode()
-        //Testing user informations. Need to add a observer in spinner and check what game mode is
-        //selected;
+    }
+
+    private fun getSearchedUser(): UserInformationMultiplayer {
+        return intent.getSerializableExtra(UserConstants.OBJECT_USER) as UserInformationMultiplayer
+    }
+
+    private fun setStarStatusAgainstUser(user: UserInformationMultiplayer) {
+        val userInformationViewModel = UserInformationViewModel(this)
+        val databaseUsers = userInformationViewModel.getAllFavoriteUsers()
+        for (i in databaseUsers.indices) {
+            if (userInformationViewModel.userAlreadyStarred(user, databaseUsers, i)) {
+                imageViewStarFavoritePlayer.setImageResource(R.drawable.ic_baseline_star_24)
+                favoriteStarClicked = true
+            }
+        }
+    }
+
+    private fun textViewFavoriteUserClick() {
+        textViewAddUserFavorite.setOnClickListener {
+            setStarStatusAndAddUser(it)
+        }
+    }
+
+    private fun setStarStatusAndAddUser(view: View) {
+        val userInformationViewModel = UserInformationViewModel(this)
+        val user = getSearchedUser()
+
+        favoriteStarClicked = if (!favoriteStarClicked) {
+            if (userInformationViewModel.starredLimitIsValid(userInformationViewModel.getAllFavoriteUsers())) {
+                imageViewStarFavoritePlayer.setImageResource(R.drawable.ic_baseline_star_24)
+                addUserInFavorites(user)
+
+                Snackbar.make(view, R.string.added_to_favorites, Snackbar.LENGTH_LONG).show()
+                true
+            } else {
+                Snackbar.make(view, R.string.limited_exceeded, Snackbar.LENGTH_LONG).show()
+                false
+            }
+        } else {
+            imageViewStarFavoritePlayer.setImageResource(R.drawable.ic_baseline_star_border_outlined_24)
+            deleteUserInFavorites(user)
+
+            Snackbar.make(view, R.string.removed_to_favorites, Snackbar.LENGTH_LONG).show()
+            false
+        }
+    }
+
+    private fun addUserInFavorites(user: UserInformationMultiplayer) {
+        val userInformationViewModel = UserInformationViewModel(this)
+        userInformationViewModel.addUserInFavorites(user)
+    }
+
+    private fun deleteUserInFavorites(user: UserInformationMultiplayer) {
+        val userInformationViewModel = UserInformationViewModel(this)
+        userInformationViewModel.deleteUserInFavorites(user)
     }
 
     private fun setAllUserInformations() {
-        val user: UserInformationMultiplayer =
-            intent.getSerializableExtra(UserConstants.OBJECT_USER) as UserInformationMultiplayer
-
-        setUserDefaultInformations(user)
-        setWarzoneUserInformation(user.userNickname, user.platform)
-        setMultiplayerUserInformation(user)
+        setUserDefaultInformations(getSearchedUser())
+        setWarzoneUserInformation(getSearchedUser().userNickname, getSearchedUser().platform)
+        setMultiplayerUserInformation(getSearchedUser())
     }
 
     private fun setUserDefaultInformations(user: UserInformationMultiplayer) {
@@ -53,7 +118,7 @@ class UserInformationActivity : AppCompatActivity() {
     }
 
     private fun setWarzoneUserInformation(userNickname: String, platform: String) {
-        val userInformationViewModel = UserInformationViewModel()
+        val userInformationViewModel = UserInformationViewModel(this)
         userInformationViewModel.getWarzoneUser(userNickname, platform)
             .observe(this, androidx.lifecycle.Observer {
                 it?.let { resource ->
@@ -72,10 +137,13 @@ class UserInformationActivity : AppCompatActivity() {
             })
     }
 
-    private fun setWarzoneTextViewInformations(it: Resource<UserDtoWarzone>?) {
+    private fun setWarzoneTextViewInformations(
+        it: Resource<UserDtoWarzone>?
+    ) {
         val formatter = DecimalFormat("##,###,###")
+        setKDArrowColor(it!!.data!!.userAllWarzone.kdRatio, imageViewWarzoneKDArrow)
 
-        textViewWarzoneKDRatio.text = it!!.data!!.userAllWarzone.kdRatio.toString().substring(0, 4)
+        textViewWarzoneKDRatio.text = it.data!!.userAllWarzone.kdRatio.toString().substring(0, 4)
         textViewWarzoneTotalKills.text = formatter.format(it.data?.userAllWarzone?.kills?.toInt())
         textViewWarzoneTotalDeaths.text = formatter.format(it.data?.userAllWarzone?.deaths?.toInt())
         textViewWarzoneDowns.text = formatter.format(it.data?.userAllWarzone?.downs?.toInt())
@@ -94,12 +162,20 @@ class UserInformationActivity : AppCompatActivity() {
 
     private fun setMultiplayerUserInformation(user: UserInformationMultiplayer) {
         val formatter = DecimalFormat("##,###,###")
+        setKDArrowColor(user.kdRatio, imageViewKDArrow)
 
-        setKDArrowColor(user.kdRatio)
-        if (UserInformationViewModel.responseKDRatioIsValid(user.kdRatio.toString())) textViewKDRatio.text =
-            user.kdRatio.toString().substring(0, 4)
-        if (UserInformationViewModel.responseAccuracyIsValid(user.accuracy)) textViewAccuracy.text =
-            user.accuracy.substring(0, 4)
+        if (UserInformationViewModel.responseKDRatioIsValid(user.kdRatio.toString())) {
+            textViewKDRatio.text = user.kdRatio.toString().substring(0, 4)
+        } else {
+            textViewKDRatio.text = user.kdRatio.toString()
+        }
+        if (UserInformationViewModel.responseAccuracyIsValid(user.accuracy)) {
+            textViewAccuracy.text =
+                user.accuracy.substring(0, 4)
+        } else {
+            textViewAccuracy.text =
+                user.accuracy
+        }
         textViewTotalKills.text = formatter.format(user.totalKills.toInt())
         textViewTotalDeaths.text = formatter.format(user.totalDeaths.toInt())
         textViewHeadshots.text = formatter.format(user.headshots.toInt())
@@ -115,8 +191,8 @@ class UserInformationActivity : AppCompatActivity() {
         textViewRecordXP.text = formatter.format(user.recordXP.toInt())
     }
 
-    private fun setKDArrowColor(kd: Double) {
-        if (kd.toInt() < 1.0) imageViewKDArrow.setImageResource(R.drawable.kd_arrow_down)
+    private fun setKDArrowColor(kd: Double, imageView: ImageView) {
+        if (kd < 0.99) imageView.setImageResource(R.drawable.kd_arrow_down)
     }
 
     private fun setAutoCompleteGameMode() {

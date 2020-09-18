@@ -7,6 +7,9 @@
     <string name="error_api_dialog">Parece que houve um problema de conexão. Sua internet está conectada?</string>
     <string name="error_connection_title">Erro de conexão</string>
     <string name="wait_server_stabilize">Caso esse não seja o problema, por favor aguarde o servidor estabilizar.</string>
+    <string name="added_to_favorites">Usuário adicionado aos favoritos!</string>
+    <string name="removed_to_favorites">Usuário removido dos favoritos!</string>
+    <string name="limited_exceeded">Não é possível adicionar mais que 5 usuários nos favoritos!</string>
     <string-array name="platform_array">
         <item>psn</item>
         <item>steam</item>
