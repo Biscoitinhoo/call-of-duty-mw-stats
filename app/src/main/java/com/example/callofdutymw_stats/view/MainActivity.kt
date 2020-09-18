@@ -264,7 +264,6 @@ class MainActivity : AppCompatActivity() {
         val nickname = resource.data!!.nickName
         val level = resource.data.level
         val platform = resource.data.platform
-        val isStarredUSer = resource.data.userAllMultiplayer.userPropertiesMultiplayer.userInformationMultiplayer.isStarredUser
         val recordWinStreak =
             resource.data.userAllMultiplayer.userPropertiesMultiplayer.userInformationMultiplayer.recordWinStreak
         val recordXP =
@@ -305,7 +304,6 @@ class MainActivity : AppCompatActivity() {
             nickname,
             level,
             platform,
-            isStarredUSer,
             recordWinStreak,
             recordXP,
             accuracy,

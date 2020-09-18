@@ -26,6 +26,14 @@ import java.text.DecimalFormat
 @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
 class UserInformationActivity : AppCompatActivity() {
 
+    /**
+     * Atual problema nessa classe:
+     * Quando você salva um usuário como favorito, e no mesmo momento deleta ela, ao invés dele
+     * ser deletado o Room não faz isso. Ou seja, se o clique de favorito for clicado três vezes
+     * (objeto user ser adicionado 3 vezes e removido 3 vezes, ou seja, no fim ele não vai ser um
+     * user favorito), três usuários iguais serão adicionados.
+     */
+
     private val mutableLiveData = MutableLiveData<String>()
     private var favoriteStarClicked = false
 
@@ -65,7 +73,6 @@ class UserInformationActivity : AppCompatActivity() {
     }
 
     private fun setStarStatusAndAddUser(view: View) {
-        //TODO: fix this
         val userInformationViewModel = UserInformationViewModel(this)
         val user = getSearchedUser()
 
@@ -74,14 +81,7 @@ class UserInformationActivity : AppCompatActivity() {
                 imageViewStarFavoritePlayer.setImageResource(R.drawable.ic_baseline_star_24)
                 addUserInFavorites(user)
 
-                Log.e("adicionou", "adicionou")
-                for (i in userInformationViewModel.getAllFavoriteUsers().indices) {
-                    Log.e("Agora, usuários no fav ", userInformationViewModel.getAllFavoriteUsers()[i].userNickname)
-                }
-                Log.e("--", "--------------------------------------------------------------------")
-
                 Snackbar.make(view, R.string.added_to_favorites, Snackbar.LENGTH_LONG).show()
-                user.isStarredUser = true
                 favoriteStarClicked = true
             } else {
                 Snackbar.make(view, R.string.limited_exceeded, Snackbar.LENGTH_LONG).show()
@@ -91,14 +91,7 @@ class UserInformationActivity : AppCompatActivity() {
             imageViewStarFavoritePlayer.setImageResource(R.drawable.ic_baseline_star_border_outlined_24)
             deleteUserInFavorites(user)
 
-            Log.e("deletou ", "deletou")
-            for (i in userInformationViewModel.getAllFavoriteUsers().indices) {
-                Log.e("Agora, usuários no fav ", userInformationViewModel.getAllFavoriteUsers()[i].userNickname)
-            }
-            Log.e("--", "--------------------------------------------------------------------")
-
             Snackbar.make(view, R.string.removed_to_favorites, Snackbar.LENGTH_LONG).show()
-            user.isStarredUser = false
             favoriteStarClicked = false
         }
     }
