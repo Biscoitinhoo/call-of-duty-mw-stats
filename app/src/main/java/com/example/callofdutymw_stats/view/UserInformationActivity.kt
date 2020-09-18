@@ -76,23 +76,23 @@ class UserInformationActivity : AppCompatActivity() {
         val userInformationViewModel = UserInformationViewModel(this)
         val user = getSearchedUser()
 
-        if (!favoriteStarClicked) {
+        favoriteStarClicked = if (!favoriteStarClicked) {
             if (userInformationViewModel.starredLimitIsValid(userInformationViewModel.getAllFavoriteUsers())) {
                 imageViewStarFavoritePlayer.setImageResource(R.drawable.ic_baseline_star_24)
                 addUserInFavorites(user)
 
                 Snackbar.make(view, R.string.added_to_favorites, Snackbar.LENGTH_LONG).show()
-                favoriteStarClicked = true
+                true
             } else {
                 Snackbar.make(view, R.string.limited_exceeded, Snackbar.LENGTH_LONG).show()
-                favoriteStarClicked = false
+                false
             }
         } else {
             imageViewStarFavoritePlayer.setImageResource(R.drawable.ic_baseline_star_border_outlined_24)
             deleteUserInFavorites(user)
 
             Snackbar.make(view, R.string.removed_to_favorites, Snackbar.LENGTH_LONG).show()
-            favoriteStarClicked = false
+            false
         }
     }
 
