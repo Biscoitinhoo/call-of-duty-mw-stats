@@ -69,34 +69,46 @@ class UserInformationActivity : AppCompatActivity() {
         val userInformationViewModel = UserInformationViewModel(this)
         val user = getSearchedUser()
 
-        favoriteStarClicked = if (!favoriteStarClicked) {
+        if (!favoriteStarClicked) {
             if (userInformationViewModel.starredLimitIsValid(userInformationViewModel.getAllFavoriteUsers())) {
                 imageViewStarFavoritePlayer.setImageResource(R.drawable.ic_baseline_star_24)
                 addUserInFavorites(user)
 
+                Log.e("adicionou", "adicionou")
+                for (i in userInformationViewModel.getAllFavoriteUsers().indices) {
+                    Log.e("Agora, usuários no fav ", userInformationViewModel.getAllFavoriteUsers()[i].userNickname)
+                }
+                Log.e("--", "--------------------------------------------------------------------")
+
                 Snackbar.make(view, R.string.added_to_favorites, Snackbar.LENGTH_LONG).show()
-                true
+                user.isStarredUser = true
+                favoriteStarClicked = true
             } else {
                 Snackbar.make(view, R.string.limited_exceeded, Snackbar.LENGTH_LONG).show()
-                false
+                favoriteStarClicked = false
             }
         } else {
             imageViewStarFavoritePlayer.setImageResource(R.drawable.ic_baseline_star_border_outlined_24)
             deleteUserInFavorites(user)
 
+            Log.e("deletou ", "deletou")
+            for (i in userInformationViewModel.getAllFavoriteUsers().indices) {
+                Log.e("Agora, usuários no fav ", userInformationViewModel.getAllFavoriteUsers()[i].userNickname)
+            }
+            Log.e("--", "--------------------------------------------------------------------")
+
             Snackbar.make(view, R.string.removed_to_favorites, Snackbar.LENGTH_LONG).show()
-            false
+            user.isStarredUser = false
+            favoriteStarClicked = false
         }
     }
 
     private fun addUserInFavorites(user: UserInformationMultiplayer) {
-        Log.d("User added ", user.toString())
         val userInformationViewModel = UserInformationViewModel(this)
         userInformationViewModel.addUserInFavorites(user)
     }
 
     private fun deleteUserInFavorites(user: UserInformationMultiplayer) {
-        Log.d("User removed ", user.toString())
         val userInformationViewModel = UserInformationViewModel(this)
         userInformationViewModel.deleteUserInFavorites(user)
     }
@@ -138,7 +150,7 @@ class UserInformationActivity : AppCompatActivity() {
         val formatter = DecimalFormat("##,###,###")
         setKDArrowColor(it!!.data!!.userAllWarzone.kdRatio, imageViewWarzoneKDArrow)
 
-        textViewWarzoneKDRatio.text = it!!.data!!.userAllWarzone.kdRatio.toString().substring(0, 4)
+        textViewWarzoneKDRatio.text = it.data!!.userAllWarzone.kdRatio.toString().substring(0, 4)
         textViewWarzoneTotalKills.text = formatter.format(it.data?.userAllWarzone?.kills?.toInt())
         textViewWarzoneTotalDeaths.text = formatter.format(it.data?.userAllWarzone?.deaths?.toInt())
         textViewWarzoneDowns.text = formatter.format(it.data?.userAllWarzone?.downs?.toInt())
