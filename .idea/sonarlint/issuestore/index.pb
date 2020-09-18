@@ -65,3 +65,7 @@ c
 Rapp/src/main/java/com/example/callofdutymw_stats/database/room/RoomDatabaseImpl.kt,3\6\369887512b5e6c2ccfdcd4580d5e3a0dae25e978
 x
 Happ/src/main/java/com/example/callofdutymw_stats/database/dao/UserDAO.kt,2\4\24429d967fa41e7cc28a6fbad3d50b1c6ebaa724
+e
+5app/src/main/res/layout/activity_user_information.xml,5\9\598bdf6c7491b631ab0dcab0ccb0b7b6f2a08d7c
+Y
+)app/src/main/res/layout/activity_main.xml,7\6\76b07e40f24cce093536731477540f12e7da3cb6

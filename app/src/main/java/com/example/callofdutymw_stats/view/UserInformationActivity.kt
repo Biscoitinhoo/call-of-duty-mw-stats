@@ -77,19 +77,19 @@ class UserInformationActivity : AppCompatActivity() {
         val user = getSearchedUser()
 
         favoriteStarClicked = if (!favoriteStarClicked) {
-            if (userInformationViewModel.starredLimitIsValid(userInformationViewModel.getAllFavoriteUsers())) {
-                imageViewStarFavoritePlayer.setImageResource(R.drawable.ic_baseline_star_24)
-                addUserInFavorites(user)
+                if (userInformationViewModel.starredLimitIsValid(userInformationViewModel.getAllFavoriteUsers())) {
+                    imageViewStarFavoritePlayer.setImageResource(R.drawable.ic_baseline_star_24)
+                    addUserInFavorites(user)
 
-                Snackbar.make(view, R.string.added_to_favorites, Snackbar.LENGTH_LONG).show()
-                true
+                    Snackbar.make(view, R.string.added_to_favorites, Snackbar.LENGTH_LONG).show()
+                    true
+                } else {
+                    Snackbar.make(view, R.string.limited_exceeded, Snackbar.LENGTH_LONG).show()
+                    false
+                }
             } else {
-                Snackbar.make(view, R.string.limited_exceeded, Snackbar.LENGTH_LONG).show()
-                false
-            }
-        } else {
-            imageViewStarFavoritePlayer.setImageResource(R.drawable.ic_baseline_star_border_outlined_24)
-            deleteUserInFavorites(user)
+                imageViewStarFavoritePlayer.setImageResource(R.drawable.ic_baseline_star_border_outlined_24)
+                deleteUserInFavorites(user)
 
             Snackbar.make(view, R.string.removed_to_favorites, Snackbar.LENGTH_LONG).show()
             false

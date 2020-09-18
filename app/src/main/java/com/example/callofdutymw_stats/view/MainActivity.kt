@@ -39,6 +39,7 @@ class MainActivity : AppCompatActivity() {
         supportActionBar!!.hide()
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING)
 
+        updateStarredUserInformation()
         changeConstraintHistory()
         setRecyclerAdapter()
 
@@ -46,6 +47,10 @@ class MainActivity : AppCompatActivity() {
 
         setAutoCompletePlatforms()
         buttonSearchClickListener()
+    }
+
+    private fun updateStarredUserInformation() {
+        //TODO
     }
 
     override fun onResume() {
@@ -113,11 +118,42 @@ class MainActivity : AppCompatActivity() {
     private fun recyclerAdapterUserClick(position: Int) {
         val intent = Intent(this, UserInformationActivity::class.java)
         val userInformationViewModel = UserInformationViewModel(context)
-        intent.putExtra(
-            UserConstants.OBJECT_USER,
-            userInformationViewModel.getAllFavoriteUsers()[position]
-        )
-        startActivity(intent)
+        val progressDialog = ProgressDialog(this, R.style.myAlertDialogStyle)
+
+        val selectedPlatform = userInformationViewModel.getAllFavoriteUsers()[position].platform
+        val gamertag = userInformationViewModel.getAllFavoriteUsers()[position].userNickname
+
+        val mainActivityViewModel = MainActivityViewModel()
+        mainActivityViewModel.getMultiplayerUser(gamertag = gamertag, platform = selectedPlatform)
+            .observe(this, androidx.lifecycle.Observer {
+                it?.let { resource ->
+                    when (resource.status) {
+                        Status.LOADING -> {
+                            Log.d("Loading ", "loading...")
+                            setMessageAndShowProgressDialog(progressDialog)
+                        }
+                        Status.SUCCESS -> {
+                            resource.data?.let {
+                                if (progressDialog.isShowing) progressDialog.dismiss()
+
+                                var user = userInformationViewModel.getAllFavoriteUsers()[position]
+                                user = createNewMultiplayerUser(resource)
+                                intent.putExtra(
+                                    UserConstants.OBJECT_USER,
+                                    user
+                                )
+                                startActivity(intent)
+                            }!!
+
+                        }
+                        Status.ERROR -> {
+                            Log.e("Error ", resource.message.toString())
+                            if (progressDialog.isShowing) progressDialog.dismiss()
+                        }
+                    }
+                }
+            }
+            )
     }
 
     private fun buttonSearchClickListener() {
