@@ -141,7 +141,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setAutoCompletePlatforms() {
-        val platforms = arrayOf("psn", "steam", "xbl", "battle")
+        val platforms = arrayOf("Playstation", "Steam", "Xbox", "Battle")
 
         autoCompleteTextViewGameMode.setAdapter(
             ArrayAdapter<String>(
@@ -153,11 +153,10 @@ class MainActivity : AppCompatActivity() {
         autoCompleteTextViewGameMode.setOnClickListener {
             autoCompleteTextViewGameMode.showDropDown()
         }
-        Log.d("AutocompleteItem ", autoCompleteTextViewGameMode.text.toString())
     }
 
     private fun getMultiplayerUser(v: View) {
-        val selectedPlatform = autoCompleteTextViewGameMode.text.toString()
+        val selectedPlatform = getAutoCompleteSelectedPlatform()
         val gamertag = editTextNickname.text.toString()
         val progressDialog = ProgressDialog(this, R.style.myAlertDialogStyle)
 
@@ -188,6 +187,22 @@ class MainActivity : AppCompatActivity() {
                 }
             }
             )
+    }
+
+    private fun getAutoCompleteSelectedPlatform(): String {
+        if (autoCompleteTextViewGameMode.text.toString() == "Playstation") {
+            return "psn"
+        }
+        if (autoCompleteTextViewGameMode.text.toString() == "Steam") {
+            return "steam"
+        }
+        if (autoCompleteTextViewGameMode.text.toString() == "Xbox") {
+            return "xbl"
+        }
+        if (autoCompleteTextViewGameMode.text.toString() == "Battle") {
+            return "battle"
+        }
+        return ""
     }
 
     private fun handlesUserSituation(
