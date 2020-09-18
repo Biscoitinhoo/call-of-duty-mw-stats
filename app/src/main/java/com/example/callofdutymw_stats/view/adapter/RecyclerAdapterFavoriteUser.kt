@@ -50,10 +50,15 @@ class RecyclerAdapterFavoriteUser(context: Context) :
         return userInformationViewModel.getAllFavoriteUsers().size
     }
 
+    fun setPlatformsValues(platform: String): String {
+
+        return ""
+    }
+
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         @SuppressLint("SetTextI18n")
         fun bindItems(userInformationMultiplayer: UserInformationMultiplayer) {
-            itemView.textViewUserLevel.text = userInformationMultiplayer.level.toString()
+            itemView.textViewPlatform.text = userInformationMultiplayer.platform
             itemView.textViewUsername.text = userInformationMultiplayer.userNickname
         }
     }

@@ -14,8 +14,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.callofdutymw_stats.R
 import com.example.callofdutymw_stats.model.multiplayer.lifetime.UserLifeTimeMultiplayer
 import com.example.callofdutymw_stats.model.multiplayer.lifetime.all.properties.UserInformationMultiplayer
-import com.example.callofdutymw_stats.model.warzone.all.UserAllWarzone
-import com.example.callofdutymw_stats.model.warzone.dto.UserDtoWarzone
 import com.example.callofdutymw_stats.util.Resource
 import com.example.callofdutymw_stats.util.Status
 import com.example.callofdutymw_stats.view.adapter.RecyclerAdapterFavoriteUser
@@ -25,7 +23,6 @@ import com.example.callofdutymw_stats.viewmodel.MainActivityViewModel
 import com.example.callofdutymw_stats.viewmodel.UserInformationViewModel
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
-import retrofit2.Response
 
 @Suppress("IMPLICIT_CAST_TO_ANY", "ControlFlowWithEmptyBody")
 class MainActivity : AppCompatActivity() {
@@ -39,7 +36,6 @@ class MainActivity : AppCompatActivity() {
         supportActionBar!!.hide()
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING)
 
-        updateStarredUserInformation()
         changeConstraintHistory()
         setRecyclerAdapter()
 
@@ -47,10 +43,6 @@ class MainActivity : AppCompatActivity() {
 
         setAutoCompletePlatforms()
         buttonSearchClickListener()
-    }
-
-    private fun updateStarredUserInformation() {
-        //TODO
     }
 
     override fun onResume() {
@@ -117,14 +109,21 @@ class MainActivity : AppCompatActivity() {
 
     private fun recyclerAdapterUserClick(position: Int) {
         val intent = Intent(this, UserInformationActivity::class.java)
+
         val userInformationViewModel = UserInformationViewModel(context)
+        val mainActivityViewModel = MainActivityViewModel()
+
         val progressDialog = ProgressDialog(this, R.style.myAlertDialogStyle)
 
-        val selectedPlatform = userInformationViewModel.getAllFavoriteUsers()[position].platform
+        val userPlatform = userInformationViewModel.getAllFavoriteUsers()[position].platform
+        val defaultUserPlatform = mainActivityViewModel.setExtendedPlatformToDefault(userPlatform)
+
         val gamertag = userInformationViewModel.getAllFavoriteUsers()[position].userNickname
 
-        val mainActivityViewModel = MainActivityViewModel()
-        mainActivityViewModel.getMultiplayerUser(gamertag = gamertag, platform = selectedPlatform)
+        mainActivityViewModel.getMultiplayerUser(
+            gamertag = gamertag,
+            platform = defaultUserPlatform
+        )
             .observe(this, androidx.lifecycle.Observer {
                 it?.let { resource ->
                     when (resource.status) {
@@ -137,7 +136,7 @@ class MainActivity : AppCompatActivity() {
                                 if (progressDialog.isShowing) progressDialog.dismiss()
 
                                 var user = userInformationViewModel.getAllFavoriteUsers()[position]
-                                user = createNewMultiplayerUser(resource)
+                                user = createNewUser(resource)
                                 intent.putExtra(
                                     UserConstants.OBJECT_USER,
                                     user
@@ -161,16 +160,16 @@ class MainActivity : AppCompatActivity() {
         buttonSearch.setOnClickListener {
             if (mainActivityViewModel.isValidFields(
                     editTextNickname,
-                    autoCompleteTextViewGameMode
+                    autoCompleteTextViewPlatforms
                 )
             ) {
                 getMultiplayerUser(it)
                 editTextNickname.error = null
-                autoCompleteTextViewGameMode.error = null
+                autoCompleteTextViewPlatforms.error = null
             } else {
                 mainActivityViewModel.setErrorInFields(
                     editTextNickname,
-                    autoCompleteTextViewGameMode
+                    autoCompleteTextViewPlatforms
                 )
             }
         }
@@ -179,24 +178,26 @@ class MainActivity : AppCompatActivity() {
     private fun setAutoCompletePlatforms() {
         val platforms = arrayOf("Playstation", "Steam", "Xbox", "Battle")
 
-        autoCompleteTextViewGameMode.setAdapter(
+        autoCompleteTextViewPlatforms.setAdapter(
             ArrayAdapter<String>(
                 this,
                 android.R.layout.simple_list_item_1,
                 platforms
             )
         )
-        autoCompleteTextViewGameMode.setOnClickListener {
-            autoCompleteTextViewGameMode.showDropDown()
+        autoCompleteTextViewPlatforms.setOnClickListener {
+            autoCompleteTextViewPlatforms.showDropDown()
         }
     }
 
     private fun getMultiplayerUser(v: View) {
-        val selectedPlatform = getAutoCompleteSelectedPlatform()
+        val mainActivityViewModel = MainActivityViewModel()
+
+        val selectedPlatform =
+            mainActivityViewModel.setExtendedPlatformToDefault(autoCompleteTextViewPlatforms.text.toString())
         val gamertag = editTextNickname.text.toString()
         val progressDialog = ProgressDialog(this, R.style.myAlertDialogStyle)
 
-        val mainActivityViewModel = MainActivityViewModel()
         mainActivityViewModel.getMultiplayerUser(gamertag = gamertag, platform = selectedPlatform)
             .observe(this, androidx.lifecycle.Observer {
                 it?.let { resource ->
@@ -225,22 +226,6 @@ class MainActivity : AppCompatActivity() {
             )
     }
 
-    private fun getAutoCompleteSelectedPlatform(): String {
-        if (autoCompleteTextViewGameMode.text.toString() == "Playstation") {
-            return "psn"
-        }
-        if (autoCompleteTextViewGameMode.text.toString() == "Steam") {
-            return "steam"
-        }
-        if (autoCompleteTextViewGameMode.text.toString() == "Xbox") {
-            return "xbl"
-        }
-        if (autoCompleteTextViewGameMode.text.toString() == "Battle") {
-            return "battle"
-        }
-        return ""
-    }
-
     private fun handlesUserSituation(
         userIsIncorrect: Boolean,
         view: View,
@@ -249,7 +234,7 @@ class MainActivity : AppCompatActivity() {
         if (userIsIncorrect) {
             showSnackbarErrorUser(view)
         } else {
-            val user = createNewMultiplayerUser(resource)
+            val user = createNewUser(resource)
 
             val intent = Intent(this, UserInformationActivity::class.java)
             intent.putExtra(UserConstants.OBJECT_USER, user)
@@ -278,43 +263,12 @@ class MainActivity : AppCompatActivity() {
             }.show()
     }
 
-    //Create user
-    private fun createNewWarzoneUser(response: Response<UserDtoWarzone>): UserAllWarzone {
-        Log.d("Status code from W user", response.toString())
-
-        val wins: String = response.body()?.userAllWarzone?.wins.toString()
-        val kills: String = response.body()?.userAllWarzone?.kills.toString()
-        val deaths: String = response.body()?.userAllWarzone?.deaths.toString()
-        val kd: Double = response.body()!!.userAllWarzone.kdRatio
-        val downs: String = response.body()?.userAllWarzone?.downs.toString()
-        val topTwentyFive: String = response.body()?.userAllWarzone?.topTwentyFive.toString()
-        val topTen: String = response.body()?.userAllWarzone?.topTen.toString()
-        val topFive: String = response.body()?.userAllWarzone?.topFive.toString()
-        val contracts: String = response.body()?.userAllWarzone?.contracts.toString()
-        val revives: String = response.body()?.userAllWarzone?.revives.toString()
-        val score: String = response.body()?.userAllWarzone?.score.toString()
-        val gamesPlayed: String = response.body()?.userAllWarzone?.gamesPlayed.toString()
-        return UserAllWarzone(
-            wins,
-            kills,
-            deaths,
-            kd,
-            downs,
-            topTwentyFive,
-            topTen,
-            topFive,
-            contracts,
-            revives,
-            score,
-            gamesPlayed
-        )
-    }
-
-    private fun createNewMultiplayerUser(resource: Resource<UserLifeTimeMultiplayer>): UserInformationMultiplayer {
+    private fun createNewUser(resource: Resource<UserLifeTimeMultiplayer>): UserInformationMultiplayer {
         Log.d("Status code from M user", resource.toString())
+
         val nickname = resource.data!!.nickName
         val level = resource.data.level
-        val platform = resource.data.platform
+        val platform = autoCompleteTextViewPlatforms.text.toString()
         val recordWinStreak =
             resource.data.userAllMultiplayer.userPropertiesMultiplayer.userInformationMultiplayer.recordWinStreak
         val recordXP =
