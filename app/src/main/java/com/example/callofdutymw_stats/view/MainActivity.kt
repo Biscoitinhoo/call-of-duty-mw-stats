@@ -9,6 +9,7 @@ import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.callofdutymw_stats.R
@@ -148,6 +149,7 @@ class MainActivity : AppCompatActivity() {
                         Status.ERROR -> {
                             Log.e("Error ", resource.message.toString())
                             if (progressDialog.isShowing) progressDialog.dismiss()
+                            showErrorSnackbar(view)
                         }
                     }
                 }
