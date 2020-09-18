@@ -9,11 +9,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import com.example.callofdutymw_stats.R
 import com.example.callofdutymw_stats.domain.RepositoryImpl
-import com.example.callofdutymw_stats.model.multiplayer.lifetime.all.properties.UserInformationMultiplayer
 import com.example.callofdutymw_stats.util.Resource
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 
 class MainActivityViewModel() : ViewModel() {
 
@@ -42,6 +39,23 @@ class MainActivityViewModel() : ViewModel() {
     }
 
     //Logic
+
+    fun setExtendedPlatformToDefault(platform: String): String {
+        if (platform == "Playstation") {
+            return "psn"
+        }
+        if (platform == "Steam") {
+            return "steam"
+        }
+        if (platform == "Xbox") {
+            return "xbl"
+        }
+        if (platform == "Battle") {
+            return "battle"
+        }
+        return ""
+    }
+
     fun isValidFields(editText: EditText, autoCompleteTextView: AutoCompleteTextView): Boolean {
         return editText.text.toString().isNotEmpty() && autoCompleteTextView.text.toString()
             .isNotEmpty()

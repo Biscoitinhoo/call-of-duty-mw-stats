@@ -19,7 +19,7 @@ import com.example.callofdutymw_stats.util.Status
 import com.example.callofdutymw_stats.view.util.UserConstants
 import com.example.callofdutymw_stats.viewmodel.UserInformationViewModel
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.android.synthetic.main.activity_main.autoCompleteTextViewGameMode
+import kotlinx.android.synthetic.main.activity_main.autoCompleteTextViewPlatforms
 import kotlinx.android.synthetic.main.activity_user_information.*
 import java.text.DecimalFormat
 
@@ -77,19 +77,19 @@ class UserInformationActivity : AppCompatActivity() {
         val user = getSearchedUser()
 
         favoriteStarClicked = if (!favoriteStarClicked) {
-            if (userInformationViewModel.starredLimitIsValid(userInformationViewModel.getAllFavoriteUsers())) {
-                imageViewStarFavoritePlayer.setImageResource(R.drawable.ic_baseline_star_24)
-                addUserInFavorites(user)
+                if (userInformationViewModel.starredLimitIsValid(userInformationViewModel.getAllFavoriteUsers())) {
+                    imageViewStarFavoritePlayer.setImageResource(R.drawable.ic_baseline_star_24)
+                    addUserInFavorites(user)
 
-                Snackbar.make(view, R.string.added_to_favorites, Snackbar.LENGTH_LONG).show()
-                true
+                    Snackbar.make(view, R.string.added_to_favorites, Snackbar.LENGTH_LONG).show()
+                    true
+                } else {
+                    Snackbar.make(view, R.string.limited_exceeded, Snackbar.LENGTH_LONG).show()
+                    false
+                }
             } else {
-                Snackbar.make(view, R.string.limited_exceeded, Snackbar.LENGTH_LONG).show()
-                false
-            }
-        } else {
-            imageViewStarFavoritePlayer.setImageResource(R.drawable.ic_baseline_star_border_outlined_24)
-            deleteUserInFavorites(user)
+                imageViewStarFavoritePlayer.setImageResource(R.drawable.ic_baseline_star_border_outlined_24)
+                deleteUserInFavorites(user)
 
             Snackbar.make(view, R.string.removed_to_favorites, Snackbar.LENGTH_LONG).show()
             false
@@ -196,11 +196,11 @@ class UserInformationActivity : AppCompatActivity() {
     }
 
     private fun setAutoCompleteGameMode() {
-        autoCompleteTextViewGameMode.setText(GameModeConstants.MULTIPLAYER_GAME_MODE)
+        autoCompleteTextViewPlatforms.setText(GameModeConstants.MULTIPLAYER_GAME_MODE)
 
         val gameMode =
             arrayOf(GameModeConstants.MULTIPLAYER_GAME_MODE, GameModeConstants.WARZONE_GAME_MODE)
-        autoCompleteTextViewGameMode.setAdapter(
+        autoCompleteTextViewPlatforms.setAdapter(
             ArrayAdapter<String>(
                 this,
                 android.R.layout.simple_list_item_1,
@@ -208,14 +208,14 @@ class UserInformationActivity : AppCompatActivity() {
             )
         )
         setMultiplayerOrWarzoneInformations()
-        autoCompleteTextViewGameMode.setOnClickListener {
-            autoCompleteTextViewGameMode.showDropDown()
+        autoCompleteTextViewPlatforms.setOnClickListener {
+            autoCompleteTextViewPlatforms.showDropDown()
             setMultiplayerOrWarzoneInformations()
         }
     }
 
     private fun observeGameMode() {
-        autoCompleteTextViewGameMode.addTextChangedListener(object : TextWatcher {
+        autoCompleteTextViewPlatforms.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
                 mutableLiveData.postValue(s.toString())
             }
