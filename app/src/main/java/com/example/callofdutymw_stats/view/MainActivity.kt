@@ -147,7 +147,7 @@ class MainActivity : AppCompatActivity() {
 
                         }
                         Status.ERROR -> {
-                            Log.e("Error ", resource.message.toString())
+                            Log.e("Error in MainActivity ", resource.message.toString())
                             if (progressDialog.isShowing) progressDialog.dismiss()
                             showErrorSnackbar(view)
                         }

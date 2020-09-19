@@ -49,6 +49,9 @@ class UserInformationViewModel(context: Context) : ViewModel() {
         favoriteUsers: List<UserInformationMultiplayer>,
         i: Int
     ): Boolean {
+        val mainActivityViewModel = MainActivityViewModel()
+
+        favoriteUsers[i].platform = mainActivityViewModel.setDefaultToExtended(favoriteUsers[i].platform)
         return favoriteUsers[i].userNickname == user.userNickname && favoriteUsers[i].platform == user.platform
     }
 

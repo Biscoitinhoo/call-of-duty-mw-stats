@@ -17,6 +17,7 @@ import com.example.callofdutymw_stats.util.GameModeConstants
 import com.example.callofdutymw_stats.util.Resource
 import com.example.callofdutymw_stats.util.Status
 import com.example.callofdutymw_stats.view.util.UserConstants
+import com.example.callofdutymw_stats.viewmodel.MainActivityViewModel
 import com.example.callofdutymw_stats.viewmodel.UserInformationViewModel
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.autoCompleteTextViewPlatforms
@@ -51,6 +52,11 @@ class UserInformationActivity : AppCompatActivity() {
         setAutoCompleteGameMode()
     }
 
+    override fun onResume() {
+        super.onResume()
+        setStarStatusAgainstUser(getSearchedUser())
+    }
+
     private fun getSearchedUser(): UserInformationMultiplayer {
         return intent.getSerializableExtra(UserConstants.OBJECT_USER) as UserInformationMultiplayer
     }
@@ -61,6 +67,7 @@ class UserInformationActivity : AppCompatActivity() {
         for (i in databaseUsers.indices) {
             if (userInformationViewModel.userAlreadyStarred(user, databaseUsers, i)) {
                 imageViewStarFavoritePlayer.setImageResource(R.drawable.ic_baseline_star_24)
+                Log.e("Ebtriy ayuqw", "fjksdg")
                 favoriteStarClicked = true
             }
         }
@@ -107,8 +114,11 @@ class UserInformationActivity : AppCompatActivity() {
     }
 
     private fun setAllUserInformations() {
+        val mainActivityViewModel = MainActivityViewModel()
+
         setUserDefaultInformations(getSearchedUser())
-        setWarzoneUserInformation(getSearchedUser().userNickname, getSearchedUser().platform)
+        val userPlatform = mainActivityViewModel.setExtendedPlatformToDefault(getSearchedUser().platform)
+        setWarzoneUserInformation(getSearchedUser().userNickname, userPlatform)
         setMultiplayerUserInformation(getSearchedUser())
     }
 
@@ -130,7 +140,7 @@ class UserInformationActivity : AppCompatActivity() {
                             setWarzoneTextViewInformations(it)
                         }
                         Status.ERROR -> {
-                            Log.e("Error ", resource.message)
+                            Log.e("Error in UserInformationActivity ", resource.message)
                         }
                     }
                 }
@@ -238,4 +248,5 @@ class UserInformationActivity : AppCompatActivity() {
             }
         })
     }
+
 }

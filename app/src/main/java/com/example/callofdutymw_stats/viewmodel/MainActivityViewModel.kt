@@ -56,6 +56,22 @@ class MainActivityViewModel() : ViewModel() {
         return ""
     }
 
+    fun setDefaultToExtended(platform: String): String {
+        if (platform == "psn") {
+            return "Playstation"
+        }
+        if (platform == "steam") {
+            return "Steam"
+        }
+        if (platform == "xbl") {
+            return "Xbox"
+        }
+        if (platform == "battle") {
+            return "Battle"
+        }
+        return ""
+    }
+
     fun isValidFields(editText: EditText, autoCompleteTextView: AutoCompleteTextView): Boolean {
         return editText.text.toString().isNotEmpty() && autoCompleteTextView.text.toString()
             .isNotEmpty()
