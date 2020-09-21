@@ -11,8 +11,8 @@ import com.example.callofdutymw_stats.model.multiplayer.lifetime.all.properties.
 import com.example.callofdutymw_stats.viewmodel.UserInformationViewModel
 import kotlinx.android.synthetic.main.recycler_view_favorite_user.view.*
 
-class RecyclerAdapterFavoriteUser(context: Context) :
-    RecyclerView.Adapter<RecyclerAdapterFavoriteUser.ViewHolder>() {
+class RecyclerAdapterHistoric(context: Context) :
+    RecyclerView.Adapter<RecyclerAdapterHistoric.ViewHolder>() {
 
     private val userInformationViewModel = UserInformationViewModel(context)
 
@@ -22,25 +22,25 @@ class RecyclerAdapterFavoriteUser(context: Context) :
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): RecyclerAdapterFavoriteUser.ViewHolder {
+    ): RecyclerAdapterHistoric.ViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.recycler_view_favorite_user, parent, false)
         return ViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: RecyclerAdapterFavoriteUser.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: RecyclerAdapterHistoric.ViewHolder, position: Int) {
         holder.bindItems(userInformationViewModel.getAllUsersInHistoric()[position])
         deleteIconOnClick(holder, position)
         userClick(holder, position)
     }
 
-    private fun deleteIconOnClick(holder: RecyclerAdapterFavoriteUser.ViewHolder, position: Int) {
+    private fun deleteIconOnClick(holder: RecyclerAdapterHistoric.ViewHolder, position: Int) {
         holder.itemView.imageViewDeleteFavoriteUser.setOnClickListener {
             onClickListenerImage.onClickImage(position)
         }
     }
 
-    private fun userClick(holder: RecyclerAdapterFavoriteUser.ViewHolder, position: Int) {
+    private fun userClick(holder: RecyclerAdapterHistoric.ViewHolder, position: Int) {
         holder.itemView.constraintLayoutUser.setOnClickListener {
             onClickListenerConstraint.onClickConstraint(position)
         }
