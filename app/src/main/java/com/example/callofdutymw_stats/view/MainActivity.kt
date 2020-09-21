@@ -54,7 +54,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun changeConstraintHistory() {
         val userInformationViewModel = UserInformationViewModel(this)
-        if (userInformationViewModel.getAllFavoriteUsers().isEmpty()) {
+        if (userInformationViewModel.getAllUsersInHistoric().isEmpty()) {
             MainActivityViewModel.startFadeInAnimation(this, constraintLayoutEmptyHistory)
             constraintLayoutEmptyHistory.visibility = View.VISIBLE
             constraintLayoutHistory.visibility = View.GONE
@@ -68,8 +68,8 @@ class MainActivity : AppCompatActivity() {
     @SuppressLint("SetTextI18n")
     private fun setStarredUserCounter() {
         val userInformationViewModel = UserInformationViewModel(this)
-        val starredCounter = userInformationViewModel.getAllFavoriteUsers().size
-        textViewFavoriteUsers.text = "Usuários favoritos: $starredCounter/5"
+        val starredCounter = userInformationViewModel.getAllUsersInHistoric().size
+        textViewFavoriteUsers.text = "Histórico: $starredCounter/5"
     }
 
     private fun setRecyclerAdapter() {
@@ -96,14 +96,14 @@ class MainActivity : AppCompatActivity() {
 
     private fun recyclerAdapterDeleteUser(position: Int) {
         val userInformationViewModel = UserInformationViewModel(context)
-        val user = userInformationViewModel.getAllFavoriteUsers()[position]
+        val user = userInformationViewModel.getAllUsersInHistoric()[position]
 
-        userInformationViewModel.deleteUserInFavorites(user)
+        userInformationViewModel.deleteUserInHistoric(user)
 
         recyclerAdapterFavoriteUser.notifyItemRemoved(position)
         recyclerAdapterFavoriteUser.notifyItemRangeChanged(
             position,
-            userInformationViewModel.getAllFavoriteUsers().size
+            userInformationViewModel.getAllUsersInHistoric().size
         )
         changeConstraintHistory()
     }
@@ -116,10 +116,10 @@ class MainActivity : AppCompatActivity() {
 
         val progressDialog = ProgressDialog(this, R.style.myAlertDialogStyle)
 
-        val userPlatform = userInformationViewModel.getAllFavoriteUsers()[position].platform
+        val userPlatform = userInformationViewModel.getAllUsersInHistoric()[position].platform
         val defaultUserPlatform = mainActivityViewModel.setExtendedPlatformToDefault(userPlatform)
 
-        val gamertag = userInformationViewModel.getAllFavoriteUsers()[position].userNickname
+        val gamertag = userInformationViewModel.getAllUsersInHistoric()[position].userNickname
 
         mainActivityViewModel.getMultiplayerUser(
             gamertag = gamertag,
@@ -136,8 +136,10 @@ class MainActivity : AppCompatActivity() {
                             resource.data?.let {
                                 if (progressDialog.isShowing) progressDialog.dismiss()
 
-                                var user = userInformationViewModel.getAllFavoriteUsers()[position]
-                                user = createNewUser(resource)
+                                val user = getExistentUser(
+                                    userInformationViewModel.getAllUsersInHistoric(),
+                                    position
+                                )
                                 intent.putExtra(
                                     UserConstants.OBJECT_USER,
                                     user
@@ -271,6 +273,8 @@ class MainActivity : AppCompatActivity() {
         val nickname = resource.data!!.nickName
         val level = resource.data.level
         val platform = autoCompleteTextViewPlatforms.text.toString()
+        val isStarredUser =
+            resource.data.userAllMultiplayer.userPropertiesMultiplayer.userInformationMultiplayer.isStarredUser
         val recordWinStreak =
             resource.data.userAllMultiplayer.userPropertiesMultiplayer.userInformationMultiplayer.recordWinStreak
         val recordXP =
@@ -311,6 +315,78 @@ class MainActivity : AppCompatActivity() {
             nickname,
             level,
             platform,
+            isStarredUser,
+            recordWinStreak,
+            recordXP,
+            accuracy,
+            losses,
+            totalGamesPlayed,
+            score,
+            deaths,
+            wins,
+            kdRatio,
+            bestAssists,
+            bestScore,
+            recordDeathsInMatch,
+            recordKillsInMatch,
+            suicides,
+            totalKills,
+            headshots,
+            assists,
+            recordKillStreak
+        )
+    }
+
+    private fun getExistentUser(
+        historicList: List<UserInformationMultiplayer>,
+        position: Int
+    ): UserInformationMultiplayer {
+
+        val nickname = historicList[position].userNickname
+        val level = historicList[position].level
+        val platform = historicList[position].platform
+        val isStarredUser = historicList[position].isStarredUser
+        val recordWinStreak =
+            historicList[position].recordWinStreak
+        val recordXP =
+            historicList[position].recordXP
+        val accuracy =
+            historicList[position].accuracy
+        val losses =
+            historicList[position].losses
+        val totalGamesPlayed =
+            historicList[position].totalGamesPlayed
+        val score =
+            historicList[position].score
+        val deaths =
+            historicList[position].totalDeaths
+        val wins =
+            historicList[position].wins
+        val kdRatio =
+            historicList[position].kdRatio
+        val bestAssists =
+            historicList[position].bestAssists
+        val bestScore =
+            historicList[position].bestScore
+        val recordDeathsInMatch =
+            historicList[position].recordDeathsInMatch
+        val recordKillsInMatch =
+            historicList[position].recordKillsInMatch
+        val suicides =
+            historicList[position].suicides
+        val totalKills =
+            historicList[position].totalKills
+        val headshots =
+            historicList[position].headshots
+        val assists =
+            historicList[position].assists
+        val recordKillStreak =
+            historicList[position].recordKillStreak
+        return UserInformationMultiplayer(
+            nickname,
+            level,
+            platform,
+            isStarredUser,
             recordWinStreak,
             recordXP,
             accuracy,

@@ -1,7 +1,6 @@
 package com.example.callofdutymw_stats.viewmodel
 
 import android.content.Context
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import com.example.callofdutymw_stats.database.room.RoomDatabaseImpl
@@ -32,35 +31,48 @@ class UserInformationViewModel(context: Context) : ViewModel() {
         }
     }
 
-    fun addUserInFavorites(user: UserInformationMultiplayer) {
+    fun addUserInHistoric(user: UserInformationMultiplayer) {
         GlobalScope.launch {
-            userDAO.addUserInFavorites(user)
+            userDAO.addUserInHistoric(user)
         }
     }
 
-    fun deleteUserInFavorites(user: UserInformationMultiplayer) {
+    fun deleteUserInHistoric(user: UserInformationMultiplayer) {
         GlobalScope.launch {
-            userDAO.deleteUserInFavorites(user)
+            userDAO.deleteUserInHistoric(user)
         }
     }
 
-    fun userAlreadyStarred(
+    fun userAlreadyInHistoric(
+        user: UserInformationMultiplayer,
+        historicUsers: List<UserInformationMultiplayer>,
+        position: Int
+    ): Boolean {
+        return historicUsers[position].userNickname == user.userNickname &&
+                historicUsers[position].platform == user.platform
+    }
+
+    fun transformInExistentObject(
         user: UserInformationMultiplayer,
         favoriteUsers: List<UserInformationMultiplayer>,
         i: Int
-    ): Boolean {
+    ) {
         val mainActivityViewModel = MainActivityViewModel()
+        var mUser: UserInformationMultiplayer = user
 
-        favoriteUsers[i].platform = mainActivityViewModel.setDefaultToExtended(favoriteUsers[i].platform)
-        return favoriteUsers[i].userNickname == user.userNickname && favoriteUsers[i].platform == user.platform
+        favoriteUsers[i].platform =
+            mainActivityViewModel.setDefaultToExtended(favoriteUsers[i].platform)
+
+        if (favoriteUsers[i].userNickname == mUser.userNickname && favoriteUsers[i].platform == mUser.platform)
+            mUser = favoriteUsers[i]
     }
 
-    fun starredLimitIsValid(listStarredUsers: List<UserInformationMultiplayer>): Boolean {
+    fun historicLimitIsValid(listStarredUsers: List<UserInformationMultiplayer>): Boolean {
         return listStarredUsers.size < 5
     }
 
-    fun getAllFavoriteUsers(): List<UserInformationMultiplayer> = runBlocking {
-        return@runBlocking userDAO.getAllFavoriteUsers()
+    fun getAllUsersInHistoric(): List<UserInformationMultiplayer> = runBlocking {
+        return@runBlocking userDAO.getAllUsersInHistoric()
     }
 
     companion object {
