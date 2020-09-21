@@ -29,7 +29,7 @@ class RecyclerAdapterFavoriteUser(context: Context) :
     }
 
     override fun onBindViewHolder(holder: RecyclerAdapterFavoriteUser.ViewHolder, position: Int) {
-        holder.bindItems(userInformationViewModel.getAllFavoriteUsers()[position])
+        holder.bindItems(userInformationViewModel.getAllUsersInHistoric()[position])
         deleteIconOnClick(holder, position)
         userClick(holder, position)
     }
@@ -47,7 +47,7 @@ class RecyclerAdapterFavoriteUser(context: Context) :
     }
 
     override fun getItemCount(): Int {
-        return userInformationViewModel.getAllFavoriteUsers().size
+        return userInformationViewModel.getAllUsersInHistoric().size
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

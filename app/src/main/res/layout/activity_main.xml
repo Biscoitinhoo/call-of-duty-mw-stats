@@ -89,8 +89,8 @@
             android:fontFamily="sans-serif"
             android:gravity="center"
             android:lineSpacingExtra="8sp"
-            android:text="SEM JOGADORES FAVORITADOS POR ENQUANTO..."
-            android:textColor="#fff"
+            android:text="Histórico limpo... Explore alguns jogadores!"
+            android:textColor="@color/colorGrey"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -98,18 +98,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
-            android:src="@drawable/ic_baseline_star_24"
-            app:layout_constraintBottom_toTopOf="@+id/textViewEmptyHistoric"
-            app:layout_constraintEnd_toEndOf="@+id/textViewEmptyHistoric"
-            app:layout_constraintHorizontal_bias="0.498"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -127,7 +115,7 @@
             android:id="@+id/textViewFavoriteUsers"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Usuários favoritos: 0/5"
+            android:text="Histórico"
             android:textColor="@color/colorWhite"
             android:textSize="16sp"
             app:layout_constraintBottom_toTopOf="@+id/recyclerViewFavoriteUser"

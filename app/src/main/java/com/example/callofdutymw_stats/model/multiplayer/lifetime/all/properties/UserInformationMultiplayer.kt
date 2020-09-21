@@ -10,6 +10,7 @@ class UserInformationMultiplayer(
     val userNickname: String,
     val level: Int,
     var platform: String,
+    var isStarredUser: Boolean,
     @SerializedName("recordLongestWinStreak")
     val recordWinStreak: String,
     @SerializedName("recordXpInAMatch")

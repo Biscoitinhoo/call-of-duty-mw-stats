@@ -17,7 +17,6 @@ public class OkHttpClientConfiguration {
     }
 
     private static final String API_HOST = "call-of-duty-modern-warfare.p.rapidapi.com";
-    private static final String API_KEY = "ddd4cc70d8msh8ed32d9d4624f0dp1461e2jsnd433ff74d1d6";
 
     public static void configureHttpClientHeader(OkHttpClient.Builder okHttpClient) {
         okHttpClient.addInterceptor(new Interceptor() {
@@ -26,7 +25,7 @@ public class OkHttpClientConfiguration {
                 Request original = chain.request();
                 Request request = original.newBuilder()
                         .header("x-rapidapi-host", API_HOST)
-                        .header("x-rapidapi-key", API_KEY)
+                        .header("x-rapidapi-key", BuildConfig.API_TOKEN)
                         .method(original.method(), original.body())
                         .build();
 

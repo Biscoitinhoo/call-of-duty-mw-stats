@@ -19,7 +19,6 @@ import com.example.callofdutymw_stats.util.Status
 import com.example.callofdutymw_stats.view.util.UserConstants
 import com.example.callofdutymw_stats.viewmodel.MainActivityViewModel
 import com.example.callofdutymw_stats.viewmodel.UserInformationViewModel
-import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.autoCompleteTextViewPlatforms
 import kotlinx.android.synthetic.main.activity_user_information.*
 import java.text.DecimalFormat
@@ -28,96 +27,70 @@ import java.text.DecimalFormat
 class UserInformationActivity : AppCompatActivity() {
 
     /**
-     * Atual problema nessa classe:
-     * Quando você salva um usuário como favorito, e no mesmo momento deleta ela, ao invés dele
-     * ser deletado o Room não faz isso. Ou seja, se o clique de favorito for clicado três vezes
-     * (objeto user ser adicionado 3 vezes e removido 3 vezes, ou seja, no fim ele não vai ser um
-     * user favorito), três usuários iguais serão adicionados.
+     * TODO: Add user in favorites;
      */
 
     private val mutableLiveData = MutableLiveData<String>()
-    private var favoriteStarClicked = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_information)
         supportActionBar!!.hide()
 
-        setStarStatusAgainstUser(getSearchedUser())
+        addUserInHistoric()
 
         observeGameMode()
-        textViewFavoriteUserClick()
 
         setAllUserInformations()
         setAutoCompleteGameMode()
     }
 
-    override fun onResume() {
-        super.onResume()
-        setStarStatusAgainstUser(getSearchedUser())
+    private fun addUserInHistoric() {
+        val userInformationViewModel = UserInformationViewModel(this)
+        val historicList = userInformationViewModel.getAllUsersInHistoric()
+        var userAlreadyInHistory = false
+
+        if (historicList.isEmpty()) {
+            addUserInHistoric(getSearchedUser())
+        }
+
+        for (i in historicList.indices) {
+
+            if (userInformationViewModel.userAlreadyInHistoric(
+                    getSearchedUser(),
+                    historicList,
+                    i
+                )
+            ) {
+                userAlreadyInHistory = true
+            }
+
+        }
+        if (!userAlreadyInHistory && userInformationViewModel.historicLimitIsValid(historicList)) {
+            addUserInHistoric(getSearchedUser())
+        }
     }
 
     private fun getSearchedUser(): UserInformationMultiplayer {
         return intent.getSerializableExtra(UserConstants.OBJECT_USER) as UserInformationMultiplayer
     }
 
-    private fun setStarStatusAgainstUser(user: UserInformationMultiplayer) {
+    private fun addUserInHistoric(user: UserInformationMultiplayer) {
         val userInformationViewModel = UserInformationViewModel(this)
-        val databaseUsers = userInformationViewModel.getAllFavoriteUsers()
-        for (i in databaseUsers.indices) {
-            if (userInformationViewModel.userAlreadyStarred(user, databaseUsers, i)) {
-                imageViewStarFavoritePlayer.setImageResource(R.drawable.ic_baseline_star_24)
-                Log.e("Ebtriy ayuqw", "fjksdg")
-                favoriteStarClicked = true
-            }
-        }
+        userInformationViewModel.addUserInHistoric(user)
     }
 
-    private fun textViewFavoriteUserClick() {
-        textViewAddUserFavorite.setOnClickListener {
-            setStarStatusAndAddUser(it)
-        }
-    }
-
-    private fun setStarStatusAndAddUser(view: View) {
+    private fun deleteUserInHistoric(user: UserInformationMultiplayer) {
         val userInformationViewModel = UserInformationViewModel(this)
-        val user = getSearchedUser()
-
-        favoriteStarClicked = if (!favoriteStarClicked) {
-                if (userInformationViewModel.starredLimitIsValid(userInformationViewModel.getAllFavoriteUsers())) {
-                    imageViewStarFavoritePlayer.setImageResource(R.drawable.ic_baseline_star_24)
-                    addUserInFavorites(user)
-
-                    Snackbar.make(view, R.string.added_to_favorites, Snackbar.LENGTH_LONG).show()
-                    true
-                } else {
-                    Snackbar.make(view, R.string.limited_exceeded, Snackbar.LENGTH_LONG).show()
-                    false
-                }
-            } else {
-                imageViewStarFavoritePlayer.setImageResource(R.drawable.ic_baseline_star_border_outlined_24)
-                deleteUserInFavorites(user)
-
-            Snackbar.make(view, R.string.removed_to_favorites, Snackbar.LENGTH_LONG).show()
-            false
-        }
-    }
-
-    private fun addUserInFavorites(user: UserInformationMultiplayer) {
-        val userInformationViewModel = UserInformationViewModel(this)
-        userInformationViewModel.addUserInFavorites(user)
-    }
-
-    private fun deleteUserInFavorites(user: UserInformationMultiplayer) {
-        val userInformationViewModel = UserInformationViewModel(this)
-        userInformationViewModel.deleteUserInFavorites(user)
+        userInformationViewModel.deleteUserInHistoric(user)
     }
 
     private fun setAllUserInformations() {
         val mainActivityViewModel = MainActivityViewModel()
 
         setUserDefaultInformations(getSearchedUser())
-        val userPlatform = mainActivityViewModel.setExtendedPlatformToDefault(getSearchedUser().platform)
+        val userPlatform =
+            mainActivityViewModel.setExtendedPlatformToDefault(getSearchedUser().platform)
         setWarzoneUserInformation(getSearchedUser().userNickname, userPlatform)
         setMultiplayerUserInformation(getSearchedUser())
     }

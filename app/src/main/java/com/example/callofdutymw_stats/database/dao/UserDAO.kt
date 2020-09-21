@@ -6,11 +6,11 @@ import com.example.callofdutymw_stats.model.multiplayer.lifetime.all.properties.
 @Dao
 interface UserDAO {
     @Insert
-    suspend fun addUserInFavorites(userInformationMultiplayer: UserInformationMultiplayer)
+    suspend fun addUserInHistoric(userInformationMultiplayer: UserInformationMultiplayer)
 
     @Delete
-    suspend fun deleteUserInFavorites(userInformationMultiplayer: UserInformationMultiplayer)
+    suspend fun deleteUserInHistoric(userInformationMultiplayer: UserInformationMultiplayer)
 
     @Query("SELECT * FROM users")
-    suspend fun getAllFavoriteUsers(): List<UserInformationMultiplayer>
+    suspend fun getAllUsersInHistoric(): List<UserInformationMultiplayer>
 }
