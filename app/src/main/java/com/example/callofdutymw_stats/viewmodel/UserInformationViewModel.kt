@@ -31,28 +31,25 @@ class UserInformationViewModel(context: Context) : ViewModel() {
         }
     }
 
-    fun addUserInFavorites(user: UserInformationMultiplayer) {
+    fun addUserInHistoric(user: UserInformationMultiplayer) {
         GlobalScope.launch {
-            userDAO.addUserInFavorites(user)
+            userDAO.addUserInHistoric(user)
         }
     }
 
-    fun deleteUserInFavorites(user: UserInformationMultiplayer) {
+    fun deleteUserInHistoric(user: UserInformationMultiplayer) {
         GlobalScope.launch {
-            userDAO.deleteUserInFavorites(user)
+            userDAO.deleteUserInHistoric(user)
         }
     }
 
-    fun userAlreadyStarred(
+    fun userAlreadyInHistoric(
         user: UserInformationMultiplayer,
-        favoriteUsers: List<UserInformationMultiplayer>,
-        i: Int
+        historicUsers: List<UserInformationMultiplayer>,
+        position: Int
     ): Boolean {
-        val mainActivityViewModel = MainActivityViewModel()
-
-        favoriteUsers[i].platform =
-            mainActivityViewModel.setDefaultToExtended(favoriteUsers[i].platform)
-        return favoriteUsers[i].userNickname == user.userNickname && favoriteUsers[i].platform == user.platform
+        return historicUsers[position].userNickname == user.userNickname &&
+                historicUsers[position].platform == user.platform
     }
 
     fun transformInExistentObject(
@@ -70,12 +67,12 @@ class UserInformationViewModel(context: Context) : ViewModel() {
             mUser = favoriteUsers[i]
     }
 
-    fun starredLimitIsValid(listStarredUsers: List<UserInformationMultiplayer>): Boolean {
+    fun historicLimitIsValid(listStarredUsers: List<UserInformationMultiplayer>): Boolean {
         return listStarredUsers.size < 5
     }
 
-    fun getAllFavoriteUsers(): List<UserInformationMultiplayer> = runBlocking {
-        return@runBlocking userDAO.getAllFavoriteUsers()
+    fun getAllUsersInHistoric(): List<UserInformationMultiplayer> = runBlocking {
+        return@runBlocking userDAO.getAllUsersInHistoric()
     }
 
     companion object {
