@@ -271,6 +271,7 @@ class MainActivity : AppCompatActivity() {
         val nickname = resource.data!!.nickName
         val level = resource.data.level
         val platform = autoCompleteTextViewPlatforms.text.toString()
+        val isStarredUser = resource.data.userAllMultiplayer.userPropertiesMultiplayer.userInformationMultiplayer.isStarredUser
         val recordWinStreak =
             resource.data.userAllMultiplayer.userPropertiesMultiplayer.userInformationMultiplayer.recordWinStreak
         val recordXP =
@@ -311,6 +312,7 @@ class MainActivity : AppCompatActivity() {
             nickname,
             level,
             platform,
+            isStarredUser,
             recordWinStreak,
             recordXP,
             accuracy,

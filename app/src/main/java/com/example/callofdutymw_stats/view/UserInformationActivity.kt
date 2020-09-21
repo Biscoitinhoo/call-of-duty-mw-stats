@@ -36,7 +36,6 @@ class UserInformationActivity : AppCompatActivity() {
      */
 
     private val mutableLiveData = MutableLiveData<String>()
-    private var favoriteStarClicked = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -63,12 +62,18 @@ class UserInformationActivity : AppCompatActivity() {
 
     private fun setStarStatusAgainstUser(user: UserInformationMultiplayer) {
         val userInformationViewModel = UserInformationViewModel(this)
-        val databaseUsers = userInformationViewModel.getAllFavoriteUsers()
-        for (i in databaseUsers.indices) {
-            if (userInformationViewModel.userAlreadyStarred(user, databaseUsers, i)) {
+        val favoriteUsers = userInformationViewModel.getAllFavoriteUsers()
+
+        for (i in favoriteUsers.indices) {
+            if (userInformationViewModel.userAlreadyStarred(user, favoriteUsers, i)) {
+                userInformationViewModel.transformInExistentObject(
+                    getSearchedUser(),
+                    favoriteUsers,
+                    i
+                )
                 imageViewStarFavoritePlayer.setImageResource(R.drawable.ic_baseline_star_24)
-                Log.e("Ebtriy ayuqw", "fjksdg")
-                favoriteStarClicked = true
+            } else {
+                imageViewStarFavoritePlayer.setImageResource(R.drawable.ic_baseline_star_24)
             }
         }
     }
@@ -83,24 +88,25 @@ class UserInformationActivity : AppCompatActivity() {
         val userInformationViewModel = UserInformationViewModel(this)
         val user = getSearchedUser()
 
-        favoriteStarClicked = if (!favoriteStarClicked) {
-                if (userInformationViewModel.starredLimitIsValid(userInformationViewModel.getAllFavoriteUsers())) {
-                    imageViewStarFavoritePlayer.setImageResource(R.drawable.ic_baseline_star_24)
-                    addUserInFavorites(user)
-
-                    Snackbar.make(view, R.string.added_to_favorites, Snackbar.LENGTH_LONG).show()
-                    true
-                } else {
-                    Snackbar.make(view, R.string.limited_exceeded, Snackbar.LENGTH_LONG).show()
-                    false
-                }
-            } else {
-                imageViewStarFavoritePlayer.setImageResource(R.drawable.ic_baseline_star_border_outlined_24)
-                deleteUserInFavorites(user)
+        if (getSearchedUser().isStarredUser) {
+            imageViewStarFavoritePlayer.setImageResource(R.drawable.ic_baseline_star_border_outlined_24)
+            deleteUserInFavorites(user)
 
             Snackbar.make(view, R.string.removed_to_favorites, Snackbar.LENGTH_LONG).show()
-            false
+            getSearchedUser().isStarredUser = false
+        } else {
+            if (userInformationViewModel.starredLimitIsValid(userInformationViewModel.getAllFavoriteUsers())) {
+                imageViewStarFavoritePlayer.setImageResource(R.drawable.ic_baseline_star_24)
+                addUserInFavorites(user)
+
+                Snackbar.make(view, R.string.added_to_favorites, Snackbar.LENGTH_LONG).show()
+                getSearchedUser().isStarredUser = true
+            } else {
+                Snackbar.make(view, R.string.limited_exceeded, Snackbar.LENGTH_LONG).show()
+                getSearchedUser().isStarredUser = false
+            }
         }
+        setStarStatusAgainstUser(user)
     }
 
     private fun addUserInFavorites(user: UserInformationMultiplayer) {
@@ -117,7 +123,8 @@ class UserInformationActivity : AppCompatActivity() {
         val mainActivityViewModel = MainActivityViewModel()
 
         setUserDefaultInformations(getSearchedUser())
-        val userPlatform = mainActivityViewModel.setExtendedPlatformToDefault(getSearchedUser().platform)
+        val userPlatform =
+            mainActivityViewModel.setExtendedPlatformToDefault(getSearchedUser().platform)
         setWarzoneUserInformation(getSearchedUser().userNickname, userPlatform)
         setMultiplayerUserInformation(getSearchedUser())
     }

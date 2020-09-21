@@ -1,7 +1,6 @@
 package com.example.callofdutymw_stats.viewmodel
 
 import android.content.Context
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import com.example.callofdutymw_stats.database.room.RoomDatabaseImpl
@@ -51,8 +50,24 @@ class UserInformationViewModel(context: Context) : ViewModel() {
     ): Boolean {
         val mainActivityViewModel = MainActivityViewModel()
 
-        favoriteUsers[i].platform = mainActivityViewModel.setDefaultToExtended(favoriteUsers[i].platform)
+        favoriteUsers[i].platform =
+            mainActivityViewModel.setDefaultToExtended(favoriteUsers[i].platform)
         return favoriteUsers[i].userNickname == user.userNickname && favoriteUsers[i].platform == user.platform
+    }
+
+    fun transformInExistentObject(
+        user: UserInformationMultiplayer,
+        favoriteUsers: List<UserInformationMultiplayer>,
+        i: Int
+    ) {
+        val mainActivityViewModel = MainActivityViewModel()
+        var mUser: UserInformationMultiplayer = user
+
+        favoriteUsers[i].platform =
+            mainActivityViewModel.setDefaultToExtended(favoriteUsers[i].platform)
+
+        if (favoriteUsers[i].userNickname == mUser.userNickname && favoriteUsers[i].platform == mUser.platform)
+            mUser = favoriteUsers[i]
     }
 
     fun starredLimitIsValid(listStarredUsers: List<UserInformationMultiplayer>): Boolean {
