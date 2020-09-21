@@ -9,7 +9,6 @@ import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import android.widget.ArrayAdapter
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.callofdutymw_stats.R
@@ -17,7 +16,7 @@ import com.example.callofdutymw_stats.model.multiplayer.lifetime.UserLifeTimeMul
 import com.example.callofdutymw_stats.model.multiplayer.lifetime.all.properties.UserInformationMultiplayer
 import com.example.callofdutymw_stats.util.Resource
 import com.example.callofdutymw_stats.util.Status
-import com.example.callofdutymw_stats.view.adapter.RecyclerAdapterFavoriteUser
+import com.example.callofdutymw_stats.view.adapter.RecyclerAdapterHistoric
 import com.example.callofdutymw_stats.view.dialog.DialogCustomErrorAPI
 import com.example.callofdutymw_stats.view.util.UserConstants
 import com.example.callofdutymw_stats.viewmodel.MainActivityViewModel
@@ -28,7 +27,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 @Suppress("IMPLICIT_CAST_TO_ANY", "ControlFlowWithEmptyBody")
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var recyclerAdapterFavoriteUser: RecyclerAdapterFavoriteUser
+    private lateinit var recyclerAdapterHistoric: RecyclerAdapterHistoric
     private val context: Context = this
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,7 +47,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        recyclerAdapterFavoriteUser.notifyDataSetChanged()
+        recyclerAdapterHistoric.notifyDataSetChanged()
         changeConstraintHistory()
     }
 
@@ -74,16 +73,16 @@ class MainActivity : AppCompatActivity() {
 
     private fun setRecyclerAdapter() {
         //TODO: Add a property to the user object to indicate whether or not it is starred.
-        recyclerAdapterFavoriteUser = RecyclerAdapterFavoriteUser(this)
-        recyclerViewFavoriteUser.adapter = recyclerAdapterFavoriteUser
+        recyclerAdapterHistoric = RecyclerAdapterHistoric(this)
+        recyclerViewFavoriteUser.adapter = recyclerAdapterHistoric
         recyclerViewFavoriteUser.layoutManager = LinearLayoutManager(context)
-        recyclerAdapterFavoriteUser.notifyDataSetChanged()
+        recyclerAdapterHistoric.notifyDataSetChanged()
     }
 
     private fun recyclerAdapterClickListener() {
 
-        recyclerAdapterFavoriteUser.setOnClickListener(object :
-            RecyclerAdapterFavoriteUser.OnClickListener {
+        recyclerAdapterHistoric.setOnClickListener(object :
+            RecyclerAdapterHistoric.OnClickListener {
             override fun onClickImage(position: Int) {
                 recyclerAdapterDeleteUser(position)
             }
@@ -100,8 +99,8 @@ class MainActivity : AppCompatActivity() {
 
         userInformationViewModel.deleteUserInHistoric(user)
 
-        recyclerAdapterFavoriteUser.notifyItemRemoved(position)
-        recyclerAdapterFavoriteUser.notifyItemRangeChanged(
+        recyclerAdapterHistoric.notifyItemRemoved(position)
+        recyclerAdapterHistoric.notifyItemRangeChanged(
             position,
             userInformationViewModel.getAllUsersInHistoric().size
         )
