@@ -10,7 +10,12 @@ import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
+import androidx.viewpager.widget.ViewPager
 import com.example.callofdutymw_stats.R
+import com.example.callofdutymw_stats.fragment.GamesFragment
+import com.example.callofdutymw_stats.fragment.GeneralFragment
+import com.example.callofdutymw_stats.fragment.GunsFragment
+import com.example.callofdutymw_stats.fragment.MoreFragment
 import com.example.callofdutymw_stats.model.multiplayer.lifetime.all.properties.UserInformationMultiplayer
 import com.example.callofdutymw_stats.model.warzone.dto.UserDtoWarzone
 import com.example.callofdutymw_stats.util.GameModeConstants
@@ -19,6 +24,7 @@ import com.example.callofdutymw_stats.util.Status
 import com.example.callofdutymw_stats.view.util.UserConstants
 import com.example.callofdutymw_stats.viewmodel.MainActivityViewModel
 import com.example.callofdutymw_stats.viewmodel.UserInformationViewModel
+import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.activity_main.autoCompleteTextViewPlatforms
 import kotlinx.android.synthetic.main.activity_user_information.*
 import java.text.DecimalFormat
@@ -31,6 +37,14 @@ class UserInformationActivity : AppCompatActivity() {
      */
 
     private val mutableLiveData = MutableLiveData<String>()
+
+    private lateinit var viewPager: ViewPager
+    private lateinit var tabLayout: TabLayout
+
+    private lateinit var generalFragment: GeneralFragment
+    private lateinit var moreFragment: MoreFragment
+    private lateinit var gamesFragment: GamesFragment
+    private lateinit var gunsFragment: GunsFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
