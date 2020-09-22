@@ -175,34 +175,34 @@ class UserInformationActivity : AppCompatActivity() {
     }
 
     private fun setMultiplayerUserInformation(user: UserInformationMultiplayer) {
-        val formatter = DecimalFormat("##,###,###")
-        setKDArrowColor(user.kdRatio, imageViewKDArrow)
-
-        if (UserInformationViewModel.responseKDRatioIsValid(user.kdRatio.toString())) {
-            textViewKDRatio.text = user.kdRatio.toString().substring(0, 4)
-        } else {
-            textViewKDRatio.text = user.kdRatio.toString()
-        }
-        if (UserInformationViewModel.responseAccuracyIsValid(user.accuracy)) {
-            textViewAccuracy.text =
-                user.accuracy.substring(0, 4)
-        } else {
-            textViewAccuracy.text =
-                user.accuracy
-        }
-        textViewTotalKills.text = formatter.format(user.totalKills.toInt())
-        textViewTotalDeaths.text = formatter.format(user.totalDeaths.toInt())
-        textViewHeadshots.text = formatter.format(user.headshots.toInt())
-        textViewSuicides.text = formatter.format(user.suicides.toInt())
-        textViewTotalAssists.text = formatter.format(user.assists.toInt())
-        textViewTotalGamesPlayed.text = formatter.format(user.totalGamesPlayed.toInt())
-        textViewWins.text = formatter.format(user.wins.toInt())
-        textViewLosses.text = formatter.format(user.losses.toInt())
-        textViewRecordKillsInMatch.text = formatter.format(user.recordKillsInMatch.toInt())
-        textViewRecordDeathsInMatch.text = formatter.format(user.recordDeathsInMatch.toInt())
-        textViewRecordKillStreak.text = formatter.format(user.recordKillStreak.toInt())
-        textViewRecordWinStreak.text = formatter.format(user.recordWinStreak.toInt())
-        textViewRecordXP.text = formatter.format(user.recordXP.toInt())
+//        val formatter = DecimalFormat("##,###,###")
+//        setKDArrowColor(user.kdRatio, imageViewKDArrow)
+//
+//        if (UserInformationViewModel.responseKDRatioIsValid(user.kdRatio.toString())) {
+//            textViewKDRatio.text = user.kdRatio.toString().substring(0, 4)
+//        } else {
+//            textViewKDRatio.text = user.kdRatio.toString()
+//        }
+//        if (UserInformationViewModel.responseAccuracyIsValid(user.accuracy)) {
+//            textViewAccuracy.text =
+//                user.accuracy.substring(0, 4)
+//        } else {
+//            textViewAccuracy.text =
+//                user.accuracy
+//        }
+//        textViewTotalKills.text = formatter.format(user.totalKills.toInt())
+//        textViewTotalDeaths.text = formatter.format(user.totalDeaths.toInt())
+//        textViewHeadshots.text = formatter.format(user.headshots.toInt())
+//        textViewSuicides.text = formatter.format(user.suicides.toInt())
+//        textViewTotalAssists.text = formatter.format(user.assists.toInt())
+//        textViewTotalGamesPlayed.text = formatter.format(user.totalGamesPlayed.toInt())
+//        textViewWins.text = formatter.format(user.wins.toInt())
+//        textViewLosses.text = formatter.format(user.losses.toInt())
+//        textViewRecordKillsInMatch.text = formatter.format(user.recordKillsInMatch.toInt())
+//        textViewRecordDeathsInMatch.text = formatter.format(user.recordDeathsInMatch.toInt())
+//        textViewRecordKillStreak.text = formatter.format(user.recordKillStreak.toInt())
+//        textViewRecordWinStreak.text = formatter.format(user.recordWinStreak.toInt())
+//        textViewRecordXP.text = formatter.format(user.recordXP.toInt())
     }
 
     private fun setKDArrowColor(kd: Double, imageView: ImageView) {

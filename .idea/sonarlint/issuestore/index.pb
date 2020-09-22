@@ -82,3 +82,19 @@ S
 #app/src/main/res/values/strings.xml,d\2\d2281fbb3027de2722081a53408dd77628bf080e
 Å
 Qapp/src/main/java/com/example/callofdutymw_stats/view/adapter/ViewPagerAdapter.kt,4\b\4b572d145e7b77a7704f4e4ddd24e31b06762e7c
+Q
+!app/src/main/res/font/arbutus.xml,0\8\088b9df4586fd097be5c91fafc7f218c5168fee7
+O
+app/src/main/res/font/basic.xml,3\2\3213de9ae907407a63de4536d2bab0cf7299790c
+P
+ app/src/main/res/font/candal.xml,5\d\5d2318f3108998208bad5dfb389b747e17cec47d
+R
+"app/src/main/res/font/days_one.xml,4\3\43bc0d8febdf19cc27b6878e0ceb06c083aadd11
+X
+(app/src/main/res/font/palanquin_dark.xml,8\8\883fde21f7dea2bf5cc810807b68d78c16c7c04f
+R
+"app/src/main/res/values/colors.xml,9\6\969faa2a5d9f5e8390e958d2c07f2cfd54676e6b
+V
+&app/src/main/res/values/font_certs.xml,8\7\8721b09acc6dcb831485a758e527a36efbbce1ff
+[
++app/src/main/res/values/preloaded_fonts.xml,1\a\1ac4bbe3e597dbb591474f97b69d35c8d7401efe
