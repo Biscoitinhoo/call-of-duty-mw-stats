@@ -70,3 +70,15 @@ Happ/src/main/java/com/example/callofdutymw_stats/database/dao/UserDAO.kt,2\4\2
 .gitignore,a\5\a5cc2925ca8258af241be7e5b0381edf30266302
 à
 Xapp/src/main/java/com/example/callofdutymw_stats/view/adapter/RecyclerAdapterHistoric.kt,c\7\c79ebb73bf9aaf29b6d981c96b8179cd0b597e0f
+|
+Lapp/src/main/java/com/example/callofdutymw_stats/fragment/GeneralFragment.kt,0\f\0fc93ced94bdd324877e6eaef354d13585471c94
+z
+Japp/src/main/java/com/example/callofdutymw_stats/fragment/GamesFragment.kt,7\1\7123ec2f5a7eb42c33b395e7ef2ceca0125015ad
+y
+Iapp/src/main/java/com/example/callofdutymw_stats/fragment/GunsFragment.kt,0\4\0412f782528c8bc6503c5b76f8eabcaed1ca2bfb
+y
+Iapp/src/main/java/com/example/callofdutymw_stats/fragment/MoreFragment.kt,5\3\53a52c05532419ab80a94149cdfcf4bd3babe5a2
+S
+#app/src/main/res/values/strings.xml,d\2\d2281fbb3027de2722081a53408dd77628bf080e
+Å
+Qapp/src/main/java/com/example/callofdutymw_stats/view/adapter/ViewPagerAdapter.kt,4\b\4b572d145e7b77a7704f4e4ddd24e31b06762e7c
