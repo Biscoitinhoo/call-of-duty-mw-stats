@@ -15,500 +15,487 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <ScrollView
-            android:id="@+id/scrollView"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:fillViewport="true"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/imageViewUserIcon"
+                android:layout_width="99dp"
+                android:layout_height="116dp"
+                android:layout_gravity="center"
+                app:srcCompat="@drawable/user_information_user_icon" />
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="15dp"
+                android:orientation="horizontal">
 
                 <ImageView
-                    android:id="@+id/imageViewUserIcon"
-                    android:layout_width="99dp"
-                    android:layout_height="116dp"
-                    android:layout_gravity="center"
-                    app:srcCompat="@drawable/user_information_user_icon" />
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="60dp"
-                    android:layout_marginLeft="20dp"
+                    android:id="@+id/imageViewUserLevel"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
                     android:layout_marginTop="10dp"
-                    android:layout_marginBottom="15dp"
+                    app:srcCompat="@drawable/user_information_level_55" />
+
+                <TextView
+                    android:id="@+id/textViewUserLevel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_weight="1"
+                    android:text="55"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/textViewUserNickName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="15dp"
+                    android:layout_weight="1"
+                    android:fontFamily="sans-serif"
+                    android:text="USERNAME"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+            <AutoCompleteTextView
+                android:id="@+id/autoCompleteTextViewPlatforms"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="15dp"
+                android:background="@drawable/edit_text_rounded_dark_background"
+                android:digits=""
+                android:drawableStart="@drawable/ic_baseline_dashboard_24"
+                android:drawableEnd="@drawable/ic_baseline_arrow_drop_down_24"
+                android:drawablePadding="15dp"
+                android:focusableInTouchMode="false"
+                android:hint="Multiplayer/Warzone"
+                android:inputType="text"
+                android:paddingStart="15dp"
+                android:paddingEnd="15dp"
+                android:textColor="@color/colorEditTextText"
+                android:textColorHint="@color/colorEditTextHint"
+                android:textSize="15sp" />
+
+            <View
+                android:id="@+id/view"
+                android:layout_width="150dp"
+                android:layout_height="0.5dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="15dp"
+                android:background="@color/colorGrey" />
+
+            <LinearLayout
+                android:id="@+id/linearLayoutMultiplayer"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:visibility="visible">
+
+                <androidx.coordinatorlayout.widget.CoordinatorLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
                     android:orientation="horizontal">
 
-                    <ImageView
-                        android:id="@+id/imageViewUserLevel"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:layout_marginTop="10dp"
-                        app:srcCompat="@drawable/user_information_level_55" />
-
-                    <TextView
-                        android:id="@+id/textViewUserLevel"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp"
-                        android:layout_weight="1"
-                        android:text="55"
-                        android:textColor="@color/colorWhite"
-                        android:textSize="18sp" />
-
-                    <TextView
-                        android:id="@+id/textViewUserNickName"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginRight="15dp"
-                        android:layout_weight="1"
-                        android:fontFamily="sans-serif"
-                        android:text="USERNAME"
-                        android:textColor="@color/colorWhite"
-                        android:textSize="18sp" />
-                </LinearLayout>
-
-                <AutoCompleteTextView
-                    android:id="@+id/autoCompleteTextViewPlatforms"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginEnd="20dp"
-                    android:layout_marginBottom="15dp"
-                    android:background="@drawable/edit_text_rounded_dark_background"
-                    android:digits=""
-                    android:drawableStart="@drawable/ic_baseline_dashboard_24"
-                    android:drawableEnd="@drawable/ic_baseline_arrow_drop_down_24"
-                    android:drawablePadding="15dp"
-                    android:focusableInTouchMode="false"
-                    android:hint="Multiplayer/Warzone"
-                    android:inputType="text"
-                    android:paddingStart="15dp"
-                    android:paddingEnd="15dp"
-                    android:textColor="@color/colorEditTextText"
-                    android:textColorHint="@color/colorEditTextHint"
-                    android:textSize="15sp" />
-
-                <View
-                    android:id="@+id/view"
-                    android:layout_width="150dp"
-                    android:layout_height="0.5dp"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginBottom="15dp"
-                    android:background="@color/colorGrey" />
-
-                <LinearLayout
-                    android:id="@+id/linearLayoutMultiplayer"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:visibility="visible">
-
-                    <androidx.coordinatorlayout.widget.CoordinatorLayout
+                    <com.google.android.material.appbar.AppBarLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="20dp"
-                        android:orientation="horizontal">
+                        android:layout_height="wrap_content">
 
-                        <com.google.android.material.appbar.AppBarLayout
+                        <com.google.android.material.tabs.TabLayout
+                            android:id="@+id/tabLayout"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
+                            android:layout_height="wrap_content"
+                            android:background="@color/colorDarkBackground2"
+                            app:tabTextColor="@color/colorWhite">
 
-                            <com.google.android.material.tabs.TabLayout
-                                android:id="@+id/tabLayout"
-                                android:layout_width="match_parent"
+                            <com.google.android.material.tabs.TabItem
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:background="@color/colorDarkBackground2"
-                                app:tabTextColor="@color/colorWhite">
+                                android:text="Geral" />
 
-                                <com.google.android.material.tabs.TabItem
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Geral" />
+                            <com.google.android.material.tabs.TabItem
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Mais" />
 
-                                <com.google.android.material.tabs.TabItem
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Mais" />
+                            <com.google.android.material.tabs.TabItem
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Jogos" />
 
-                                <com.google.android.material.tabs.TabItem
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Jogos" />
+                            <com.google.android.material.tabs.TabItem
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Armas" />
 
-                                <com.google.android.material.tabs.TabItem
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Armas" />
+                        </com.google.android.material.tabs.TabLayout>
 
-                            </com.google.android.material.tabs.TabLayout>
+                    </com.google.android.material.appbar.AppBarLayout>
 
-                        </com.google.android.material.appbar.AppBarLayout>
+                    <androidx.viewpager.widget.ViewPager
+                        android:id="@+id/viewPager"
+                        android:layout_width="match_parent"
+                        android:layout_height="700dp"
+                        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior" />
 
-                        <androidx.viewpager.widget.ViewPager
-                            android:id="@+id/viewPager"
-                            android:layout_width="match_parent"
-                            android:layout_height="458dp"
-                            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior" />
+                </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
-                    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+            </LinearLayout>
 
+            <LinearLayout
+                android:id="@+id/linearLayoutWarzone"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:visibility="gone">
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/textViewWarzoneKD"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:text="KD:"
+                        android:textColor="@color/colorGrey" />
+
+                    <TextView
+                        android:id="@+id/textViewWarzoneKDRatio"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:text="0"
+                        android:textColor="@color/colorWhite" />
+
+                    <ImageView
+                        android:id="@+id/imageViewWarzoneKDArrow"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginTop="6dp"
+                        android:layout_marginBottom="5dp"
+                        app:srcCompat="@drawable/ic_baseline_arrow_drop_up_24" />
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/linearLayoutWarzone"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:visibility="gone">
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
+                    <TextView
+                        android:id="@+id/textViewWarzone1"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:text="Total de eliminações:"
+                        android:textColor="@color/colorGrey" />
 
-                        <TextView
-                            android:id="@+id/textViewWarzoneKD"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="15dp"
-                            android:layout_marginTop="8dp"
-                            android:layout_marginBottom="8dp"
-                            android:text="KD:"
-                            android:textColor="@color/colorGrey" />
-
-                        <TextView
-                            android:id="@+id/textViewWarzoneKDRatio"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
-                            android:layout_marginTop="8dp"
-                            android:layout_marginBottom="8dp"
-                            android:text="0"
-                            android:textColor="@color/colorWhite" />
-
-                        <ImageView
-                            android:id="@+id/imageViewWarzoneKDArrow"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
-                            android:layout_marginTop="6dp"
-                            android:layout_marginBottom="5dp"
-                            app:srcCompat="@drawable/ic_baseline_arrow_drop_up_24" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
+                    <TextView
+                        android:id="@+id/textViewWarzoneTotalKills"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:layout_weight="1"
+                        android:text="0"
+                        android:textColor="@color/colorWhite" />
+                </LinearLayout>
 
-                        <TextView
-                            android:id="@+id/textViewWarzone1"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="15dp"
-                            android:layout_marginTop="8dp"
-                            android:layout_marginBottom="8dp"
-                            android:text="Total de eliminações:"
-                            android:textColor="@color/colorGrey" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
 
-                        <TextView
-                            android:id="@+id/textViewWarzoneTotalKills"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
-                            android:layout_marginTop="8dp"
-                            android:layout_marginBottom="8dp"
-                            android:layout_weight="1"
-                            android:text="0"
-                            android:textColor="@color/colorWhite" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
+                    <TextView
+                        android:id="@+id/textViewWarzone2"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:text="Total de mortes:"
+                        android:textColor="@color/colorGrey" />
 
-                        <TextView
-                            android:id="@+id/textViewWarzone2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="15dp"
-                            android:layout_marginTop="8dp"
-                            android:layout_marginBottom="8dp"
-                            android:text="Total de mortes:"
-                            android:textColor="@color/colorGrey" />
-
-                        <TextView
-                            android:id="@+id/textViewWarzoneTotalDeaths"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
-                            android:layout_marginTop="8dp"
-                            android:layout_marginBottom="8dp"
-                            android:layout_weight="1"
-                            android:text="0"
-                            android:textColor="@color/colorWhite" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
+                    <TextView
+                        android:id="@+id/textViewWarzoneTotalDeaths"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:layout_weight="1"
+                        android:text="0"
+                        android:textColor="@color/colorWhite" />
+                </LinearLayout>
 
-                        <TextView
-                            android:id="@+id/textViewWarzone3"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="15dp"
-                            android:layout_marginTop="8dp"
-                            android:layout_marginBottom="8dp"
-                            android:text="Total de inimigos derrubados:"
-                            android:textColor="@color/colorGrey" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
 
-                        <TextView
-                            android:id="@+id/textViewWarzoneDowns"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
-                            android:layout_marginTop="8dp"
-                            android:layout_marginBottom="8dp"
-                            android:layout_weight="1"
-                            android:text="0"
-                            android:textColor="@color/colorWhite" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
+                    <TextView
+                        android:id="@+id/textViewWarzone3"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:text="Total de inimigos derrubados:"
+                        android:textColor="@color/colorGrey" />
 
-                        <TextView
-                            android:id="@+id/textViewWarzone9"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="15dp"
-                            android:layout_marginTop="8dp"
-                            android:layout_marginBottom="8dp"
-                            android:text="Total de aliados reanimados:"
-                            android:textColor="@color/colorGrey" />
-
-                        <TextView
-                            android:id="@+id/textViewWarzoneRevives"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
-                            android:layout_marginTop="8dp"
-                            android:layout_marginBottom="8dp"
-                            android:layout_weight="1"
-                            android:text="0"
-                            android:textColor="@color/colorWhite" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
+                    <TextView
+                        android:id="@+id/textViewWarzoneDowns"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:layout_weight="1"
+                        android:text="0"
+                        android:textColor="@color/colorWhite" />
+                </LinearLayout>
 
-                        <TextView
-                            android:id="@+id/textViewWarzone11"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="15dp"
-                            android:layout_marginTop="8dp"
-                            android:layout_marginBottom="8dp"
-                            android:text="Total de jogos jogados:"
-                            android:textColor="@color/colorGrey" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
 
-                        <TextView
-                            android:id="@+id/textViewWarzoneGamesPlayed"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
-                            android:layout_marginTop="8dp"
-                            android:layout_marginBottom="8dp"
-                            android:layout_weight="1"
-                            android:text="0"
-                            android:textColor="@color/colorWhite" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
+                    <TextView
+                        android:id="@+id/textViewWarzone9"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:text="Total de aliados reanimados:"
+                        android:textColor="@color/colorGrey" />
 
-                        <TextView
-                            android:id="@+id/textViewWarzone31"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="15dp"
-                            android:layout_marginTop="8dp"
-                            android:layout_marginBottom="8dp"
-                            android:text="Vitórias:"
-                            android:textColor="@color/colorGrey" />
-
-                        <TextView
-                            android:id="@+id/textViewWarzoneWins"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
-                            android:layout_marginTop="8dp"
-                            android:layout_marginBottom="8dp"
-                            android:layout_weight="1"
-                            android:text="0"
-                            android:textColor="@color/colorWhite" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
+                    <TextView
+                        android:id="@+id/textViewWarzoneRevives"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:layout_weight="1"
+                        android:text="0"
+                        android:textColor="@color/colorWhite" />
+                </LinearLayout>
 
-                        <TextView
-                            android:id="@+id/textViewWarzone6"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="15dp"
-                            android:layout_marginTop="8dp"
-                            android:layout_marginBottom="8dp"
-                            android:text="Top 5:"
-                            android:textColor="@color/colorGrey" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
 
-                        <TextView
-                            android:id="@+id/textViewWarzoneTopFive"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
-                            android:layout_marginTop="8dp"
-                            android:layout_marginBottom="8dp"
-                            android:layout_weight="1"
-                            android:text="0"
-                            android:textColor="@color/colorWhite" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
+                    <TextView
+                        android:id="@+id/textViewWarzone11"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:text="Total de jogos jogados:"
+                        android:textColor="@color/colorGrey" />
 
-                        <TextView
-                            android:id="@+id/textViewWarzone5"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="15dp"
-                            android:layout_marginTop="8dp"
-                            android:layout_marginBottom="8dp"
-                            android:text="Top 10:"
-                            android:textColor="@color/colorGrey" />
-
-                        <TextView
-                            android:id="@+id/textViewWarzoneTopTen"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
-                            android:layout_marginTop="8dp"
-                            android:layout_marginBottom="8dp"
-                            android:layout_weight="1"
-                            android:text="0"
-                            android:textColor="@color/colorWhite" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
+                    <TextView
+                        android:id="@+id/textViewWarzoneGamesPlayed"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:layout_weight="1"
+                        android:text="0"
+                        android:textColor="@color/colorWhite" />
+                </LinearLayout>
 
-                        <TextView
-                            android:id="@+id/textViewWarzone4"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="15dp"
-                            android:layout_marginTop="8dp"
-                            android:layout_marginBottom="8dp"
-                            android:text="Top 25:"
-                            android:textColor="@color/colorGrey" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
 
-                        <TextView
-                            android:id="@+id/textViewWarzoneTopTwentyFive"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
-                            android:layout_marginTop="8dp"
-                            android:layout_marginBottom="8dp"
-                            android:layout_weight="1"
-                            android:text="0"
-                            android:textColor="@color/colorWhite" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
+                    <TextView
+                        android:id="@+id/textViewWarzone31"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:text="Vitórias:"
+                        android:textColor="@color/colorGrey" />
 
-                        <TextView
-                            android:id="@+id/textViewWarzone7"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="15dp"
-                            android:layout_marginTop="8dp"
-                            android:layout_marginBottom="8dp"
-                            android:text="Total de contratos pegos:"
-                            android:textColor="@color/colorGrey" />
-
-                        <TextView
-                            android:id="@+id/textViewWarzoneContracts"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
-                            android:layout_marginTop="8dp"
-                            android:layout_marginBottom="8dp"
-                            android:layout_weight="1"
-                            android:text="0"
-                            android:textColor="@color/colorWhite" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
+                    <TextView
+                        android:id="@+id/textViewWarzoneWins"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:layout_weight="1"
+                        android:text="0"
+                        android:textColor="@color/colorWhite" />
+                </LinearLayout>
 
-                        <TextView
-                            android:id="@+id/textViewWarzone10"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="15dp"
-                            android:layout_marginTop="8dp"
-                            android:layout_marginBottom="8dp"
-                            android:text="Pontuação:"
-                            android:textColor="@color/colorGrey" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
 
-                        <TextView
-                            android:id="@+id/textViewWarzoneScore"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
-                            android:layout_marginTop="8dp"
-                            android:layout_marginBottom="14dp"
-                            android:layout_weight="1"
-                            android:text="0"
-                            android:textColor="@color/colorWhite" />
-                    </LinearLayout>
+                    <TextView
+                        android:id="@+id/textViewWarzone6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:text="Top 5:"
+                        android:textColor="@color/colorGrey" />
 
+                    <TextView
+                        android:id="@+id/textViewWarzoneTopFive"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:layout_weight="1"
+                        android:text="0"
+                        android:textColor="@color/colorWhite" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/textViewWarzone5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:text="Top 10:"
+                        android:textColor="@color/colorGrey" />
+
+                    <TextView
+                        android:id="@+id/textViewWarzoneTopTen"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:layout_weight="1"
+                        android:text="0"
+                        android:textColor="@color/colorWhite" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/textViewWarzone4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:text="Top 25:"
+                        android:textColor="@color/colorGrey" />
+
+                    <TextView
+                        android:id="@+id/textViewWarzoneTopTwentyFive"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:layout_weight="1"
+                        android:text="0"
+                        android:textColor="@color/colorWhite" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/textViewWarzone7"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:text="Total de contratos pegos:"
+                        android:textColor="@color/colorGrey" />
+
+                    <TextView
+                        android:id="@+id/textViewWarzoneContracts"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:layout_weight="1"
+                        android:text="0"
+                        android:textColor="@color/colorWhite" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/textViewWarzone10"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:text="Pontuação:"
+                        android:textColor="@color/colorGrey" />
+
+                    <TextView
+                        android:id="@+id/textViewWarzoneScore"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="14dp"
+                        android:layout_weight="1"
+                        android:text="0"
+                        android:textColor="@color/colorWhite" />
                 </LinearLayout>
 
             </LinearLayout>
 
-        </ScrollView>
+        </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

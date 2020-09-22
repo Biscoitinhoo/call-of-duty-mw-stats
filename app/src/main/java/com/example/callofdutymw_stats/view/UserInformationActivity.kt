@@ -52,11 +52,11 @@ class UserInformationActivity : AppCompatActivity() {
 
         setTopTabClicks()
 
-        addUserInHistoric()
+        //addUserInHistoric()
 
         observeGameMode()
 
-        setAllUserInformations()
+       // setAllUserInformations()
         setAutoCompleteGameMode()
     }
 

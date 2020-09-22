@@ -41,7 +41,7 @@
                 android:layout_marginBottom="8dp"
                 android:fontFamily="sans-serif-medium"
                 android:text="432"
-                android:textColor="@color/colorBlue"
+                android:textColor="@color/colorWhite"
                 android:textSize="16sp" />
         </LinearLayout>
 
@@ -71,7 +71,7 @@
                 android:layout_marginBottom="8dp"
                 android:fontFamily="sans-serif-medium"
                 android:text="0"
-                android:textColor="@color/colorBlue"
+                android:textColor="@color/colorWhite"
                 android:textSize="16sp" />
         </LinearLayout>
 
@@ -101,7 +101,7 @@
                 android:layout_marginBottom="8dp"
                 android:fontFamily="sans-serif-medium"
                 android:text="0"
-                android:textColor="@color/colorBlue"
+                android:textColor="@color/colorWhite"
                 android:textSize="16sp" />
         </LinearLayout>
 
@@ -131,7 +131,7 @@
                 android:layout_marginBottom="8dp"
                 android:fontFamily="sans-serif-medium"
                 android:text="0"
-                android:textColor="@color/colorBlue"
+                android:textColor="@color/colorWhite"
                 android:textSize="16sp" />
         </LinearLayout>
 
@@ -160,7 +160,7 @@
                 android:layout_marginBottom="8dp"
                 android:fontFamily="sans-serif-medium"
                 android:text="0"
-                android:textColor="@color/colorBlue"
+                android:textColor="@color/colorWhite"
                 android:textSize="16sp" />
 
             <ImageView
@@ -199,7 +199,7 @@
                 android:layout_marginBottom="8dp"
                 android:fontFamily="sans-serif-medium"
                 android:text="0"
-                android:textColor="@color/colorBlue"
+                android:textColor="@color/colorWhite"
                 android:textSize="16sp" />
         </LinearLayout>
 
@@ -229,7 +229,7 @@
                 android:layout_marginBottom="8dp"
                 android:fontFamily="sans-serif-medium"
                 android:text="0"
-                android:textColor="@color/colorBlue"
+                android:textColor="@color/colorWhite"
                 android:textSize="16sp" />
         </LinearLayout>
 
@@ -259,7 +259,7 @@
                 android:layout_marginBottom="8dp"
                 android:fontFamily="sans-serif-medium"
                 android:text="0"
-                android:textColor="@color/colorBlue"
+                android:textColor="@color/colorWhite"
                 android:textSize="16sp" />
         </LinearLayout>
 
