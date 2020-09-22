@@ -21,12 +21,14 @@ import com.example.callofdutymw_stats.model.warzone.dto.UserDtoWarzone
 import com.example.callofdutymw_stats.util.GameModeConstants
 import com.example.callofdutymw_stats.util.Resource
 import com.example.callofdutymw_stats.util.Status
+import com.example.callofdutymw_stats.view.adapter.ViewPagerAdapter
 import com.example.callofdutymw_stats.view.util.UserConstants
 import com.example.callofdutymw_stats.viewmodel.MainActivityViewModel
 import com.example.callofdutymw_stats.viewmodel.UserInformationViewModel
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.activity_main.autoCompleteTextViewPlatforms
 import kotlinx.android.synthetic.main.activity_user_information.*
+import kotlinx.android.synthetic.main.activity_user_information.view.*
 import java.text.DecimalFormat
 
 @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
@@ -51,12 +53,25 @@ class UserInformationActivity : AppCompatActivity() {
         setContentView(R.layout.activity_user_information)
         supportActionBar!!.hide()
 
+        setTopTabClicks()
+
         addUserInHistoric()
 
         observeGameMode()
 
         setAllUserInformations()
         setAutoCompleteGameMode()
+    }
+
+    private fun setTopTabClicks() {
+        generalFragment = GeneralFragment()
+        moreFragment = MoreFragment()
+        gamesFragment = GamesFragment()
+        gunsFragment = GunsFragment()
+
+        tabLayout.setupWithViewPager(viewPager)
+
+        val viewPageAdapter = ViewPagerAdapter(supportFragmentManager, 0)
     }
 
     private fun addUserInHistoric() {
