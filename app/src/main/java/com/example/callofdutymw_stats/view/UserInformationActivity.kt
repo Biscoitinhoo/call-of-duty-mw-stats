@@ -40,9 +40,6 @@ class UserInformationActivity : AppCompatActivity() {
 
     private val mutableLiveData = MutableLiveData<String>()
 
-    private lateinit var viewPager: ViewPager
-    private lateinit var tabLayout: TabLayout
-
     private lateinit var generalFragment: GeneralFragment
     private lateinit var moreFragment: MoreFragment
     private lateinit var gamesFragment: GamesFragment
@@ -72,6 +69,11 @@ class UserInformationActivity : AppCompatActivity() {
         tabLayout.setupWithViewPager(viewPager)
 
         val viewPageAdapter = ViewPagerAdapter(supportFragmentManager, 0)
+        viewPageAdapter.addFragment(generalFragment, "Geral")
+        viewPageAdapter.addFragment(moreFragment, "Mais")
+        viewPageAdapter.addFragment(gamesFragment, "Jogos")
+        viewPageAdapter.addFragment(gunsFragment, "Armas")
+        viewPager.adapter = viewPageAdapter
     }
 
     private fun addUserInHistoric() {
