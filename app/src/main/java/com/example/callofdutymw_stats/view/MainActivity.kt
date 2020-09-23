@@ -310,6 +310,12 @@ class MainActivity : AppCompatActivity() {
             resource.data.userAllMultiplayer.userPropertiesMultiplayer.userInformationMultiplayer.assists
         val recordKillStreak =
             resource.data.userAllMultiplayer.userPropertiesMultiplayer.userInformationMultiplayer.recordKillStreak
+        val totalShots =
+            resource.data.userAllMultiplayer.userPropertiesMultiplayer.userInformationMultiplayer.totalShots
+        val totalShotsMisses =
+            resource.data.userAllMultiplayer.userPropertiesMultiplayer.userInformationMultiplayer.totalShotsMisses
+        val totalShotsHits =
+            resource.data.userAllMultiplayer.userPropertiesMultiplayer.userInformationMultiplayer.totalShotsHits
         return UserInformationMultiplayer(
             nickname,
             level,
@@ -332,7 +338,10 @@ class MainActivity : AppCompatActivity() {
             totalKills,
             headshots,
             assists,
-            recordKillStreak
+            recordKillStreak,
+            totalShots,
+            totalShotsMisses,
+            totalShotsHits
         )
     }
 
@@ -381,6 +390,9 @@ class MainActivity : AppCompatActivity() {
             historicList[position].assists
         val recordKillStreak =
             historicList[position].recordKillStreak
+        val totalShots = historicList[position].totalShots
+        val totalShotsMisses = historicList[position].totalShotsMisses
+        val totalShotsHits = historicList[position].totalShotsHits
         return UserInformationMultiplayer(
             nickname,
             level,
@@ -403,7 +415,10 @@ class MainActivity : AppCompatActivity() {
             totalKills,
             headshots,
             assists,
-            recordKillStreak
+            recordKillStreak,
+            totalShots,
+            totalShotsMisses,
+            totalShotsHits
         )
     }
 }

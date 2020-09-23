@@ -98,3 +98,5 @@ V
 &app/src/main/res/values/font_certs.xml,8\7\8721b09acc6dcb831485a758e527a36efbbce1ff
 [
 +app/src/main/res/values/preloaded_fonts.xml,1\a\1ac4bbe3e597dbb591474f97b69d35c8d7401efe
+Z
+*app/src/main/res/layout/fragment_games.xml,b\8\b88f43ffe2e05cc732fa37e900733b444cc73650
