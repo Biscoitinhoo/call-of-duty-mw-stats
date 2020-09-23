@@ -102,7 +102,7 @@ class UserInformationActivity : AppCompatActivity() {
         }
     }
 
-    private fun getSearchedUser(): UserInformationMultiplayer {
+    fun getSearchedUser(): UserInformationMultiplayer {
         return intent.getSerializableExtra(UserConstants.OBJECT_USER) as UserInformationMultiplayer
     }
 
@@ -253,4 +253,6 @@ class UserInformationActivity : AppCompatActivity() {
         })
     }
 
+    companion object {
+    }
 }
