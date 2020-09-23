@@ -106,6 +106,11 @@ class UserInformationActivity : AppCompatActivity() {
         return intent.getSerializableExtra(UserConstants.OBJECT_USER) as UserInformationMultiplayer
     }
 
+    fun testing(): UserInformationMultiplayer {
+        val user = getSearchedUser()
+        return user
+    }
+
     private fun addUserInHistoric(user: UserInformationMultiplayer) {
         val userInformationViewModel = UserInformationViewModel(this)
         userInformationViewModel.addUserInHistoric(user)
