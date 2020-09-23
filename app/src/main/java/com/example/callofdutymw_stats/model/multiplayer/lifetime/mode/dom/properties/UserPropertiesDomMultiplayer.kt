@@ -2,7 +2,7 @@ package com.example.callofdutymw_stats.model.multiplayer.lifetime.mode.dom.prope
 
 import com.google.gson.annotations.SerializedName
 
-class UserPropertiesDomMultiplayer(
+data class UserPropertiesDomMultiplayer(
     @SerializedName("kills")
     val kills: Int,
     @SerializedName("deaths")
@@ -13,4 +13,4 @@ class UserPropertiesDomMultiplayer(
     val timePlayed: Int,
     @SerializedName("score")
     val score: Int
-) {}
+)

@@ -78,8 +78,6 @@ y
 Iapp/src/main/java/com/example/callofdutymw_stats/fragment/GunsFragment.kt,0\4\0412f782528c8bc6503c5b76f8eabcaed1ca2bfb
 y
 Iapp/src/main/java/com/example/callofdutymw_stats/fragment/MoreFragment.kt,5\3\53a52c05532419ab80a94149cdfcf4bd3babe5a2
-S
-#app/src/main/res/values/strings.xml,d\2\d2281fbb3027de2722081a53408dd77628bf080e
 Å
 Qapp/src/main/java/com/example/callofdutymw_stats/view/adapter/ViewPagerAdapter.kt,4\b\4b572d145e7b77a7704f4e4ddd24e31b06762e7c
 Q
