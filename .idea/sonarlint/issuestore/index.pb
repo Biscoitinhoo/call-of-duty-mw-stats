@@ -90,8 +90,6 @@ R
 "app/src/main/res/font/days_one.xml,4\3\43bc0d8febdf19cc27b6878e0ceb06c083aadd11
 X
 (app/src/main/res/font/palanquin_dark.xml,8\8\883fde21f7dea2bf5cc810807b68d78c16c7c04f
-R
-"app/src/main/res/values/colors.xml,9\6\969faa2a5d9f5e8390e958d2c07f2cfd54676e6b
 V
 &app/src/main/res/values/font_certs.xml,8\7\8721b09acc6dcb831485a758e527a36efbbce1ff
 [
@@ -104,5 +102,3 @@ gapp/src/main/java/com/example/callofdutymw_stats/model/multiplayer/lifetime/mod
 japp/src/main/java/com/example/callofdutymw_stats/model/multiplayer/lifetime/mode/dom/DomModeMultiplayer.kt,9\4\94ac8e3fbb1b5a007ef2a312cbb1a11dd63ccfb9
 ¯
 app/src/main/java/com/example/callofdutymw_stats/model/multiplayer/lifetime/mode/dom/properties/UserPropertiesDomMultiplayer.kt,0\0\00f1f8679224d62bf02d890ee1a1b644720e04db
-Z
-*app/src/main/res/layout/fragment_games.xml,b\8\b88f43ffe2e05cc732fa37e900733b444cc73650

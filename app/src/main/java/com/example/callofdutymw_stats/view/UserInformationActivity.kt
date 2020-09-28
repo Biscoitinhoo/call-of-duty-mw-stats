@@ -10,7 +10,6 @@ import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
-import androidx.viewpager.widget.ViewPager
 import com.example.callofdutymw_stats.R
 import com.example.callofdutymw_stats.fragment.GamesFragment
 import com.example.callofdutymw_stats.fragment.GeneralFragment
@@ -25,10 +24,8 @@ import com.example.callofdutymw_stats.view.adapter.ViewPagerAdapter
 import com.example.callofdutymw_stats.view.util.UserConstants
 import com.example.callofdutymw_stats.viewmodel.MainActivityViewModel
 import com.example.callofdutymw_stats.viewmodel.UserInformationViewModel
-import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.activity_main.autoCompleteTextViewPlatforms
 import kotlinx.android.synthetic.main.activity_user_information.*
-import kotlinx.android.synthetic.main.activity_user_information.view.*
 import java.text.DecimalFormat
 
 @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
@@ -52,7 +49,7 @@ class UserInformationActivity : AppCompatActivity() {
 
         setTopTabClicks()
 
-        //addUserInHistoric()
+        addUserInHistoric()
 
         observeGameMode()
 
@@ -107,8 +104,7 @@ class UserInformationActivity : AppCompatActivity() {
     }
 
     fun testing(): UserInformationMultiplayer {
-        val user = getSearchedUser()
-        return user
+        return getSearchedUser()
     }
 
     private fun addUserInHistoric(user: UserInformationMultiplayer) {
@@ -256,8 +252,5 @@ class UserInformationActivity : AppCompatActivity() {
                 linearLayoutMultiplayer.visibility = View.GONE
             }
         })
-    }
-
-    companion object {
     }
 }

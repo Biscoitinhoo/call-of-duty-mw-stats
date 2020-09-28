@@ -166,7 +166,8 @@ class MainActivity : AppCompatActivity() {
                     autoCompleteTextViewPlatforms
                 )
             ) {
-                getMultiplayerUser(it)
+                //getMultiplayerUser(it)
+                testHandlesUserSituation()
                 editTextNickname.error = null
                 autoCompleteTextViewPlatforms.error = null
             } else {
@@ -237,15 +238,26 @@ class MainActivity : AppCompatActivity() {
         if (userIsIncorrect) {
             showSnackbarErrorUser(view)
         } else {
-            val user = createNewUser(resource)
-
-            val intent = Intent(this, UserInformationActivity::class.java)
-            intent.putExtra(UserConstants.OBJECT_USER, user)
-            intent.putExtra("nickname_object ", user.userNickname)
-            intent.putExtra("platform_object ", user.platform)
-            startActivity(intent)
+//            val user = createNewUser(resource)
+//
+//            val intent = Intent(this, UserInformationActivity::class.java)
+//            intent.putExtra(UserConstants.OBJECT_USER, user)
+//            intent.putExtra("nickname_object ", user.userNickname)
+//            intent.putExtra("platform_object ", user.platform)
+//            startActivity(intent)
         }
     }
+
+    private fun testHandlesUserSituation() {
+        val user = createNewUser()
+
+        val intent = Intent(this, UserInformationActivity::class.java)
+        intent.putExtra(UserConstants.OBJECT_USER, user)
+        intent.putExtra("nickname_object ", user.userNickname)
+        intent.putExtra("platform_object ", user.platform)
+        startActivity(intent)
+    }
+
 
     //Snackbar
     private fun showSnackbarErrorUser(v: View) {
@@ -266,56 +278,106 @@ class MainActivity : AppCompatActivity() {
             }.show()
     }
 
-    private fun createNewUser(resource: Resource<UserLifeTimeMultiplayer>): UserInformationMultiplayer {
-        Log.d("Status code from M user", resource.toString())
+    private fun createNewUser(): UserInformationMultiplayer {
+        //While API is off, a fake user will be used;
+        //Log.d("Status code from M user", resource.toString()), TODO: resource: Resource<UserLifeTimeMultiplayer> in parameter
 
-        val nickname = resource.data!!.nickName
-        val level = resource.data.level
-        val platform = autoCompleteTextViewPlatforms.text.toString()
+        val nickname = "User"
+        val level = 98
+        val platform = "Playstation"
         val isStarredUser =
-            resource.data.userAllMultiplayer.userPropertiesMultiplayer.userInformationMultiplayer.isStarredUser
+            false
         val recordWinStreak =
-            resource.data.userAllMultiplayer.userPropertiesMultiplayer.userInformationMultiplayer.recordWinStreak
+            "10"
         val recordXP =
-            resource.data.userAllMultiplayer.userPropertiesMultiplayer.userInformationMultiplayer.recordXP
+            "32,546"
         val accuracy =
-            resource.data.userAllMultiplayer.userPropertiesMultiplayer.userInformationMultiplayer.accuracy
+            "1,45"
         val losses =
-            resource.data.userAllMultiplayer.userPropertiesMultiplayer.userInformationMultiplayer.losses
+            "532"
         val totalGamesPlayed =
-            resource.data.userAllMultiplayer.userPropertiesMultiplayer.userInformationMultiplayer.totalGamesPlayed
+            "1232"
         val score =
-            resource.data.userAllMultiplayer.userPropertiesMultiplayer.userInformationMultiplayer.score
+            "10,234"
         val deaths =
-            resource.data.userAllMultiplayer.userPropertiesMultiplayer.userInformationMultiplayer.totalDeaths
+            "12,543"
         val wins =
-            resource.data.userAllMultiplayer.userPropertiesMultiplayer.userInformationMultiplayer.wins
+            "324"
         val kdRatio =
-            resource.data.userAllMultiplayer.userPropertiesMultiplayer.userInformationMultiplayer.kdRatio
+            1.12
         val bestAssists =
-            resource.data.userAllMultiplayer.userPropertiesMultiplayer.userInformationMultiplayer.bestAssists
+            "65"
         val bestScore =
-            resource.data.userAllMultiplayer.userPropertiesMultiplayer.userInformationMultiplayer.bestScore
+            "7,655"
         val recordDeathsInMatch =
-            resource.data.userAllMultiplayer.userPropertiesMultiplayer.userInformationMultiplayer.recordDeathsInMatch
+            "60"
         val recordKillsInMatch =
-            resource.data.userAllMultiplayer.userPropertiesMultiplayer.userInformationMultiplayer.recordKillsInMatch
+            "72"
         val suicides =
-            resource.data.userAllMultiplayer.userPropertiesMultiplayer.userInformationMultiplayer.suicides
+            "329"
         val totalKills =
-            resource.data.userAllMultiplayer.userPropertiesMultiplayer.userInformationMultiplayer.totalKills
+            "14,765"
         val headshots =
-            resource.data.userAllMultiplayer.userPropertiesMultiplayer.userInformationMultiplayer.headshots
+            "4,555"
         val assists =
-            resource.data.userAllMultiplayer.userPropertiesMultiplayer.userInformationMultiplayer.assists
+            "9,987"
         val recordKillStreak =
-            resource.data.userAllMultiplayer.userPropertiesMultiplayer.userInformationMultiplayer.recordKillStreak
+            "15"
         val totalShots =
-            resource.data.userAllMultiplayer.userPropertiesMultiplayer.userInformationMultiplayer.totalShots
+            79867
         val totalShotsMisses =
-            resource.data.userAllMultiplayer.userPropertiesMultiplayer.userInformationMultiplayer.totalShotsMisses
+            15564
         val totalShotsHits =
-            resource.data.userAllMultiplayer.userPropertiesMultiplayer.userInformationMultiplayer.totalShotsHits
+            64303
+
+//         val nickname = resource.data!!.nickName
+//        val level = resource.data.level
+//        val platform = autoCompleteTextViewPlatforms.text.toString()
+//        val isStarredUser =
+//            resource.data.userAllMultiplayer.userPropertiesMultiplayer.userInformationMultiplayer.isStarredUser
+//        val recordWinStreak =
+//            resource.data.userAllMultiplayer.userPropertiesMultiplayer.userInformationMultiplayer.recordWinStreak
+//        val recordXP =
+//            resource.data.userAllMultiplayer.userPropertiesMultiplayer.userInformationMultiplayer.recordXP
+//        val accuracy =
+//            resource.data.userAllMultiplayer.userPropertiesMultiplayer.userInformationMultiplayer.accuracy
+//        val losses =
+//            resource.data.userAllMultiplayer.userPropertiesMultiplayer.userInformationMultiplayer.losses
+//        val totalGamesPlayed =
+//            resource.data.userAllMultiplayer.userPropertiesMultiplayer.userInformationMultiplayer.totalGamesPlayed
+//        val score =
+//            resource.data.userAllMultiplayer.userPropertiesMultiplayer.userInformationMultiplayer.score
+//        val deaths =
+//            resource.data.userAllMultiplayer.userPropertiesMultiplayer.userInformationMultiplayer.totalDeaths
+//        val wins =
+//            resource.data.userAllMultiplayer.userPropertiesMultiplayer.userInformationMultiplayer.wins
+//        val kdRatio =
+//            resource.data.userAllMultiplayer.userPropertiesMultiplayer.userInformationMultiplayer.kdRatio
+//        val bestAssists =
+//            resource.data.userAllMultiplayer.userPropertiesMultiplayer.userInformationMultiplayer.bestAssists
+//        val bestScore =
+//            resource.data.userAllMultiplayer.userPropertiesMultiplayer.userInformationMultiplayer.bestScore
+//        val recordDeathsInMatch =
+//            resource.data.userAllMultiplayer.userPropertiesMultiplayer.userInformationMultiplayer.recordDeathsInMatch
+//        val recordKillsInMatch =
+//            resource.data.userAllMultiplayer.userPropertiesMultiplayer.userInformationMultiplayer.recordKillsInMatch
+//        val suicides =
+//            resource.data.userAllMultiplayer.userPropertiesMultiplayer.userInformationMultiplayer.suicides
+//        val totalKills =
+//            resource.data.userAllMultiplayer.userPropertiesMultiplayer.userInformationMultiplayer.totalKills
+//        val headshots =
+//            resource.data.userAllMultiplayer.userPropertiesMultiplayer.userInformationMultiplayer.headshots
+//        val assists =
+//            resource.data.userAllMultiplayer.userPropertiesMultiplayer.userInformationMultiplayer.assists
+//        val recordKillStreak =
+//            resource.data.userAllMultiplayer.userPropertiesMultiplayer.userInformationMultiplayer.recordKillStreak
+//        val totalShots =
+//            resource.data.userAllMultiplayer.userPropertiesMultiplayer.userInformationMultiplayer.totalShots
+//        val totalShotsMisses =
+//            resource.data.userAllMultiplayer.userPropertiesMultiplayer.userInformationMultiplayer.totalShotsMisses
+//        val totalShotsHits =
+//            resource.data.userAllMultiplayer.userPropertiesMultiplayer.userInformationMultiplayer.totalShotsHits
+//
         return UserInformationMultiplayer(
             nickname,
             level,
