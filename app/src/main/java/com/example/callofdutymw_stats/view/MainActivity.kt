@@ -305,7 +305,7 @@ class MainActivity : AppCompatActivity() {
         val wins =
             "324"
         val kdRatio =
-            1.12
+            1.125487
         val bestAssists =
             "65"
         val bestScore =
