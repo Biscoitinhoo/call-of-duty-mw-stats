@@ -12,6 +12,7 @@ import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.callofdutymw_stats.R
+import com.example.callofdutymw_stats.fragment.GeneralFragment
 import com.example.callofdutymw_stats.model.multiplayer.lifetime.UserLifeTimeMultiplayer
 import com.example.callofdutymw_stats.model.multiplayer.lifetime.all.properties.UserInformationMultiplayer
 import com.example.callofdutymw_stats.util.Resource

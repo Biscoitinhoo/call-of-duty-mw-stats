@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
@@ -31,10 +32,6 @@ import java.text.DecimalFormat
 @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
 class UserInformationActivity : AppCompatActivity() {
 
-    /**
-     * TODO: Add user in favorites;
-     */
-
     private val mutableLiveData = MutableLiveData<String>()
 
     private lateinit var generalFragment: GeneralFragment
@@ -53,7 +50,7 @@ class UserInformationActivity : AppCompatActivity() {
 
         observeGameMode()
 
-       // setAllUserInformations()
+        // setAllUserInformations()
         setAutoCompleteGameMode()
     }
 
@@ -99,12 +96,8 @@ class UserInformationActivity : AppCompatActivity() {
         }
     }
 
-    fun getSearchedUser(): UserInformationMultiplayer {
+    private fun getSearchedUser(): UserInformationMultiplayer {
         return intent.getSerializableExtra(UserConstants.OBJECT_USER) as UserInformationMultiplayer
-    }
-
-    fun testing(): UserInformationMultiplayer {
-        return getSearchedUser()
     }
 
     private fun addUserInHistoric(user: UserInformationMultiplayer) {
@@ -159,20 +152,20 @@ class UserInformationActivity : AppCompatActivity() {
         setKDArrowColor(it!!.data!!.userAllWarzone.kdRatio, imageViewWarzoneKDArrow)
 
         textViewWarzoneKDRatio.text = it.data!!.userAllWarzone.kdRatio.toString().substring(0, 4)
-        textViewWarzoneTotalKills.text = formatter.format(it.data?.userAllWarzone?.kills?.toInt())
-        textViewWarzoneTotalDeaths.text = formatter.format(it.data?.userAllWarzone?.deaths?.toInt())
-        textViewWarzoneDowns.text = formatter.format(it.data?.userAllWarzone?.downs?.toInt())
-        textViewWarzoneRevives.text = formatter.format(it.data?.userAllWarzone?.revives?.toInt())
+        textViewWarzoneTotalKills.text = formatter.format(it.data.userAllWarzone.kills.toInt())
+        textViewWarzoneTotalDeaths.text = formatter.format(it.data.userAllWarzone.deaths.toInt())
+        textViewWarzoneDowns.text = formatter.format(it.data.userAllWarzone.downs.toInt())
+        textViewWarzoneRevives.text = formatter.format(it.data.userAllWarzone.revives.toInt())
         textViewWarzoneGamesPlayed.text =
-            formatter.format(it.data?.userAllWarzone?.gamesPlayed?.toInt())
-        textViewWarzoneWins.text = formatter.format(it.data?.userAllWarzone?.wins?.toInt())
+            formatter.format(it.data.userAllWarzone.gamesPlayed.toInt())
+        textViewWarzoneWins.text = formatter.format(it.data.userAllWarzone.wins.toInt())
         textViewWarzoneTopTwentyFive.text =
-            formatter.format(it.data?.userAllWarzone?.topTwentyFive?.toInt())
-        textViewWarzoneTopTen.text = formatter.format(it.data?.userAllWarzone?.topTen?.toInt())
-        textViewWarzoneTopFive.text = formatter.format(it.data?.userAllWarzone?.topFive?.toInt())
+            formatter.format(it.data.userAllWarzone.topTwentyFive.toInt())
+        textViewWarzoneTopTen.text = formatter.format(it.data.userAllWarzone.topTen.toInt())
+        textViewWarzoneTopFive.text = formatter.format(it.data.userAllWarzone.topFive.toInt())
         textViewWarzoneContracts.text =
-            formatter.format(it.data?.userAllWarzone?.contracts?.toInt())
-        textViewWarzoneScore.text = formatter.format(it.data?.userAllWarzone?.score?.toInt())
+            formatter.format(it.data.userAllWarzone.contracts.toInt())
+        textViewWarzoneScore.text = formatter.format(it.data.userAllWarzone.score.toInt())
     }
 
     private fun setMultiplayerUserInformation(user: UserInformationMultiplayer) {

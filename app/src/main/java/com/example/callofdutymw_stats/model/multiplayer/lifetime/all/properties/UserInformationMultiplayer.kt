@@ -20,7 +20,7 @@ class UserInformationMultiplayer(
     @SerializedName("losses")
     val losses: String,
     @SerializedName("totalGamesPlayed")
-    val totalGamesPlayed: String,
+    var totalGamesPlayed: String,
     @SerializedName("score")
     val score: String,
     @SerializedName("deaths")
