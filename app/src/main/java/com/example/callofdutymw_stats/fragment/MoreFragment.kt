@@ -9,6 +9,8 @@ import android.widget.TextView
 import com.example.callofdutymw_stats.R
 import com.example.callofdutymw_stats.model.multiplayer.lifetime.all.properties.UserInformationMultiplayer
 import com.example.callofdutymw_stats.view.util.UserConstants
+import com.example.callofdutymw_stats.viewmodel.UserInformationViewModel
+import java.text.DecimalFormat
 
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
@@ -48,18 +50,25 @@ class MoreFragment : Fragment() {
     }
 
     private fun setGeneralUserInformations(view: View) {
-        val userInformationMultiplayer = activity?.intent?.getSerializableExtra(UserConstants.OBJECT_USER) as UserInformationMultiplayer
+        val user = activity?.intent?.getSerializableExtra(UserConstants.OBJECT_USER) as UserInformationMultiplayer
         findViews(view)
-        textViewAccuracy.text = userInformationMultiplayer.accuracy
-        textViewHeadshots.text = userInformationMultiplayer.headshots
-        textViewSuicides.text = userInformationMultiplayer.suicides
-        textViewAssists.text = userInformationMultiplayer.assists
-        textViewRecordDeathsInMatch.text = userInformationMultiplayer.recordDeathsInMatch
-        textViewRecordWinStreak.text = userInformationMultiplayer.recordWinStreak
-        textViewRecordXP.text = userInformationMultiplayer.recordXP
-        textViewTotalShots.text = userInformationMultiplayer.totalShots.toString()
-        textViewTotalShotsMisses.text = userInformationMultiplayer.totalShotsMisses.toString()
-        textViewTotalShotsHits.text = userInformationMultiplayer.totalShotsHits.toString()
+        val formatter = DecimalFormat("##,###,###")
+        if (UserInformationViewModel.responseAccuracyIsValid(user.accuracy)) {
+            textViewAccuracy.text =
+                user.accuracy.substring(0, 4)
+        } else {
+            textViewAccuracy.text =
+                user.accuracy
+        }
+        textViewHeadshots.text = formatter.format(user.headshots.toInt())
+        textViewSuicides.text = formatter.format(user.suicides.toInt())
+        textViewAssists.text = formatter.format(user.assists.toInt())
+        textViewRecordDeathsInMatch.text = formatter.format(user.recordDeathsInMatch.toInt())
+        textViewRecordWinStreak.text = formatter.format(user.recordWinStreak.toInt())
+        textViewRecordXP.text = formatter.format(user.recordXP.toInt())
+        textViewTotalShots.text = formatter.format(user.totalShots.toString())
+        textViewTotalShotsMisses.text = formatter.format(user.totalShotsMisses.toString().toInt())
+        textViewTotalShotsHits.text = formatter.format(user.totalShotsHits.toString())
     }
 
     private fun findViews(view: View) {
