@@ -11,11 +11,14 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.example.callofdutymw_stats.R
+import com.example.callofdutymw_stats.fragment.GeneralFragment
+import com.example.callofdutymw_stats.fragment.MoreFragment
 import com.example.callofdutymw_stats.model.multiplayer.lifetime.all.properties.UserInformationMultiplayer
 import com.example.callofdutymw_stats.model.warzone.dto.UserDtoWarzone
 import com.example.callofdutymw_stats.util.GameModeConstants
 import com.example.callofdutymw_stats.util.Resource
 import com.example.callofdutymw_stats.util.Status
+import com.example.callofdutymw_stats.view.adapter.ViewPagerAdapter
 import com.example.callofdutymw_stats.view.util.UserConstants
 import com.example.callofdutymw_stats.viewmodel.MainActivityViewModel
 import com.example.callofdutymw_stats.viewmodel.UserInformationViewModel
@@ -26,16 +29,17 @@ import java.text.DecimalFormat
 @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
 class UserInformationActivity : AppCompatActivity() {
 
-    /**
-     * TODO: Add user in favorites;
-     */
-
     private val mutableLiveData = MutableLiveData<String>()
+
+    private lateinit var generalFragment: GeneralFragment
+    private lateinit var moreFragment: MoreFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_information)
         supportActionBar!!.hide()
+
+        setTopTabClicks()
 
         addUserInHistoric()
 
@@ -43,6 +47,18 @@ class UserInformationActivity : AppCompatActivity() {
 
         setAllUserInformations()
         setAutoCompleteGameMode()
+    }
+
+    private fun setTopTabClicks() {
+        generalFragment = GeneralFragment()
+        moreFragment = MoreFragment()
+
+        tabLayout.setupWithViewPager(viewPager)
+
+        val viewPageAdapter = ViewPagerAdapter(supportFragmentManager, 0)
+        viewPageAdapter.addFragment(generalFragment, "Geral")
+        viewPageAdapter.addFragment(moreFragment, "Mais")
+        viewPager.adapter = viewPageAdapter
     }
 
     private fun addUserInHistoric() {
@@ -55,7 +71,6 @@ class UserInformationActivity : AppCompatActivity() {
         }
 
         for (i in historicList.indices) {
-
             if (userInformationViewModel.userAlreadyInHistoric(
                     getSearchedUser(),
                     historicList,
@@ -64,7 +79,6 @@ class UserInformationActivity : AppCompatActivity() {
             ) {
                 userAlreadyInHistory = true
             }
-
         }
         if (!userAlreadyInHistory && userInformationViewModel.historicLimitIsValid(historicList)) {
             addUserInHistoric(getSearchedUser())
@@ -92,7 +106,6 @@ class UserInformationActivity : AppCompatActivity() {
         val userPlatform =
             mainActivityViewModel.setExtendedPlatformToDefault(getSearchedUser().platform)
         setWarzoneUserInformation(getSearchedUser().userNickname, userPlatform)
-        setMultiplayerUserInformation(getSearchedUser())
     }
 
     private fun setUserDefaultInformations(user: UserInformationMultiplayer) {
@@ -127,51 +140,20 @@ class UserInformationActivity : AppCompatActivity() {
         setKDArrowColor(it!!.data!!.userAllWarzone.kdRatio, imageViewWarzoneKDArrow)
 
         textViewWarzoneKDRatio.text = it.data!!.userAllWarzone.kdRatio.toString().substring(0, 4)
-        textViewWarzoneTotalKills.text = formatter.format(it.data?.userAllWarzone?.kills?.toInt())
-        textViewWarzoneTotalDeaths.text = formatter.format(it.data?.userAllWarzone?.deaths?.toInt())
-        textViewWarzoneDowns.text = formatter.format(it.data?.userAllWarzone?.downs?.toInt())
-        textViewWarzoneRevives.text = formatter.format(it.data?.userAllWarzone?.revives?.toInt())
+        textViewWarzoneTotalKills.text = formatter.format(it.data.userAllWarzone.kills.toInt())
+        textViewWarzoneTotalDeaths.text = formatter.format(it.data.userAllWarzone.deaths.toInt())
+        textViewWarzoneDowns.text = formatter.format(it.data.userAllWarzone.downs.toInt())
+        textViewWarzoneRevives.text = formatter.format(it.data.userAllWarzone.revives.toInt())
         textViewWarzoneGamesPlayed.text =
-            formatter.format(it.data?.userAllWarzone?.gamesPlayed?.toInt())
-        textViewWarzoneWins.text = formatter.format(it.data?.userAllWarzone?.wins?.toInt())
+            formatter.format(it.data.userAllWarzone.gamesPlayed.toInt())
+        textViewWarzoneWins.text = formatter.format(it.data.userAllWarzone.wins.toInt())
         textViewWarzoneTopTwentyFive.text =
-            formatter.format(it.data?.userAllWarzone?.topTwentyFive?.toInt())
-        textViewWarzoneTopTen.text = formatter.format(it.data?.userAllWarzone?.topTen?.toInt())
-        textViewWarzoneTopFive.text = formatter.format(it.data?.userAllWarzone?.topFive?.toInt())
+            formatter.format(it.data.userAllWarzone.topTwentyFive.toInt())
+        textViewWarzoneTopTen.text = formatter.format(it.data.userAllWarzone.topTen.toInt())
+        textViewWarzoneTopFive.text = formatter.format(it.data.userAllWarzone.topFive.toInt())
         textViewWarzoneContracts.text =
-            formatter.format(it.data?.userAllWarzone?.contracts?.toInt())
-        textViewWarzoneScore.text = formatter.format(it.data?.userAllWarzone?.score?.toInt())
-    }
-
-    private fun setMultiplayerUserInformation(user: UserInformationMultiplayer) {
-        val formatter = DecimalFormat("##,###,###")
-        setKDArrowColor(user.kdRatio, imageViewKDArrow)
-
-        if (UserInformationViewModel.responseKDRatioIsValid(user.kdRatio.toString())) {
-            textViewKDRatio.text = user.kdRatio.toString().substring(0, 4)
-        } else {
-            textViewKDRatio.text = user.kdRatio.toString()
-        }
-        if (UserInformationViewModel.responseAccuracyIsValid(user.accuracy)) {
-            textViewAccuracy.text =
-                user.accuracy.substring(0, 4)
-        } else {
-            textViewAccuracy.text =
-                user.accuracy
-        }
-        textViewTotalKills.text = formatter.format(user.totalKills.toInt())
-        textViewTotalDeaths.text = formatter.format(user.totalDeaths.toInt())
-        textViewHeadshots.text = formatter.format(user.headshots.toInt())
-        textViewSuicides.text = formatter.format(user.suicides.toInt())
-        textViewTotalAssists.text = formatter.format(user.assists.toInt())
-        textViewTotalGamesPlayed.text = formatter.format(user.totalGamesPlayed.toInt())
-        textViewWins.text = formatter.format(user.wins.toInt())
-        textViewLosses.text = formatter.format(user.losses.toInt())
-        textViewRecordKillsInMatch.text = formatter.format(user.recordKillsInMatch.toInt())
-        textViewRecordDeathsInMatch.text = formatter.format(user.recordDeathsInMatch.toInt())
-        textViewRecordKillStreak.text = formatter.format(user.recordKillStreak.toInt())
-        textViewRecordWinStreak.text = formatter.format(user.recordWinStreak.toInt())
-        textViewRecordXP.text = formatter.format(user.recordXP.toInt())
+            formatter.format(it.data.userAllWarzone.contracts.toInt())
+        textViewWarzoneScore.text = formatter.format(it.data.userAllWarzone.score.toInt())
     }
 
     private fun setKDArrowColor(kd: Double, imageView: ImageView) {
@@ -221,5 +203,4 @@ class UserInformationActivity : AppCompatActivity() {
             }
         })
     }
-
 }

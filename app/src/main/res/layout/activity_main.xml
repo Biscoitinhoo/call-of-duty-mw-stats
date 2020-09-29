@@ -89,7 +89,7 @@
             android:fontFamily="sans-serif"
             android:gravity="center"
             android:lineSpacingExtra="8sp"
-            android:text="Histórico limpo... Explore alguns jogadores!"
+            android:text="Histórico limpo!"
             android:textColor="@color/colorGrey"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"

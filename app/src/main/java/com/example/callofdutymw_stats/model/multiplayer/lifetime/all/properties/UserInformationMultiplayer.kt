@@ -20,7 +20,7 @@ class UserInformationMultiplayer(
     @SerializedName("losses")
     val losses: String,
     @SerializedName("totalGamesPlayed")
-    val totalGamesPlayed: String,
+    var totalGamesPlayed: String,
     @SerializedName("score")
     val score: String,
     @SerializedName("deaths")
@@ -46,7 +46,13 @@ class UserInformationMultiplayer(
     @SerializedName("assists")
     val assists: String,
     @SerializedName("recordKillStreak")
-    val recordKillStreak: String
+    val recordKillStreak: String,
+    @SerializedName("totalShots")
+    val totalShots: Int,
+    @SerializedName("misses")
+    val totalShotsMisses: Int,
+    @SerializedName("hits")
+    val totalShotsHits: Int
 ) : Serializable {
     @PrimaryKey(autoGenerate = true)
     var id: Int = 0
