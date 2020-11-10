@@ -1,15 +1,15 @@
 <resources>
     <string name="app_name">Call of Duty MW - Stats</string>
     <string name="search_for_user">Search for a user...</string>
-    <string name="ops_something_gone_wrong">Ops! Algo deu errado...</string>
-    <string name="help_snackbar">Ajuda</string>
-    <string name="user_dont_exists">Usuário inválido. Talvez outra plataforma?</string>
-    <string name="error_api_dialog">Parece que houve um problema de conexão. Sua internet está conectada?</string>
-    <string name="error_connection_title">Erro de conexão</string>
-    <string name="wait_server_stabilize">Caso esse não seja o problema, por favor aguarde o servidor estabilizar.</string>
-    <string name="added_to_favorites">Usuário adicionado aos favoritos!</string>
-    <string name="removed_to_favorites">Usuário removido dos favoritos!</string>
-    <string name="limited_exceeded">Não é possível adicionar mais que 5 usuários nos favoritos!</string>
+    <string name="ops_something_gone_wrong">Ops! Something went wrong...</string>
+    <string name="help_snackbar">Help</string>
+    <string name="user_dont_exists">Invalid user. Maybe another platform?</string>
+    <string name="error_api_dialog">It looks like there was a connection problem. Is your internet connected?</string>
+    <string name="error_connection_title">Connection error</string>
+    <string name="wait_server_stabilize">If this is not the problem, please wait for the server to stabilize.</string>
+    <string name="added_to_favorites">User added to favorites!</string>
+    <string name="removed_to_favorites">User removed to favorites!</string>
+    <string name="limited_exceeded">It is not possible to add more than 5 users to favorites!</string>
     <string-array name="platform_array">
         <item>psn</item>
         <item>steam</item>
