@@ -68,7 +68,7 @@ class MainActivity : AppCompatActivity() {
     private fun setStarredUserCounter() {
         val userInformationViewModel = UserInformationViewModel(this)
         val starredCounter = userInformationViewModel.getAllUsersInHistoric().size
-        textViewFavoriteUsers.text = "Histórico: $starredCounter/5"
+        textViewFavoriteUsers.text = "Search history: $starredCounter/5"
     }
 
     private fun setRecyclerAdapter() {
