@@ -68,20 +68,20 @@ class UserInformationActivity : AppCompatActivity() {
 
         if (historicList.isEmpty()) {
             addUserInHistoric(getSearchedUser())
-        }
-
-        for (i in historicList.indices) {
-            if (userInformationViewModel.userAlreadyInHistoric(
-                    getSearchedUser(),
-                    historicList,
-                    i
-                )
-            ) {
-                userAlreadyInHistory = true
+        } else {
+            for (i in historicList.indices) {
+                if (userInformationViewModel.userAlreadyInHistoric(
+                        getSearchedUser(),
+                        historicList,
+                        i
+                    )
+                ) {
+                    userAlreadyInHistory = true
+                }
             }
-        }
-        if (!userAlreadyInHistory && userInformationViewModel.historicLimitIsValid(historicList)) {
-            addUserInHistoric(getSearchedUser())
+            if (!userAlreadyInHistory && userInformationViewModel.historicLimitIsValid(historicList)) {
+                addUserInHistoric(getSearchedUser())
+            }
         }
     }
 
