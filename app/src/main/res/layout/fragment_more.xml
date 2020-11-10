@@ -45,7 +45,7 @@
                     android:layout_marginLeft="15dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="8dp"
-                    android:text="Precisão:"
+                    android:text="Accuracy:"
                     android:textColor="@color/colorGrey"
                     android:textSize="16sp" />
 
@@ -75,7 +75,7 @@
                     android:layout_marginLeft="15dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="8dp"
-                    android:text="Total de tiros na cabeça: "
+                    android:text="Total headshots: "
                     android:textColor="@color/colorGrey"
                     android:textSize="16sp" />
 
@@ -105,7 +105,7 @@
                     android:layout_marginLeft="15dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="8dp"
-                    android:text="Total de suicídios: "
+                    android:text="Total suicides: "
                     android:textColor="@color/colorGrey"
                     android:textSize="16sp" />
 
@@ -135,7 +135,7 @@
                     android:layout_marginLeft="15dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="8dp"
-                    android:text="Total de assistências: "
+                    android:text="Total assists: "
                     android:textColor="@color/colorGrey"
                     android:textSize="16sp" />
 
@@ -164,7 +164,7 @@
                     android:layout_marginLeft="15dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="8dp"
-                    android:text="Recorde de mortes em uma partida:"
+                    android:text="Record deaths in a match:"
                     android:textColor="@color/colorGrey"
                     android:textSize="16sp" />
 
@@ -195,7 +195,7 @@
                     android:layout_marginLeft="15dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="8dp"
-                    android:text="Recorde de vitórias seguidas: "
+                    android:text="Record winning streak: "
                     android:textColor="@color/colorGrey"
                     android:textSize="16sp" />
 
@@ -225,7 +225,7 @@
                     android:layout_marginLeft="15dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="8dp"
-                    android:text="Total de XP adquirido: "
+                    android:text="Total XP earned: "
                     android:textColor="@color/colorGrey"
                     android:textSize="16sp" />
 
@@ -255,7 +255,7 @@
                     android:layout_marginLeft="15dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="8dp"
-                    android:text="Total de tiros disparados: "
+                    android:text="Total shots fired:"
                     android:textColor="@color/colorGrey"
                     android:textSize="16sp" />
 
@@ -267,7 +267,7 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="8dp"
                     android:fontFamily="sans-serif-medium"
-                    android:text="TODO"
+                    android:text="0"
                     android:textColor="@color/colorWhite"
                     android:textSize="16sp" />
             </LinearLayout>
@@ -285,7 +285,7 @@
                     android:layout_marginLeft="15dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="8dp"
-                    android:text="Total de tiros errados: "
+                    android:text="Total missed shots: "
                     android:textColor="@color/colorGrey"
                     android:textSize="16sp" />
 
@@ -297,7 +297,7 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="8dp"
                     android:fontFamily="sans-serif-medium"
-                    android:text="TODO"
+                    android:text="0"
                     android:textColor="@color/colorWhite"
                     android:textSize="16sp" />
             </LinearLayout>
@@ -316,7 +316,7 @@
                     android:layout_marginLeft="15dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="8dp"
-                    android:text="Total de tiros acertados: "
+                    android:text="Total shots hits: "
                     android:textColor="@color/colorGrey"
                     android:textSize="16sp" />
 
@@ -328,7 +328,7 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="8dp"
                     android:fontFamily="sans-serif-medium"
-                    android:text="TODO"
+                    android:text="0"
                     android:textColor="@color/colorWhite"
                     android:textSize="16sp" />
             </LinearLayout>

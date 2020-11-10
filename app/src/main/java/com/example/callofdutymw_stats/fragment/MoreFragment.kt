@@ -1,11 +1,11 @@
 package com.example.callofdutymw_stats.fragment
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.fragment.app.Fragment
 import com.example.callofdutymw_stats.R
 import com.example.callofdutymw_stats.model.multiplayer.lifetime.all.properties.UserInformationMultiplayer
 import com.example.callofdutymw_stats.view.util.UserConstants
@@ -31,7 +31,6 @@ class MoreFragment : Fragment() {
     private lateinit var textViewTotalShotsMisses: TextView
     private lateinit var textViewTotalShotsHits: TextView
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -50,25 +49,29 @@ class MoreFragment : Fragment() {
     }
 
     private fun setGeneralUserInformations(view: View) {
-        val user = activity?.intent?.getSerializableExtra(UserConstants.OBJECT_USER) as UserInformationMultiplayer
+        val user =
+            activity?.intent?.getSerializableExtra(UserConstants.OBJECT_USER) as UserInformationMultiplayer
         findViews(view)
         val formatter = DecimalFormat("##,###,###")
         if (UserInformationViewModel.responseAccuracyIsValid(user.accuracy)) {
-            textViewAccuracy.text =
-                user.accuracy.substring(0, 4)
-        } else {
-            textViewAccuracy.text =
-                user.accuracy
+            if (UserInformationViewModel.responseAccuracyIsValid(user.accuracy)) {
+                textViewAccuracy.text =
+                    user.accuracy.substring(0, 4)
+            } else {
+                textViewAccuracy.text =
+                    user.accuracy
+            }
+            textViewHeadshots.text = formatter.format(user.headshots.toInt())
+            textViewSuicides.text = formatter.format(user.suicides.toInt())
+            textViewAssists.text = formatter.format(user.assists.toInt())
+            textViewRecordDeathsInMatch.text = formatter.format(user.recordDeathsInMatch.toInt())
+            textViewRecordWinStreak.text = formatter.format(user.recordWinStreak.toInt())
+            textViewRecordXP.text = formatter.format(user.recordXP.toInt())
+            textViewTotalShots.text = formatter.format(user.totalShots)
+            textViewTotalShotsMisses.text =
+                formatter.format(user.totalShotsMisses.toString().toInt())
+            textViewTotalShotsHits.text = formatter.format(user.totalShotsHits)
         }
-        textViewHeadshots.text = formatter.format(user.headshots.toInt())
-        textViewSuicides.text = formatter.format(user.suicides.toInt())
-        textViewAssists.text = formatter.format(user.assists.toInt())
-        textViewRecordDeathsInMatch.text = formatter.format(user.recordDeathsInMatch.toInt())
-        textViewRecordWinStreak.text = formatter.format(user.recordWinStreak.toInt())
-        textViewRecordXP.text = formatter.format(user.recordXP.toInt())
-        textViewTotalShots.text = formatter.format(user.totalShots.toString())
-        textViewTotalShotsMisses.text = formatter.format(user.totalShotsMisses.toString().toInt())
-        textViewTotalShotsHits.text = formatter.format(user.totalShotsHits.toString())
     }
 
     private fun findViews(view: View) {
@@ -76,7 +79,8 @@ class MoreFragment : Fragment() {
         textViewHeadshots = view.findViewById(R.id.textViewHeadshots) as TextView
         textViewSuicides = view.findViewById(R.id.textViewSuicides) as TextView
         textViewAssists = view.findViewById(R.id.textViewAssists) as TextView
-        textViewRecordDeathsInMatch = view.findViewById(R.id.textViewRecordDeathsInMatch) as TextView
+        textViewRecordDeathsInMatch =
+            view.findViewById(R.id.textViewRecordDeathsInMatch) as TextView
         textViewRecordWinStreak = view.findViewById(R.id.textViewRecordWins) as TextView
         textViewRecordXP = view.findViewById(R.id.textViewTotalXP) as TextView
         textViewTotalShots = view.findViewById(R.id.textViewTotalShots) as TextView
@@ -87,7 +91,7 @@ class MoreFragment : Fragment() {
     companion object {
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
-            MoreFragment().apply {
+            GeneralFragment().apply {
                 arguments = Bundle().apply {
                     putString(ARG_PARAM1, param1)
                     putString(ARG_PARAM2, param2)
