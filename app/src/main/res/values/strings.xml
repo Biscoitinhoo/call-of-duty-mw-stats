@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Call of Duty MW - Stats</string>
-    <string name="search_for_user">Procure por um usuário...</string>
+    <string name="search_for_user">Search for a user...</string>
     <string name="ops_something_gone_wrong">Ops! Algo deu errado...</string>
     <string name="help_snackbar">Ajuda</string>
     <string name="user_dont_exists">Usuário inválido. Talvez outra plataforma?</string>

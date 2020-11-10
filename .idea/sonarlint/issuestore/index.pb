@@ -72,10 +72,6 @@ Happ/src/main/java/com/example/callofdutymw_stats/database/dao/UserDAO.kt,2\4\2
 Xapp/src/main/java/com/example/callofdutymw_stats/view/adapter/RecyclerAdapterHistoric.kt,c\7\c79ebb73bf9aaf29b6d981c96b8179cd0b597e0f
 |
 Lapp/src/main/java/com/example/callofdutymw_stats/fragment/GeneralFragment.kt,0\f\0fc93ced94bdd324877e6eaef354d13585471c94
-z
-Japp/src/main/java/com/example/callofdutymw_stats/fragment/GamesFragment.kt,7\1\7123ec2f5a7eb42c33b395e7ef2ceca0125015ad
-y
-Iapp/src/main/java/com/example/callofdutymw_stats/fragment/GunsFragment.kt,0\4\0412f782528c8bc6503c5b76f8eabcaed1ca2bfb
 y
 Iapp/src/main/java/com/example/callofdutymw_stats/fragment/MoreFragment.kt,5\3\53a52c05532419ab80a94149cdfcf4bd3babe5a2
 Å
@@ -102,3 +98,5 @@ gapp/src/main/java/com/example/callofdutymw_stats/model/multiplayer/lifetime/mod
 japp/src/main/java/com/example/callofdutymw_stats/model/multiplayer/lifetime/mode/dom/DomModeMultiplayer.kt,9\4\94ac8e3fbb1b5a007ef2a312cbb1a11dd63ccfb9
 Ø
 app/src/main/java/com/example/callofdutymw_stats/model/multiplayer/lifetime/mode/dom/properties/UserPropertiesDomMultiplayer.kt,0\0\00f1f8679224d62bf02d890ee1a1b644720e04db
+q
+Aapp/src/main/java/com/example/callofdutymw_stats/util/Resource.kt,2\a\2a80e498d40cb172085ef9ea5a200aa7b9a6a5a5

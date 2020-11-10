@@ -39,7 +39,7 @@
                 android:layout_marginLeft="15dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
-                android:text="Total de jogos jogados:"
+                android:text="Total games played:"
                 android:textColor="@color/colorGrey"
                 android:textSize="16sp" />
 
@@ -69,7 +69,7 @@
                 android:layout_marginLeft="15dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
-                android:text="Vitórias: "
+                android:text="Wins: "
                 android:textColor="@color/colorGrey"
                 android:textSize="16sp" />
 
@@ -99,7 +99,7 @@
                 android:layout_marginLeft="15dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
-                android:text="Derrotas: "
+                android:text="Losess: "
                 android:textColor="@color/colorGrey"
                 android:textSize="16sp" />
 
@@ -129,7 +129,7 @@
                 android:layout_marginLeft="15dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
-                android:text="Total de eliminações: "
+                android:text="Total kills: "
                 android:textColor="@color/colorGrey"
                 android:textSize="16sp" />
 
@@ -197,7 +197,7 @@
                 android:layout_marginLeft="15dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
-                android:text="Total de mortes: "
+                android:text="Total deaths: "
                 android:textColor="@color/colorGrey"
                 android:textSize="16sp" />
 
@@ -227,7 +227,7 @@
                 android:layout_marginLeft="15dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
-                android:text="Precisão: "
+                android:text="Accuracy: "
                 android:textColor="@color/colorGrey"
                 android:textSize="16sp" />
 
@@ -258,7 +258,7 @@
                 android:layout_marginLeft="15dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
-                android:text="Maior sequência de baixas: "
+                android:text="Longest kill streak: "
                 android:textColor="@color/colorGrey"
                 android:textSize="16sp" />
 
