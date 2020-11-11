@@ -30,7 +30,7 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="60dp"
-                android:layout_marginLeft="20dp"
+                android:layout_gravity="center"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="15dp"
                 android:orientation="horizontal">
@@ -101,7 +101,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:visibility="visible">
+                android:visibility="gone">
 
                 <androidx.coordinatorlayout.widget.CoordinatorLayout
                     android:layout_width="match_parent"
@@ -122,11 +122,13 @@
                             <com.google.android.material.tabs.TabItem
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_marginBottom="5dp"
                                 android:text="Geral" />
 
                             <com.google.android.material.tabs.TabItem
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_marginBottom="5dp"
                                 android:text="Mais" />
 
                         </com.google.android.material.tabs.TabLayout>
@@ -149,15 +151,21 @@
                 android:layout_height="match_parent"
                 android:background="@drawable/constraint_layout_background_dark"
                 android:orientation="vertical"
-                android:visibility="gone">
+                android:visibility="visible">
 
                 <ScrollView
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="20dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="13dp"
+                        android:layout_marginTop="13dp"
+                        android:layout_marginRight="13dp"
+                        android:layout_marginBottom="13dp"
+                        android:background="@drawable/constraint_layout_background_dark_2"
                         android:orientation="vertical">
 
                         <LinearLayout
@@ -172,8 +180,9 @@
                                 android:layout_marginLeft="15dp"
                                 android:layout_marginTop="8dp"
                                 android:layout_marginBottom="8dp"
-                                android:text="Total enemies dropped:"
-                                android:textColor="@color/colorGrey" />
+                                android:text="Total enemies downed:"
+                                android:textColor="@color/colorGrey"
+                                android:textSize="16sp" />
 
                             <TextView
                                 android:id="@+id/textViewWarzoneDowns"
@@ -183,8 +192,11 @@
                                 android:layout_marginTop="8dp"
                                 android:layout_marginBottom="8dp"
                                 android:layout_weight="1"
+                                android:fontFamily="sans-serif-medium"
                                 android:text="0"
-                                android:textColor="@color/colorWhite" />
+                                android:textColor="@color/colorWhite"
+                                android:textSize="16sp" />
+
                         </LinearLayout>
 
                         <LinearLayout
@@ -200,7 +212,8 @@
                                 android:layout_marginTop="8dp"
                                 android:layout_marginBottom="8dp"
                                 android:text="Top 5:"
-                                android:textColor="@color/colorGrey" />
+                                android:textColor="@color/colorGrey"
+                                android:textSize="16sp" />
 
                             <TextView
                                 android:id="@+id/textViewWarzoneTopFive"
@@ -210,8 +223,10 @@
                                 android:layout_marginTop="8dp"
                                 android:layout_marginBottom="8dp"
                                 android:layout_weight="1"
+                                android:fontFamily="sans-serif-medium"
                                 android:text="0"
-                                android:textColor="@color/colorWhite" />
+                                android:textColor="@color/colorWhite"
+                                android:textSize="16sp" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -227,7 +242,8 @@
                                 android:layout_marginTop="8dp"
                                 android:layout_marginBottom="8dp"
                                 android:text="KD:"
-                                android:textColor="@color/colorGrey" />
+                                android:textColor="@color/colorGrey"
+                                android:textSize="16sp" />
 
                             <TextView
                                 android:id="@+id/textViewWarzoneKDRatio"
@@ -262,7 +278,8 @@
                                 android:layout_marginTop="8dp"
                                 android:layout_marginBottom="8dp"
                                 android:text="Total revived teammates:"
-                                android:textColor="@color/colorGrey" />
+                                android:textColor="@color/colorGrey"
+                                android:textSize="16sp" />
 
                             <TextView
                                 android:id="@+id/textViewWarzoneRevives"
@@ -272,8 +289,10 @@
                                 android:layout_marginTop="8dp"
                                 android:layout_marginBottom="8dp"
                                 android:layout_weight="1"
+                                android:fontFamily="sans-serif-medium"
                                 android:text="0"
-                                android:textColor="@color/colorWhite" />
+                                android:textColor="@color/colorWhite"
+                                android:textSize="16sp" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -289,7 +308,8 @@
                                 android:layout_marginTop="8dp"
                                 android:layout_marginBottom="8dp"
                                 android:text="Wins:"
-                                android:textColor="@color/colorGrey" />
+                                android:textColor="@color/colorGrey"
+                                android:textSize="16sp" />
 
                             <TextView
                                 android:id="@+id/textViewWarzoneWins"
@@ -299,8 +319,10 @@
                                 android:layout_marginTop="8dp"
                                 android:layout_marginBottom="8dp"
                                 android:layout_weight="1"
+                                android:fontFamily="sans-serif-medium"
                                 android:text="0"
-                                android:textColor="@color/colorWhite" />
+                                android:textColor="@color/colorWhite"
+                                android:textSize="16sp" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -316,7 +338,8 @@
                                 android:layout_marginTop="8dp"
                                 android:layout_marginBottom="8dp"
                                 android:text="Top 10:"
-                                android:textColor="@color/colorGrey" />
+                                android:textColor="@color/colorGrey"
+                                android:textSize="16sp" />
 
                             <TextView
                                 android:id="@+id/textViewWarzoneTopTen"
@@ -326,8 +349,10 @@
                                 android:layout_marginTop="8dp"
                                 android:layout_marginBottom="8dp"
                                 android:layout_weight="1"
+                                android:fontFamily="sans-serif-medium"
                                 android:text="0"
-                                android:textColor="@color/colorWhite" />
+                                android:textColor="@color/colorWhite"
+                                android:textSize="16sp" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -343,7 +368,8 @@
                                 android:layout_marginTop="8dp"
                                 android:layout_marginBottom="8dp"
                                 android:text="Total deaths:"
-                                android:textColor="@color/colorGrey" />
+                                android:textColor="@color/colorGrey"
+                                android:textSize="16sp" />
 
                             <TextView
                                 android:id="@+id/textViewWarzoneTotalDeaths"
@@ -353,8 +379,10 @@
                                 android:layout_marginTop="8dp"
                                 android:layout_marginBottom="8dp"
                                 android:layout_weight="1"
+                                android:fontFamily="sans-serif-medium"
                                 android:text="0"
-                                android:textColor="@color/colorWhite" />
+                                android:textColor="@color/colorWhite"
+                                android:textSize="16sp" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -370,7 +398,8 @@
                                 android:layout_marginTop="8dp"
                                 android:layout_marginBottom="8dp"
                                 android:text="Top 25:"
-                                android:textColor="@color/colorGrey" />
+                                android:textColor="@color/colorGrey"
+                                android:textSize="16sp" />
 
                             <TextView
                                 android:id="@+id/textViewWarzoneTopTwentyFive"
@@ -380,8 +409,10 @@
                                 android:layout_marginTop="8dp"
                                 android:layout_marginBottom="8dp"
                                 android:layout_weight="1"
+                                android:fontFamily="sans-serif-medium"
                                 android:text="0"
-                                android:textColor="@color/colorWhite" />
+                                android:textColor="@color/colorWhite"
+                                android:textSize="16sp" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -397,7 +428,8 @@
                                 android:layout_marginTop="8dp"
                                 android:layout_marginBottom="8dp"
                                 android:text="Total eliminations:"
-                                android:textColor="@color/colorGrey" />
+                                android:textColor="@color/colorGrey"
+                                android:textSize="16sp" />
 
                             <TextView
                                 android:id="@+id/textViewWarzoneTotalKills"
@@ -407,8 +439,10 @@
                                 android:layout_marginTop="8dp"
                                 android:layout_marginBottom="8dp"
                                 android:layout_weight="1"
+                                android:fontFamily="sans-serif-medium"
                                 android:text="0"
-                                android:textColor="@color/colorWhite" />
+                                android:textColor="@color/colorWhite"
+                                android:textSize="16sp" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -424,7 +458,8 @@
                                 android:layout_marginTop="8dp"
                                 android:layout_marginBottom="8dp"
                                 android:text="Score:"
-                                android:textColor="@color/colorGrey" />
+                                android:textColor="@color/colorGrey"
+                                android:textSize="16sp" />
 
                             <TextView
                                 android:id="@+id/textViewWarzoneScore"
@@ -434,8 +469,10 @@
                                 android:layout_marginTop="8dp"
                                 android:layout_marginBottom="14dp"
                                 android:layout_weight="1"
+                                android:fontFamily="sans-serif-medium"
                                 android:text="0"
-                                android:textColor="@color/colorWhite" />
+                                android:textColor="@color/colorWhite"
+                                android:textSize="16sp" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -451,7 +488,8 @@
                                 android:layout_marginTop="8dp"
                                 android:layout_marginBottom="8dp"
                                 android:text="Total games played:"
-                                android:textColor="@color/colorGrey" />
+                                android:textColor="@color/colorGrey"
+                                android:textSize="16sp" />
 
                             <TextView
                                 android:id="@+id/textViewWarzoneGamesPlayed"
@@ -461,8 +499,10 @@
                                 android:layout_marginTop="8dp"
                                 android:layout_marginBottom="8dp"
                                 android:layout_weight="1"
+                                android:fontFamily="sans-serif-medium"
                                 android:text="0"
-                                android:textColor="@color/colorWhite" />
+                                android:textColor="@color/colorWhite"
+                                android:textSize="16sp" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -479,7 +519,8 @@
                                 android:layout_marginTop="8dp"
                                 android:layout_marginBottom="8dp"
                                 android:text="Total contracts taken:"
-                                android:textColor="@color/colorGrey" />
+                                android:textColor="@color/colorGrey"
+                                android:textSize="16sp" />
 
                             <TextView
                                 android:id="@+id/textViewWarzoneContracts"
@@ -489,8 +530,10 @@
                                 android:layout_marginTop="8dp"
                                 android:layout_marginBottom="8dp"
                                 android:layout_weight="1"
+                                android:fontFamily="sans-serif-medium"
                                 android:text="0"
-                                android:textColor="@color/colorWhite" />
+                                android:textColor="@color/colorWhite"
+                                android:textSize="16sp" />
                         </LinearLayout>
                     </LinearLayout>
                 </ScrollView>

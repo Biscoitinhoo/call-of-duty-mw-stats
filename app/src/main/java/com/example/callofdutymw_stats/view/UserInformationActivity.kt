@@ -56,8 +56,8 @@ class UserInformationActivity : AppCompatActivity() {
         tabLayout.setupWithViewPager(viewPager)
 
         val viewPageAdapter = ViewPagerAdapter(supportFragmentManager, 0)
-        viewPageAdapter.addFragment(generalFragment, "Geral")
-        viewPageAdapter.addFragment(moreFragment, "Mais")
+        viewPageAdapter.addFragment(generalFragment, "GENERAL")
+        viewPageAdapter.addFragment(moreFragment, "MORE")
         viewPager.adapter = viewPageAdapter
     }
 

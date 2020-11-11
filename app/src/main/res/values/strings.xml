@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Call of Duty MW - Stats</string>
+    <string name="app_name">Warzone - Stats Tracker</string>
     <string name="search_for_user">Search for a user...</string>
     <string name="ops_something_gone_wrong">Ops! Something went wrong...</string>
     <string name="help_snackbar">Help</string>

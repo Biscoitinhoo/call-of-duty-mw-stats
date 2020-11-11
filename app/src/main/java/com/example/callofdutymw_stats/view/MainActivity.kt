@@ -252,7 +252,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setMessageAndShowProgressDialog(progressDialog: ProgressDialog) {
-        progressDialog.setMessage("Aguarde...")
+        progressDialog.setMessage("Wait...")
         progressDialog.show()
     }
 
