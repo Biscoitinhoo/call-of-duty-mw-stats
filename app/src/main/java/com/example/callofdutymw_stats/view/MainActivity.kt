@@ -50,10 +50,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initializeAdMob() {
-        MobileAds.initialize(this) { }
-        val adRequest = AdRequest.Builder().build()
-
+        MobileAds.initialize(
+            this
+        ) { }
         val adView = findViewById<AdView>(R.id.adView)
+
+        val adRequest = AdRequest.Builder().build()
         adView.loadAd(adRequest)
     }
 

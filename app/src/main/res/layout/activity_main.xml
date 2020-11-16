@@ -172,9 +172,9 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        xmlns:ads="http://schemas.android.com/apk/res-auto"
         ads:adSize="BANNER"
         ads:adUnitId="ca-app-pub-3417591257359679/8626011625"
-        xmlns:ads="http://schemas.android.com/apk/res-auto"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayoutHistory" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
