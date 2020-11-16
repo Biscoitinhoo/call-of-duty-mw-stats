@@ -21,6 +21,9 @@ import com.example.callofdutymw_stats.view.dialog.DialogCustomErrorAPI
 import com.example.callofdutymw_stats.view.util.UserConstants
 import com.example.callofdutymw_stats.viewmodel.MainActivityViewModel
 import com.example.callofdutymw_stats.viewmodel.UserInformationViewModel
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdView
+import com.google.android.gms.ads.MobileAds
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -35,6 +38,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         supportActionBar!!.hide()
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING)
+        initializeAdMob()
 
         changeConstraintHistory()
         setRecyclerAdapter()
@@ -43,6 +47,14 @@ class MainActivity : AppCompatActivity() {
 
         setAutoCompletePlatforms()
         buttonSearchClickListener()
+    }
+
+    private fun initializeAdMob() {
+        MobileAds.initialize(this) { }
+        val adRequest = AdRequest.Builder().build()
+
+        val adView = findViewById<AdView>(R.id.adView)
+        adView.loadAd(adRequest)
     }
 
     override fun onResume() {

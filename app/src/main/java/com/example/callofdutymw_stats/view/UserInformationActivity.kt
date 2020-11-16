@@ -22,6 +22,9 @@ import com.example.callofdutymw_stats.view.adapter.ViewPagerAdapter
 import com.example.callofdutymw_stats.view.util.UserConstants
 import com.example.callofdutymw_stats.viewmodel.MainActivityViewModel
 import com.example.callofdutymw_stats.viewmodel.UserInformationViewModel
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdView
+import com.google.android.gms.ads.MobileAds
 import kotlinx.android.synthetic.main.activity_main.autoCompleteTextViewPlatforms
 import kotlinx.android.synthetic.main.activity_user_information.*
 import java.text.DecimalFormat
@@ -38,6 +41,7 @@ class UserInformationActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_information)
         supportActionBar!!.hide()
+        initializeAdMob()
 
         setTopTabClicks()
 
@@ -47,6 +51,14 @@ class UserInformationActivity : AppCompatActivity() {
 
         setAllUserInformations()
         setAutoCompleteGameMode()
+    }
+
+    private fun initializeAdMob() {
+        MobileAds.initialize(this) {}
+        val adRequest = AdRequest.Builder().build()
+
+        val adViewUserInformation = findViewById<AdView>(R.id.adViewUserInformation)
+        adViewUserInformation.loadAd(adRequest)
     }
 
     private fun setTopTabClicks() {

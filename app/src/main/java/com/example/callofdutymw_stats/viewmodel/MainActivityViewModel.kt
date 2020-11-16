@@ -82,10 +82,10 @@ class MainActivityViewModel() : ViewModel() {
         autoCompleteTextViewPlatforms: AutoCompleteTextView?
     ) {
         if (editTextNickname?.text.toString().isEmpty()) {
-            editTextNickname?.error = "Campo vazio"
+            editTextNickname?.error = "Oh, empty field"
         }
         if (autoCompleteTextViewPlatforms?.text.toString().isEmpty()) {
-            autoCompleteTextViewPlatforms?.error = "Campo vazio"
+            autoCompleteTextViewPlatforms?.error = "Oh, empty field"
         }
     }
 }
