@@ -23,11 +23,14 @@ import com.example.callofdutymw_stats.view.util.UserConstants
 import com.example.callofdutymw_stats.viewmodel.MainActivityViewModel
 import com.example.callofdutymw_stats.viewmodel.UserInformationViewModel
 import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdSize
 import com.google.android.gms.ads.AdView
 import com.google.android.gms.ads.MobileAds
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.autoCompleteTextViewPlatforms
 import kotlinx.android.synthetic.main.activity_user_information.*
 import java.text.DecimalFormat
+import java.util.*
 
 @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
 class UserInformationActivity : AppCompatActivity() {
@@ -122,7 +125,7 @@ class UserInformationActivity : AppCompatActivity() {
 
     private fun setUserDefaultInformations(user: UserInformationMultiplayer) {
         textViewUserLevel.text = user.level.toString()
-        textViewUserNickName.text = user.userNickname
+        textViewUserNickname.text = user.userNickname.toUpperCase(Locale.ROOT)
     }
 
     private fun setWarzoneUserInformation(userNickname: String, platform: String) {
